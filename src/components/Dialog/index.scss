@@ -1,0 +1,108 @@
+.dialog-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-content {
+    position: relative;
+    background-color: #fff;
+    border-radius: 44rpx;
+    padding: 40rpx;
+    width: 560rpx;
+    min-height: 358rpx;
+    box-sizing: border-box;
+    text-align: center;
+
+    .dialog-header {
+        margin-bottom: 50rpx;
+        font-size: 36rpx;
+        line-height: 50rpx;
+        color: #333;
+        font-weight: bold;
+
+        // h3 {
+        //     margin: 0;
+        // }
+    }
+
+    .dialog-body {
+        margin-bottom: 50rpx;
+        font-size: 32rpx;
+        line-height: 44rpx;
+        color: #333;
+        // p {
+        //     margin: 0;
+        //     line-height: 1.5;
+        // }
+    }
+
+    .dialog-footer {
+        display: flex;
+        justify-content: space-between;
+
+        .dialog-button {
+            width: 218rpx;
+            height: 84rpx;
+            // text-align: center;
+            // padding: 22rpx 0;
+            // font-size: 28rpx;
+            // line-height: 40rpx;
+            // border-radius: 4rpx;
+            // box-sizing: border-box;
+            // display: inline-block;
+        }
+
+        .dialog-cancel {
+            width: 218rpx;
+            height: 84rpx;
+            text-align: center;
+            padding: 22rpx 0;
+            font-size: 28rpx;
+            line-height: 40rpx;
+            border-radius: 4rpx;
+            box-sizing: border-box;
+            display: inline-block;
+            border-radius: 42rpx;
+            background-color: #ececec;
+            color: #333;
+            border: none;
+            margin-right: 40rpx;
+        }
+
+        .dialog-cancel::after {
+            border: none;
+        }
+
+        .dialog-confirm {
+            width: 218rpx;
+            height: 84rpx;
+            text-align: center;
+            padding: 22rpx 0;
+            font-size: 28rpx;
+            line-height: 40rpx;
+            border-radius: 4rpx;
+            box-sizing: border-box;
+            display: inline-block;
+            border-radius: 42rpx;
+            background-color: #2f7958;
+            color: #fff;
+            border: none;
+        }
+    }
+}

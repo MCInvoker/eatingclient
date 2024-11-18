@@ -1,0 +1,84 @@
+.followPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 40rpx;
+    height: 100vh;
+    box-sizing: border-box;
+
+    .userSearch {
+        width: 670rpx;
+        box-sizing: border-box;
+        background-color: #F7F7F7;
+        height: 100rpx;
+        line-height: 100rpx;
+        box-sizing: border-box;
+        border-radius: 30rpx;
+        padding: 30rpx;
+        font-size: 32rpx;
+    }
+
+    .userSearchPlaceholder {
+        color: #BBBBBB;
+        font-size: 32rpx;
+        height: 100rpx;
+        line-height: 100rpx;
+    }
+
+    .userList {
+        flex: 1;
+        overflow-y: scroll;
+        padding: 0 40rpx;
+        margin: 38rpx -40rpx;
+
+        .userLi {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40rpx;
+            background-color: #f7f7f7;
+            width: 670rpx;
+            min-height: 136rpx;
+            box-sizing: border-box;
+            border-radius: 30rpx;
+            padding: 20rpx 40rpx;
+
+            .avatar {
+                width: 76rpx;
+                height: 76rpx;
+                margin-right: 30rpx;
+                border-radius: 16rpx;
+            }
+
+            .nickname {
+                flex: 1;
+                font-size: 32rpx;
+                color: #333333;
+            }
+
+            .orderButton {
+                width: 104rpx;
+                height: 58rpx;
+                box-sizing: border-box;
+                background-color: #2f7958;
+                color: #fff;
+                display: inline-block;
+                font-size: 24px;
+                line-height: 58rpx;
+                border-radius: 29rpx;
+                margin-left: 30rpx;
+            }
+        }
+    }
+
+    .searchuserButton {
+        height: 96rpx;
+        line-height: 96rpx;
+        width: 646rpx;
+        border-radius: 48rpx;
+        background-color: #2F7958;
+        color: #fff;
+    }
+}

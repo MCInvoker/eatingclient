@@ -1,0 +1,82 @@
+.dishTag {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .tagList {
+        width: 100%;
+        flex: 1;
+        overflow-y: scroll;
+
+        .tagLi {
+            width: 670rpx;
+            box-sizing: border-box;
+            background-color: #f7f7f7;
+            border-radius: 30rpx;
+            margin: 0 auto;
+            margin-top: 40rpx;
+            padding: 30rpx 40rpx 40rpx;
+            display: flex;
+            flex-direction: column;
+
+            .tagName {
+                font-size: 32rpx;
+                font-weight: bold;
+                color: #333;
+                line-height: 44rpx;
+                margin-bottom: 30rpx;
+            }
+
+            .tagDescription {
+                font-size: 28rpx;
+                color: #333;
+                line-height: 50rpx;
+                margin-bottom: 20rpx;
+            }
+
+            .buttons {
+                align-self: flex-end;
+                display: flex;
+                justify-content: flex-end;
+
+                .editButton {
+                    background-color: #2f7958;
+                    border-radius: 30rpx;
+                    height: 60rpx;
+                    line-height: 60rpx;
+                    box-sizing: border-box;
+                    padding: 0 28rpx;
+                    color: #fff;
+                    font-size: 24rpx;
+                    margin-right: 30rpx;
+                }
+
+                .deleteButton {
+                    background-color: #11131e;
+                    border-radius: 30rpx;
+                    height: 60rpx;
+                    line-height: 60rpx;
+                    box-sizing: border-box;
+                    padding: 0 28rpx;
+                    color: #fff;
+                    font-size: 24rpx;
+                }
+            }
+        }
+    }
+
+    .buttonBox {
+        padding: 60rpx 0;
+
+        .addButton {
+            height: 96rpx;
+            line-height: 96rpx;
+            width: 646rpx;
+            border-radius: 48rpx;
+            background-color: #2F7958;
+            color: #fff;
+        }
+    }
+}

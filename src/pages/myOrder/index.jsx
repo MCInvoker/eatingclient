@@ -1,0 +1,91 @@
+// 订单列表页
+import { View, ScrollView, Text, Image } from "@tarojs/components"
+import { useState } from "react";
+import { useRequest } from "ahooks";
+import { getMyOrderList } from "../../api/order";
+import Taro, { useDidShow } from "@tarojs/taro";
+import { formatDate } from "../../utils/utils";
+import "./index.scss";
+import touxiangImg from "../../assets/image/icon/touxiang.svg"
+
+const MyOrder = () => {
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [orderList, setOrderList] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const { run: getMyOrderListFn } = useRequest(getMyOrderList, {
+        manual: true,
+        onSuccess: (res) => {
+            setPage(page + 1)
+            setOrderList([...orderList, ...res.data.orders])
+            setTotalPages(res.data.totalPages)
+        }
+    })
+
+    useDidShow(() => {
+        setPage(1)
+        setOrderList([])
+        setTotalPages(1)
+        getMyOrderListFn({
+            page: 1,
+            pageSize
+        })
+    })
+
+    const handleGetData = () => {
+        if (page > totalPages) {
+            return
+        }
+        getMyOrderListFn({
+            page,
+            pageSize
+        })
+    }
+
+    return (
+        <View className="myOrderPage">
+            <ScrollView
+                className='myOrderScrollview'
+                scrollY
+                scrollWithAnimation
+                onScrollToLower={() => handleGetData()}
+            >
+                <View className="orders">
+                    {
+                        orderList.map((order) => {
+                            return (
+                                <View className="order">
+                                    <View className="orderTop">
+                                        <Image className="avatar" src={order?.Customer?.avatar || touxiangImg} />
+                                        <View className="nameTime">
+                                            <Text className="name">{order?.Customer?.nickname}</Text>
+                                            <Text className="createdAt">{formatDate(order.updated_at)}</Text>
+                                        </View>
+                                    </View>
+                                    <View className="dishes">
+                                        {order.order_dish_details.map((dish, dishIndex) => {
+                                            return (
+                                                <View className="dishBox">
+                                                    <Text className="dishName">{dish.dish.name}</Text>
+                                                    {dish.quantity > 1 && <Text className="dishQuantity">*{dish.quantity}</Text>}
+                                                </View>
+                                            )
+                                        })}
+                                    </View>
+                                    {order.note && (
+                                        <Text className="note">
+                                            {order.note}
+                                        </Text>
+                                    )}
+                                </View>
+                            )
+                        })
+                    }
+                </View>
+            </ScrollView>
+        </View>
+    )
+}
+
+export default MyOrder;

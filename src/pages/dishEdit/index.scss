@@ -1,0 +1,256 @@
+.page {
+    height: 100vh;
+    background-color: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    .form {
+        flex: 1;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+
+        .formLiLR {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiL {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+                margin-right: 60rpx;
+            }
+
+
+
+            .formLiR {
+                flex: 1;
+                font-size: 28rpx;
+                line-height: 40rpx;
+            }
+
+        }
+
+        // 两边靠齐
+        .formLiLRBetween {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiL {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+                margin-right: 60rpx;
+            }
+        }
+
+        .opacity {
+            opacity: 0.5;
+        }
+
+        .placeholderClass {
+            font-size: 28rpx;
+            line-height: 40rpx;
+            color: #999;
+        }
+
+        .formLiTB {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiT {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .formLiTextarea {
+                background-color: #fafafa;
+                border-radius: 30rpx;
+                margin-top: 30rpx;
+                padding: 20rpx 28rpx;
+                min-height: 200rpx;
+                font-size: 28rpx;
+                line-height: 40rpx;
+                box-sizing: border-box;
+            }
+
+            .formLiB {
+                margin-top: 30rpx;
+
+                .formCheckbox {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    margin-right: -30rpx;
+
+                    .formCheckItem {
+                        background-color: #fafafa;
+                        color: #333;
+                        font-size: 24rpx;
+                        line-height: 50rpx;
+                        border-radius: 30rpx;
+                        box-sizing: border-box;
+                        height: 78rpx;
+                        padding: 22rpx 24rpx;
+                        margin-right: 30rpx;
+                        margin-bottom: 30rpx;
+                        margin-left: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .formCheckItem::after {
+                        border: none;
+                    }
+
+                    .formCheckItemActive {
+                        background-color: #2f7958;
+                        color: #fff;
+                        font-size: 24rpx;
+                        line-height: 50rpx;
+                        border-radius: 30rpx;
+                        box-sizing: border-box;
+                        height: 78rpx;
+                        padding: 22rpx 24rpx;
+                        margin-right: 30rpx;
+                        margin-bottom: 30rpx;
+                        margin-left: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+
+            .formLiBImages {
+                margin-top: 30rpx;
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                .seleteImageBox {
+                    width: 154rpx;
+                    height: 154rpx;
+                    border-radius: 30rpx;
+                    background-color: #fafafa;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 30rpx;
+                    margin-bottom: 30rpx;
+                    position: relative;
+
+                    .seleteImage {
+                        width: 154rpx;
+                        height: 154rpx;
+                        border-radius: 30rpx;
+                    }
+
+                    .deleteImageButton {
+                        position: absolute;
+                        right: -10rpx;
+                        top: -10rpx;
+                        width: 40rpx;
+                        height: 40rpx;
+                        display: inline-flex;
+                        box-sizing: border-box;
+                        border-radius: 50%;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 0;
+                        font-size: 24rpx;
+                        color: #333;
+
+                        // .deleteImageIcon {
+                        //     width: 40rpx;
+                        //     height: 40rpx;
+                        // }
+                    }
+
+                    .deleteImageButton::after {
+                        border: none;
+                    }
+
+                    .deleteImage {
+                        width: 24rpx;
+                        height: 24rpx;
+                    }
+                }
+
+                .uploadImgBox {
+                    width: 154rpx;
+                    height: 154rpx;
+                    border-radius: 30rpx;
+                    background-color: #fafafa;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    .uploadImgLogo {
+                        width: 53rpx;
+                        height: 42rpx;
+                        margin-bottom: 14rpx;
+                        box-sizing: border-box;
+                    }
+
+                    .uploadImgText {
+                        color: #333;
+                        font-size: 24rpx;
+                        line-height: 40rpx;
+                    }
+                }
+            }
+        }
+    }
+
+    .buttonBox {
+        padding: 60rpx 0;
+
+        .addButton {
+            height: 96rpx;
+            line-height: 96rpx;
+            width: 646rpx;
+            border-radius: 48rpx;
+            background-color: #2F7958;
+            color: #fff;
+        }
+    }
+
+    .required::after {
+        content: '*';
+        color: red;
+    }
+}

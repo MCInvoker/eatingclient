@@ -1,0 +1,99 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 40rpx;
+    height: 100vh;
+    box-sizing: border-box;
+
+    .dishSearch {
+        width: 670rpx;
+        box-sizing: border-box;
+        background-color: #F7F7F7;
+        height: 100rpx;
+        line-height: 100rpx;
+        box-sizing: border-box;
+        border-radius: 30rpx;
+        padding: 30rpx;
+        font-size: 32rpx;
+    }
+
+    .dishSearchPlaceholder {
+        color: #BBBBBB;
+        font-size: 32rpx;
+        height: 100rpx;
+        line-height: 100rpx;
+    }
+
+    // .dish-item {
+    //     width: 100%;
+    //     margin-bottom: 20rpx;
+    // }
+
+    .dishList {
+        flex: 1;
+        overflow-y: scroll;
+        padding: 0 40rpx;
+        margin: 38rpx -40rpx;
+
+        .dishItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40rpx;
+            background-color: #f7f7f7;
+            width: 670rpx;
+            min-height: 136rpx;
+            box-sizing: border-box;
+            border-radius: 30rpx;
+            padding: 20rpx 40rpx;
+
+            .dishImg {
+                width: 76rpx;
+                height: 76rpx;
+                margin-right: 30rpx;
+                // border: 2rpx solid #707070;
+                border-radius: 16rpx;
+            }
+
+            .dishName {
+                flex: 1;
+                font-size: 32rpx;
+                color: #333333;
+            }
+
+            .dishSwitch {
+                width: 100rpx;
+                height: 58rpx;
+            }
+
+            .dishDelete {
+                width: 104rpx;
+                height: 58rpx;
+                box-sizing: border-box;
+                background-color: #11131E;
+                color: #fff;
+                display: inline-block;
+                font-size: 24px;
+                line-height: 58rpx;
+                border-radius: 29rpx;
+                margin-left: 30rpx;
+            }
+        }
+    }
+
+    .addDishBut {
+        height: 96rpx;
+        line-height: 96rpx;
+        width: 646rpx;
+        border-radius: 48rpx;
+        background-color: #2F7958;
+        color: #fff;
+    }
+
+    .opacity {
+        opacity: 0.5;
+    }
+}

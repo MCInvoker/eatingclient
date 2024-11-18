@@ -1,0 +1,112 @@
+.myOrderPage {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f6f6f6;
+
+    .myOrderScrollview {
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+
+        .orders {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 40rpx;
+        }
+
+        .order {
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+            margin-bottom: 40rpx;
+            // margin: 0 -40rpx 40rpx;
+
+            .orderTop {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                margin-bottom: 30rpx;
+
+                .avatar {
+                    width: 116rpx;
+                    height: 116rpx;
+                    margin-right: 30rpx;
+                    border-radius: 50%;
+                }
+
+                .nameTime {
+                    flex: 1;
+
+                    .name {
+                        display: block;
+                        font-size: 32rpx;
+                        line-height: 50rpx;
+                        color: #333;
+                        margin-top: 14rpx;
+                        margin-bottom: 12rpx;
+                        font-weight: bold;
+                    }
+
+                    .createdAt {
+                        display: block;
+                        font-size: 24rpx;
+                        line-height: 40rpx;
+                        color: #999;
+                    }
+                }
+            }
+
+            .dishes {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                .dishBox {
+                    padding: 16rpx 30rpx;
+                    font-size: 28rpx;
+                    line-height: 50rpx;
+                    background-color: #e8f7f8;
+                    color: #59c4cb;
+                    margin-right: 20rpx;
+                    margin-bottom: 20rpx;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    border-radius: 40rpx;
+
+                    .dishQuantity {
+                        width: 34rpx;
+                        height: 34rpx;
+                        border-radius: 50%;
+                        background-color: #2f7958;
+                        margin-left: 12rpx;
+                        line-height: 34rpx;
+                        text-align: center;
+                        font-size: 18rpx;
+                        color: #fff;
+                    }
+                }
+            }
+
+            .note {
+                margin-top: 10rpx;
+                border-radius: 30rpx;
+                background-color: #fafafa;
+                padding: 20rpx 28rpx;
+                font-size: 28rpx;
+                line-height: 50rpx;
+                color: #999;
+            }
+        }
+    }
+}

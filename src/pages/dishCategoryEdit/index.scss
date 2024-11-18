@@ -1,0 +1,97 @@
+.page {
+    height: 100vh;
+    background-color: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    .form {
+        flex: 1;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        .formLiLR {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiL {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+                margin-right: 60rpx;
+            }
+
+            .formLiR {
+                flex: 1;
+                font-size: 28rpx;
+                line-height: 40rpx;
+            }
+
+        }
+
+        .placeholderClass {
+            font-size: 28rpx;
+            line-height: 40rpx;
+            color: #999;
+        }
+
+        .formLiTB {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiT {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .formLiB {
+                background-color: #fafafa;
+                border-radius: 30rpx;
+                margin-top: 30rpx;
+                padding: 20rpx 28rpx;
+                min-height: 200rpx;
+                font-size: 28rpx;
+                line-height: 40rpx;
+                box-sizing: border-box;
+            }
+        }
+    }
+
+    .buttonBox {
+        padding: 60rpx 0;
+
+        .addButton {
+            height: 96rpx;
+            line-height: 96rpx;
+            width: 646rpx;
+            border-radius: 48rpx;
+            background-color: #2F7958;
+            color: #fff;
+        }
+    }
+
+    .required::after {
+        content: '*';
+        color: red;
+    }
+}

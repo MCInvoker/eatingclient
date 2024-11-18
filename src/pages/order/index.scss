@@ -1,0 +1,520 @@
+.orderPage {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .verticalScroll {
+        flex: 1;
+        overflow-y: scroll;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        // justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .dishSearchBox {
+        width: 750rpx;
+        height: 160rpx;
+        background-color: #fff;
+        padding: 40rpx 40rpx 20rpx;
+        box-sizing: border-box;
+        position: sticky;
+        z-index: 1;
+        top: 0;
+
+        .dishSearch {
+            background-color: #F7F7F7;
+            width: 670rpx;
+            height: 100rpx;
+            min-height: 100rpx;
+            line-height: 44rpx;
+            box-sizing: border-box;
+            border-radius: 30rpx;
+            padding: 28rpx;
+            font-size: 32rpx;
+        }
+    }
+
+
+    .dishSearchPlaceholder {
+        color: #BBBBBB;
+        font-size: 32rpx;
+        height: 100rpx;
+        line-height: 100rpx;
+    }
+
+    .userInfo {
+        width: 670rpx;
+        height: 244rpx;
+        background-image: url("../../assets/image/me/userInfo.png");
+        background-size: cover;
+        background-position: center;
+        padding: 40rpx 40rpx 56rpx;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10rpx;
+        margin: 20rpx 0;
+
+        .avatar {
+            width: 148rpx;
+            height: 148rpx;
+            border-radius: 50%;
+            box-sizing: border-box;
+            border: 6rpx solid #fff;
+            margin-right: 40rpx;
+        }
+
+        .userInfoRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 20rpx 0;
+
+            .nickname {
+                font-size: 32rpx;
+                color: #fff;
+                margin-bottom: 20rpx;
+            }
+
+            .titles {
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                .title {
+                    color: #fff;
+                    font-size: 24rpx;
+                    line-height: 42rpx;
+                    display: inline-block;
+                    padding: 0 16rpx;
+                    border: 2rpx solid #fff;
+                    border-radius: 23rpx;
+                    margin-right: 20rpx;
+                    margin-bottom: 20rpx;
+                    height: 46rpx;
+                    box-sizing: border-box;
+                }
+
+            }
+        }
+    }
+
+    .modeSwitch {
+        width: 750rpx;
+        padding: 20rpx 40rpx 40rpx;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        z-index: 1;
+        top: 156rpx;
+        background-color: #fff;
+
+        .modeSwitchItem {
+            width: 144rpx;
+            height: 76rpx;
+            box-sizing: border-box;
+            background-color: #f7f7f7;
+            color: #999;
+            font-size: 28px;
+            line-height: 50rpx;
+            border-radius: 38rpx;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modeSwitchItem::after {
+            border: none;
+        }
+
+        .modeSwitchItemActive {
+            background-color: #2f7958;
+            color: #fff;
+        }
+    }
+
+    .numberControlBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 216rpx;
+
+        .numberControlAddButton {
+            width: 72rpx;
+            height: 72rpx;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+
+            .numberControlAddImage {
+                width: 32rpx;
+                height: 32rpx;
+            }
+        }
+
+        .numberControlAddButton::after {
+            border: none;
+        }
+
+        .numberControlNumber {
+            display: inline-block;
+            width: 72rpx;
+            height: 72rpx;
+            text-align: center;
+            line-height: 72rpx;
+            color: #fff;
+            background-color: #2f7958;
+            border-radius: 24rpx;
+        }
+    }
+
+    // 极简模式菜肴列表
+    .simpDishList {
+        .simpDishLi {
+            width: 670rpx;
+            background-color: #f7f7f7;
+            border-radius: 30rpx;
+            margin-bottom: 30rpx;
+            min-height: 184rpx;
+            box-sizing: border-box;
+            padding: 40rpx;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .simpDishLiImg {
+                width: 104rpx;
+                height: 104rpx;
+                margin-right: 40rpx;
+                border-radius: 30rpx;
+            }
+
+            .simpDishLiName {
+                flex: 1;
+                font-size: 32rpx;
+                color: #333;
+            }
+        }
+    }
+
+    // 小图模式菜肴列表
+    .smallImageDishList {
+        .smallImageDishLi {
+            width: 670rpx;
+            background-color: #f7f7f7;
+            border-radius: 30rpx;
+            margin-bottom: 30rpx;
+            min-height: 184rpx;
+            box-sizing: border-box;
+            padding: 40rpx;
+
+            // display: flex;
+            // align-items: center;
+            // justify-content: space-between;
+            .smallImageDishLiTop {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 20rpx;
+
+                .smallImageDishLiImg {
+                    width: 156rpx;
+                    height: 156rpx;
+                    margin-right: 40rpx;
+                    border-radius: 30rpx;
+                }
+
+                .smallImageDishLiNameDescription {
+                    flex: 1;
+                    padding-top: 12rpx;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+
+                    .smallImageDishLiName {
+                        display: inline-block;
+                        font-size: 32rpx;
+                        line-height: 50rpx;
+                        color: #333;
+                        margin-bottom: 16px;
+                        font-weight: bold;
+                    }
+
+                    .smallImageDishLiDescription {
+                        display: inline-block;
+                        font-size: 24rpx;
+                        line-height: 40rpx;
+                        color: #999;
+                    }
+                }
+            }
+
+            .smallImageDishLiBottom {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .smallImageDishLiCategoryTag {
+                    flex: 1;
+                    margin-right: 10rpx;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    flex-wrap: wrap;
+
+                    .smallImageDishLiCategory {
+                        padding: 6rpx 26rpx;
+                        border: 2rpx solid #ffd6d6;
+                        font-size: 24rpx;
+                        line-height: 34rpx;
+                        color: #fc9090;
+                        border-radius: 10rpx;
+                        margin: 8rpx 16rpx 8rpx 0;
+                    }
+
+                    .smallImageDishLiTag {
+                        padding: 6rpx 26rpx;
+                        border: 2rpx solid #b9c7ff;
+                        font-size: 24rpx;
+                        line-height: 34rpx;
+                        color: #4c74ff;
+                        border-radius: 10rpx;
+                        margin: 8rpx 16rpx 8rpx 0;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .createOrderButton {
+        height: 96rpx;
+        line-height: 96rpx;
+        width: 646rpx;
+        border-radius: 48rpx;
+        background-color: #2F7958;
+        color: #fff;
+        margin: 40rpx 0 60rpx;
+    }
+
+
+    // 大图模式
+    .largeImageBox {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+
+        .largeImageSwiper {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            box-sizing: border-box;
+            z-index: 1;
+
+            .largeImageSwiperLi {
+                width: 100vw;
+                height: 100vh;
+                position: relative;
+                box-sizing: border-box;
+
+                // .largeImageModeBackground {
+                //     width: 100vw;
+                //     height: 100vh;
+                //     position: absolute;
+                //     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 100%, );
+                //     z-index: 2;
+                //     top: 0;
+                //     left: 0;
+                // }
+            }
+
+
+            .largeImageModeImgage {
+                width: 100vw;
+                height: 100vh;
+                position: relative;
+            }
+
+            .largeImageModeImgageWidthFix {
+                width: 670rpx;
+                // width: 100vw;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 60rpx;
+                z-index: 1;
+            }
+        }
+
+        .largeImageDishInfo {
+            width: 100vw;
+            box-sizing: border-box;
+            padding: 0 52rpx;
+            position: absolute;
+            bottom: 200rpx;
+            left: 0;
+            z-index: 4;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+
+            .largeImageDishName {
+                font-size: 36rpx;
+                line-height: 62rpx;
+                color: #fff;
+                margin-bottom: 22px;
+                font-weight: bold;
+            }
+
+            .largeImageDescription {
+                font-size: 28rpx;
+                line-height: 50rpx;
+                color: #fff;
+                margin-bottom: 26px;
+            }
+
+            .largeImageDishBottom {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .largeImageDishCategoryTag {
+                    flex: 1;
+                    margin-right: 10rpx;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    flex-wrap: wrap;
+
+                    .largeImageDishCategory {
+                        padding: 6rpx 26rpx;
+                        border: 2rpx solid #ffd6d6;
+                        font-size: 24rpx;
+                        line-height: 34rpx;
+                        color: #fc9090;
+                        border-radius: 10rpx;
+                        margin: 8rpx 16rpx 8rpx 0;
+                        background-color: #ffd6d6;
+                    }
+
+                    .largeImageDishTag {
+                        padding: 6rpx 26rpx;
+                        border: 2rpx solid #b9c7ff;
+                        background-color: #b9c7ff;
+                        font-size: 24rpx;
+                        line-height: 34rpx;
+                        color: #4c74ff;
+                        border-radius: 10rpx;
+                        margin: 8rpx 16rpx 8rpx 0;
+                    }
+                }
+            }
+        }
+
+        .imageLeftButton {
+            width: 68rpx;
+            height: 68rpx;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+            position: absolute;
+            top: 50%;
+            left: 40rpx;
+            z-index: 10;
+            transform: translate(0, -50%);
+
+            // transition: ;
+            .leftImage {
+                width: 68rpx;
+                height: 68rpx;
+            }
+        }
+
+        .imageLeftButton::after {
+            border: none;
+        }
+
+        .imageRightButton {
+            width: 68rpx;
+            height: 68rpx;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+            position: absolute;
+            top: 50%;
+            right: 40rpx;
+            z-index: 10;
+            transform: translate(0, -50%);
+
+            .rightImage {
+                width: 68rpx;
+                height: 68rpx;
+            }
+        }
+
+        .imageRightButton::after {
+            border: none;
+        }
+
+        .largeImageDishInfoHorizontal {
+            .largeImageDishName {
+                color: #333;
+            }
+
+            .largeImageDescription {
+                color: #999;
+            }
+        }
+    }
+
+    .orderNote {
+        width: 670rpx;
+        padding: 20rpx 28rpx;
+        box-sizing: border-box;
+        min-height: 176rpx;
+        font-size: 28rpx;
+        line-height: 50rpx;
+        color: #333;
+        background-color: #fafafa;
+        border-radius: 30rpx;
+    }
+
+    .orderNotePlaceholderClass {
+        font-size: 28rpx;
+        line-height: 50rpx;
+        color: #999;
+    }
+}

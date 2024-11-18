@@ -1,0 +1,194 @@
+.page {
+    height: 100vh;
+    background-color: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    .form {
+        flex: 1;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 40rpx;
+
+        .formLiLR {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiL {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+                margin-right: 60rpx;
+            }
+
+
+
+            .formLiR {
+                flex: 1;
+                font-size: 28rpx;
+                line-height: 40rpx;
+            }
+
+        }
+
+        .placeholderClass {
+            font-size: 28rpx;
+            line-height: 40rpx;
+            color: #999;
+        }
+
+        .formLiTB {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #fff;
+            border-radius: 30rpx;
+
+            .formLiT {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .formLiB {
+                margin-top: 30rpx;
+
+                // background-color: #fafafa;
+                // border-radius: 30rpx;
+                // margin-top: 30rpx;
+                // padding: 20rpx 28rpx;
+                // min-height: 200rpx;
+                // font-size: 28rpx;
+                // line-height: 40rpx;
+                // box-sizing: border-box;
+                .titleBox {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 30rpx;
+
+                    .titleInput {
+                        flex: 1;
+                        background-color: #fafafa;
+                        border-radius: 30rpx;
+                        height: 80rpx;
+                        line-height: 40rpx;
+                        font-size: 28rpx;
+                        color: #333;
+                        margin-right: 30rpx;
+                        padding: 20rpx 30rpx;
+                        box-sizing: border-box;
+                    }
+
+                    .titleAddButton {
+                        width: 80rpx;
+                        height: 80rpx;
+                        border-radius: 28rpx;
+                        background-color: #2f7958;
+                        color: #fff;
+                        font-size: 60rpx;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .titleDeleteButton {
+                        width: 80rpx;
+                        height: 80rpx;
+                        border-radius: 28rpx;
+                        background-color: #11131e;
+                        color: #fff;
+                        font-size: 20rpx;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .formLiBAvatar {
+                width: 154rpx;
+            }
+        }
+    }
+
+    .errorMessage {
+        color: red;
+        padding: 20rpx 80rpx;
+        font-size: 20rpx;
+        align-self: flex-start;
+    }
+
+    .buttonBox {
+        padding: 60rpx 0 20rpx;
+
+        .addButton {
+            height: 96rpx;
+            line-height: 96rpx;
+            width: 646rpx;
+            border-radius: 48rpx;
+            background-color: #2F7958;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+    }
+
+    .required::after {
+        content: '*';
+        color: red;
+    }
+
+    .uploadImgBox {
+        width: 154rpx;
+        height: 154rpx;
+        border-radius: 30rpx;
+        background-color: #fafafa;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .uploadImgLogo {
+            width: 53rpx;
+            height: 42rpx;
+            margin-bottom: 14rpx;
+            box-sizing: border-box;
+        }
+
+        .uploadImgText {
+            color: #333;
+            font-size: 24rpx;
+            line-height: 40rpx;
+        }
+
+        .avatar {
+            width: 154rpx;
+            height: 154rpx;
+            box-sizing: border-box;
+            border-radius: 30rpx;
+        }
+    }
+
+    .uploadImgBox::after {
+        border: none;
+    }
+}
