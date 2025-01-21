@@ -9,7 +9,7 @@ import { getStsInfo } from "../../api/sts";
 import _ from "loadsh";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
-import uplodImage from "../../assets/image/userInfo/uploadImage.png"
+import uploadImage from "../../assets/image/userInfo/uploadImage.png"
 import closeImage from "../../assets/image/icon/close.svg"
 import { createDish, getDishs, updateDish } from "../../api/dish";
 
@@ -320,7 +320,7 @@ const DishEdit = () => {
         setIsDisclosure(e.detail.value)
     }
 
-    const handlecChooseImages = async () => {
+    const handleChooseImages = async () => {
         try {
             const result = await Taro.chooseImage({
                 count: 9, // 最多可以选择的图片数量
@@ -385,8 +385,8 @@ const DishEdit = () => {
                             </View>
                         )
                     })}
-                    <View className="uploadImgBox" onClick={handlecChooseImages}>
-                        <Image className="uploadImgLogo" mode="aspectFit" src={uplodImage}></Image>
+                    <View className="uploadImgBox" onClick={handleChooseImages}>
+                        <Image className="uploadImgLogo" mode="aspectFit" src={uploadImage}></Image>
                         <Text className="uploadImgText">点击上传</Text>
                     </View>
                 </View>

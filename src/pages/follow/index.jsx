@@ -9,13 +9,14 @@ import touxiangImg from "../../assets/image/icon/touxiang.svg"
 export default function Follow () {
     const [nickname, setNickname] = useState('');
     const [follows, setFollows] = useState([]);
+    const [showSearchInput, setShowSearchInput] = useState(false);
 
     // 获取菜肴列表
     const { run: getFollowFn } = useRequest(getFollow, {
         debounceWait: 300,
         debounceLeading: true, // 虽然开了防抖，但立马执行
         manual: true,
-        onSuccess: (res) => {
+        onSuccess: (res, params) => {
             const me = res.data.currentUser;
             const newFollows = res.data.followingList.map((item) => {
                 return {
@@ -23,6 +24,14 @@ export default function Follow () {
                 }
             })
             setFollows([me, ...newFollows])
+            // 如果所有关注的人都不超过10人，页面顶部就不用展示搜索框了
+            if (params.length === 0) {
+                if (newFollows.length > 10) {
+                    setShowSearchInput(true)
+                } else {
+                    setShowSearchInput(false)
+                }
+            }
         }
     });
 
@@ -47,16 +56,16 @@ export default function Follow () {
 
     return (
         <View className='followPage'>
-            <Input
+            {showSearchInput && (<Input
                 className='userSearch'
-                placeholder='请输入用户昵称搜索'
+                placeholder='输入昵称搜索已关注用户'
                 value={nickname}
                 placeholderClass="userSearchPlaceholder"
                 onInput={(e) => {
                     setNickname(e.detail.value)
                     getFollowFn({ nickname: e.detail.value })
                 }}
-            />
+            />)}
             <View className="userList">
                 {
                     follows.map(follow => {
@@ -82,7 +91,7 @@ export default function Follow () {
                     })
                 }
             </View>
-            <Button className='searchuserButton' type='primary' onClick={() => handleGoSearchUser()}>查找用户</Button>
+            <Button className='searchUserButton' type='primary' onClick={() => handleGoSearchUser()}>查找新用户</Button>
         </View>
     )
 }

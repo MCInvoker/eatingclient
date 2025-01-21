@@ -2,7 +2,7 @@ import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
 import dishTagImg from "../../assets/image/me/dishTag.png"
-import dishCagetoryImg from "../../assets/image/me/dishCagetory.png"
+import dishCategoryImg from "../../assets/image/me/dishCategory.png"
 import orderListImg from "../../assets/image/me/orderList.png"
 import orderHistoryImg from "../../assets/image/me/orderHistory.png"
 import touxiangImg from "../../assets/image/icon/touxiang.svg"
@@ -20,7 +20,7 @@ const quickInletList = [
     {
         title: '菜肴分类',
         path: '/pages/dishCategory/index',
-        icon: dishCagetoryImg
+        icon: dishCategoryImg
     },
     {
         title: '订单列表',

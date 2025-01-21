@@ -4,7 +4,7 @@ import Taro from "@tarojs/taro";
 import { useRequest } from "ahooks";
 import { getUserDetails, updateUserInfo, checkUserCode } from "../../api/user";
 import { getStsInfo } from "../../api/sts";
-import uplodImage from "../../assets/image/userInfo/uploadImage.png"
+import uploadImage from "../../assets/image/userInfo/uploadImage.png"
 import "./index.scss"
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
@@ -205,7 +205,7 @@ const userInfo = () => {
                         <Button openType="chooseAvatar" className="uploadImgBox" onChooseAvatar={handlecChooseImages}>
                             {!avatar && (
                                 <>
-                                    <Image className="uploadImgLogo" mode="aspectFit" src={uplodImage}></Image>
+                                    <Image className="uploadImgLogo" mode="aspectFit" src={uploadImage}></Image>
                                     <Text className="uploadImgText">点击上传</Text>
                                 </>
                             )}
@@ -249,7 +249,7 @@ const userInfo = () => {
                             checkUserCodeFn({ user_code: e.detail.value })
                         }}
                         type="number"
-                        placeholder="请设置自己的用户编号"
+                        placeholder="输入便于查找的用户编号"
                         placeholderClass="placeholderClass"
                         maxlength={12}
                     />
