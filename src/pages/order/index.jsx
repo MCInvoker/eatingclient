@@ -220,19 +220,10 @@ const Order = () => {
         }
     }
 
-    // 点餐时菜肴数量加减   white 加减号是白色   green（加减号是绿色） // 现在好向只用了绿色
+    // 点餐时菜肴数量加减   white 加减号是白色   green（加减号是绿色） // 现在好像只用了绿色
     const renderNumberControl = (dish, type = 'green') => {
         return (
             <View className="numberControlBox">
-                <Button
-                    className="numberControlAddButton"
-                    onClick={() => {
-                        handleAddDish(dish)
-                    }}
-                >
-                    <Image className="numberControlAddImage" src={type === 'green' ? addImg : addFFFImg} />
-                </Button>
-                <Text className="numberControlNumber">{getQuantity(dish)}</Text>
                 <Button
                     className="numberControlAddButton"
                     onClick={() => {
@@ -240,6 +231,15 @@ const Order = () => {
                     }}
                 >
                     <Image className="numberControlAddImage" src={type === 'green' ? minusImg : minusFFFImg} />
+                </Button>
+                <Text className="numberControlNumber">{getQuantity(dish)}</Text>
+                <Button
+                    className="numberControlAddButton"
+                    onClick={() => {
+                        handleAddDish(dish)
+                    }}
+                >
+                    <Image className="numberControlAddImage" src={type === 'green' ? addImg : addFFFImg} />
                 </Button>
             </View>
         )
