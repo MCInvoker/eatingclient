@@ -150,7 +150,7 @@ export default function Dish () {
                             className={dish.is_disclosure === "1" ? "dishItem" : "dishItem opacity"}
                             onClick={() => handleEditDish(dish.dish_id)}
                         >
-                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg} />
+                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg} mode="aspectFill" />
                             <Text className='dishName'>{dish.name}</Text>
                             <Switch
                                 className='dishSwitch'

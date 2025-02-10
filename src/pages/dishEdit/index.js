@@ -23,7 +23,7 @@ const DishEdit = () => {
     const [dishTagsOptions, setDishTagsOptions] = useState([]); // 菜肴标签可选项
     const [isDisclosure, setIsDisclosure] = useState(true); // 菜肴是否展示公开
     // const [images, setImages] = useState([]); // 菜肴图片
-    const [seleteImage, setSeleteImage] = useState([]); // 待上传菜肴图片
+    const [selectImage, setSelectImage] = useState([]); // 待上传菜肴图片
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
 
     // 获取路由传参，判断是新增还是编辑
@@ -45,7 +45,7 @@ const DishEdit = () => {
                 setName(dishInfo.name);
                 dishInfo.description && setDescription(dishInfo.description);
                 if (dishInfo.dish_images && dishInfo.dish_images.length > 0) {
-                    setSeleteImage(dishInfo.dish_images.map((item) => {
+                    setSelectImage(dishInfo.dish_images.map((item) => {
                         return {
                             url: item.url,
                             width: item.width,
@@ -150,7 +150,7 @@ const DishEdit = () => {
         // 编辑
         if (dishId) {
             let images = [];
-            const promises = seleteImage.map(async (image, index) => {
+            const promises = selectImage.map(async (image, index) => {
                 const tempFilePath = image.url
                 // 已经是网络地址，代表已经上传了
                 if (tempFilePath.includes('https')) {
@@ -224,7 +224,7 @@ const DishEdit = () => {
             })
 
             let images = [];
-            const promises = seleteImage.map(async (image, index) => {
+            const promises = selectImage.map(async (image, index) => {
                 const tempFilePath = image.url;
                 const url = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com"
                 const fileType = tempFilePath.split('.').pop();
@@ -335,20 +335,20 @@ const DishEdit = () => {
                 }
             })
 
-            setSeleteImage([...seleteImage, ...newImageList])
+            setSelectImage([...selectImage, ...newImageList])
         } catch (error) {
         }
     }
 
     // 删除图片， 保存后才生效
     const handleDeleteImg = (value) => {
-        let newSeleteImage = _.cloneDeep(seleteImage).filter((item) => item.url !== value)
-        setSeleteImage(newSeleteImage)
+        let newSeleteImage = _.cloneDeep(selectImage).filter((item) => item.url !== value)
+        setSelectImage(newSeleteImage)
     }
 
     // 图片加载后设置图片框高
-    const seleteImageWidthHeightChange = (e, index) => {
-        setSeleteImage(prevState => {
+    const selectImageWidthHeightChange = (e, index) => {
+        setSelectImage(prevState => {
             // 克隆当前状态，以避免修改原始状态
             const updatedState = _.cloneDeep(prevState);
             updatedState[index].width = e.detail.width;
@@ -375,10 +375,10 @@ const DishEdit = () => {
             <View className="formLiTB">
                 <Text className="formLiT">图片</Text>
                 <View className="formLiBImages">
-                    {seleteImage.map((item) => {
+                    {selectImage.map((item) => {
                         return (
-                            <View className="seleteImageBox" key={item.url}>
-                                <Image className="seleteImage" mode="aspectFit" src={item.url}></Image>
+                            <View className="selectImageBox" key={item.url}>
+                                <Image className="selectImage" mode="aspectFit" src={item.url}></Image>
                                 <Button className="deleteImageButton" onClick={() => handleDeleteImg(item.url)} >
                                     <Image className="deleteImage" src={closeImage}></Image>
                                 </Button>
@@ -454,12 +454,12 @@ const DishEdit = () => {
             )}
             {/* 加载图片，用于获取图片原始框高 */}
             {
-                seleteImage.map((item, index) => {
+                selectImage.map((item, index) => {
                     if (!item.url.includes("https")) {
                         return (
                             <Image
                                 onLoad={(e) => {
-                                    seleteImageWidthHeightChange(e, index)
+                                    selectImageWidthHeightChange(e, index)
                                 }}
                                 src={item.url}
                                 style={{ opacity: 0 }}
