@@ -7,6 +7,7 @@ import Taro, { useDidShow } from "@tarojs/taro";
 import { formatDate } from "../../utils/utils";
 import "./index.scss";
 import touxiangImg from "../../assets/image/icon/touxiang.svg"
+import CurrentDate from "../../components/CurrentDate";
 
 const MyOrder = () => {
     const [page, setPage] = useState(1);
@@ -51,6 +52,7 @@ const MyOrder = () => {
                 scrollWithAnimation
                 onScrollToLower={() => handleGetData()}
             >
+                <CurrentDate />
                 <View className="orders">
                     {
                         orderList.map((order) => {

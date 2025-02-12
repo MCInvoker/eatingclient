@@ -6,6 +6,7 @@ import { getMyOrderHistoryList } from "../../api/order";
 import Taro, { useDidShow } from "@tarojs/taro";
 import { formatDate } from "../../utils/utils";
 import touxiangImg from "../../assets/image/icon/touxiang.svg"
+import CurrentDate from "../../components/CurrentDate";
 import "./index.scss";
 
 const MyOrderHistory = () => {
@@ -51,6 +52,7 @@ const MyOrderHistory = () => {
                 scrollWithAnimation
                 onScrollToLower={() => handleGetData()}
             >
+                <CurrentDate />
                 <View className="orders">
                     {
                         orderList.map((order) => {
