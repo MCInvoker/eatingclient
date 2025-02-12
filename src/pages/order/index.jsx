@@ -1,4 +1,4 @@
-import { View, Swiper, SwiperItem, Button, Input, Text, Image, Textarea } from "@tarojs/components"
+import { View, Swiper, SwiperItem, Button, Input, Text, Image, Textarea, ScrollView } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import "./index.scss"
 import { useEffect, useState } from "react"
@@ -32,8 +32,14 @@ const Order = () => {
     // largeImageMode（大图）   smallImageMode（小图）   simpleMode（极简）  already （已选）
     const [listType, setListType] = useState("simpleMode");
     const [orderInfo, setOrderInfo] = useState([]); // 已经选择的菜肴列表，带数量
-    const [showAlready, setShowAlready] = useState(false)
-
+    const [showAlready, setShowAlready] = useState(false); // 已选抽屉显示控制
+    const [scrollViewHeight, setScrollViewHeight] = useState(700); // ScrollView高度
+    const [simpleScrollTop, setSimpleScrollTop] = useState(0); // 极简模式滚动条高度
+    const [simpleScrollTopTemporary, setSimpleScrollTopTemporary] = useState(0); // 极简模式滚动条高度临时值，一值给滚动条赋值滚动会抖动
+    const [smallScrollTop, setSmallScrollTop] = useState(0); // 小图模式滚动条高度
+    const [smallScrollTopTemporary, setSmallScrollTopTemporary] = useState(0); // 小图模式滚动条高度临时值，一值给滚动条赋值滚动会抖动
+    const [largeCurrent, setLargeCurrent] = useState(0); // 大图模式swiper展示索引
+    const [largeCurrentTemporary, setLargeCurrentTemporary] = useState(0); // 大图模式swiper展示索引临时记录
     // 获取菜肴列表
     const { run: getUserDishFn } = useRequest(getUserDish, {
         manual: true,
@@ -101,6 +107,17 @@ const Order = () => {
         }
     }, [userId])
 
+    // 计算ScrollView的高度
+    useEffect(() => {
+        // 获取系统信息
+        Taro.getSystemInfo({
+          success: function(res) {
+            const searchBoxHeight = 98 + 60 + 58; // 固定高度
+            setScrollViewHeight(res.windowHeight - searchBoxHeight);
+          }
+        });
+    }, []);
+
     // 点击选好了下单
     const handleCreateOrder = () => {
         if (orderInfo.length === 0) {
@@ -122,7 +139,6 @@ const Order = () => {
     const renderSearchInput = () => {
         return (
             <View className='dishSearchBox'>
-
                 <Input
                     className='dishSearch'
                     placeholder='请输入菜名搜索'
@@ -170,15 +186,24 @@ const Order = () => {
                 >已选</Button>
                 <Button
                     className={listType === 'simpleMode' ? "modeSwitchItem modeSwitchItemActive" : "modeSwitchItem"}
-                    onClick={() => setListType("simpleMode")}
+                    onClick={() => {
+                        setSimpleScrollTop(simpleScrollTopTemporary)
+                        setListType("simpleMode")
+                    }}
                 >极简</Button>
                 <Button
                     className={listType === 'smallImageMode' ? "modeSwitchItem modeSwitchItemActive" : "modeSwitchItem"}
-                    onClick={() => setListType("smallImageMode")}
+                    onClick={() => {
+                        setSmallScrollTop(smallScrollTopTemporary)
+                        setListType("smallImageMode")
+                    }}
                 >小图</Button>
                 <Button
                     className={listType === 'largeImageMode' ? "modeSwitchItem modeSwitchItemActive" : "modeSwitchItem"}
-                    onClick={() => setListType("largeImageMode")}
+                    onClick={() => {
+                        setLargeCurrent(largeCurrentTemporary)
+                        setListType("largeImageMode")
+                    }}
                 >大图</Button>
             </View>
         )
@@ -343,10 +368,7 @@ const Order = () => {
     const renderAlready = () => {
         return (
             <>
-                <View className="verticalScroll">
-                    {/* {renderSearchInput()} */}
-                    {/* {renderChefInfo()} */}
-                    {/* {renderModeSwitch()} */}
+                <View>
                     {renderAlreadyList()}
                     <Textarea
                         className="orderNote"
@@ -366,31 +388,52 @@ const Order = () => {
         )
     }
 
+
+    const handleSimpleScroll = (e) => {
+        setSimpleScrollTopTemporary(e?.detail?.scrollTop || 0)
+    }
+
     // 极简模式
     const renderSimple = () => {
         return (
             <>
-                <View className="verticalScroll">
-                    {renderSearchInput()}
-                    {renderChefInfo()}
-                    {renderModeSwitch()}
-                    {renderSimpleList()}
-                </View>
+                {renderSearchInput()}
+                {renderModeSwitch()}
+                    <ScrollView
+                        className="verticalScrollView"
+                        scrollY
+                        style={{height: scrollViewHeight}}
+                        onScroll={handleSimpleScroll}
+                        scrollTop={simpleScrollTop}
+                    >
+                        {renderChefInfo()}
+                        {renderSimpleList()}
+                    </ScrollView>
                 {renderCreateOrderButton()}
             </>
         )
+    }
+
+    const handleSmallScroll = (e) => {
+        setSmallScrollTopTemporary(e?.detail?.scrollTop || 0)
     }
 
     // 小图模式
     const renderSmallImage = () => {
         return (
             <>
-                <View className="verticalScroll">
-                    {renderSearchInput()}
+                {renderSearchInput()}
+                {renderModeSwitch()}
+                <ScrollView
+                    className="verticalScrollView"
+                    scrollY
+                    style={{height: scrollViewHeight}}
+                    onScroll={handleSmallScroll}
+                    scrollTop={smallScrollTop}
+                >
                     {renderChefInfo()}
-                    {renderModeSwitch()}
                     {renderSmallImageList()}
-                </View>
+                </ScrollView>
                 {renderCreateOrderButton()}
             </>
         )
@@ -416,6 +459,10 @@ const Order = () => {
         setDishes(newDishes)
     }
 
+    const handleLargeCurrentChange = (e) => {
+        setLargeCurrentTemporary(e?.detail?.current)
+    }
+
     // 大图模式
     const renderLargeImage = () => {
         return (
@@ -424,7 +471,9 @@ const Order = () => {
                     className='largeImageSwiper'
                     vertical
                     circular
+                    current={largeCurrent}
                     indicatorDots={false}
+                    onChange={handleLargeCurrentChange}
                 >
                     {dishes.map((dish, dishIndex) => {
                         // LS Landscape screen横屏     VS Vertical screen竖屏

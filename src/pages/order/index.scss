@@ -7,25 +7,21 @@
     justify-content: space-between;
     align-items: center;
 
-    .verticalScroll {
+    .verticalScrollView{
         flex: 1;
-        overflow-y: scroll;
+        max-height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: relative;
     }
 
     .dishSearchBox {
         width: 750rpx;
-        height: 160rpx;
+        height: 120rpx;
         background-color: #fff;
-        padding: 40rpx 40rpx 20rpx;
+        padding: 20rpx 40rpx 0rpx;
         box-sizing: border-box;
-        position: sticky;
-        z-index: 1;
-        top: 0;
 
         .dishSearch {
             background-color: #F7F7F7;
@@ -59,7 +55,7 @@
         display: flex;
         justify-content: flex-start;
         margin-bottom: 10rpx;
-        margin: 20rpx 0;
+        margin: 0rpx auto 20rpx;
 
         .avatar {
             width: 148rpx;
@@ -108,15 +104,12 @@
 
     .modeSwitch {
         width: 750rpx;
-        padding: 20rpx 40rpx 40rpx;
+        padding: 20rpx 40rpx 20rpx;
         box-sizing: border-box;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        position: sticky;
-        z-index: 1;
-        top: 156rpx;
         background-color: #fff;
 
         .modeSwitchItem {
@@ -190,7 +183,7 @@
             width: 670rpx;
             background-color: #f7f7f7;
             border-radius: 30rpx;
-            margin-bottom: 30rpx;
+            margin: 0 auto 30rpx;
             min-height: 184rpx;
             box-sizing: border-box;
             padding: 40rpx;
@@ -219,14 +212,11 @@
             width: 670rpx;
             background-color: #f7f7f7;
             border-radius: 30rpx;
-            margin-bottom: 30rpx;
+            margin: 0 auto 30rpx;
             min-height: 184rpx;
             box-sizing: border-box;
             padding: 40rpx;
 
-            // display: flex;
-            // align-items: center;
-            // justify-content: space-between;
             .smallImageDishLiTop {
                 display: flex;
                 flex-direction: row;
@@ -303,7 +293,6 @@
                 }
             }
         }
-
     }
 
     .createOrderButton {
@@ -450,7 +439,6 @@
             z-index: 10;
             transform: translate(0, -50%);
 
-            // transition: ;
             .leftImage {
                 width: 68rpx;
                 height: 68rpx;
@@ -509,6 +497,7 @@
         color: #333;
         background-color: #fafafa;
         border-radius: 30rpx;
+        margin: 0 auto;
     }
 
     .orderNotePlaceholderClass {
