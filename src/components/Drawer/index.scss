@@ -1,0 +1,100 @@
+.drawer-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+    // top: 50%;
+    // transition: top 0.3s ease-in-out;
+    .drawer-container-open {
+        top: 0;
+    }
+    
+    .drawer-mask{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 100%;
+        left: 0;
+        background-color: #000;
+        opacity: 0.1;
+        transition: opacity 0.3s ease-in-out;
+    }
+    .drawer-mask-open{
+        top: 0;
+        opacity: 0.5;
+    }
+    
+    .drawer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        width: 100%;
+        // height: 300px; /* 抽屉的高度 */
+        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transform: translateY(100%); /* 默认隐藏状态 */
+        transition: transform 0.3s ease-in-out;
+    
+        border-top-right-radius: 40rpx;
+        border-top-left-radius: 40rpx;
+    }
+    
+    .drawer-open {
+        transform: translateY(0%); /* 打开时的样式 */
+    }
+    
+    .drawer-content {
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    .drawer-header {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40rpx;
+        .drawer-header-title{
+            text-align: center;
+            line-height: 50rpx;
+            font-size: 36rpx;
+            color: #333;
+
+        }
+        .drawer-close-button{
+            position: absolute;
+            top: 40rpx;
+            right: 40rpx;
+            width: 52rpx;
+            height: 52rpx;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+            .drawer-close-icon{
+                width: 54rpx;
+                height: 54rpx;
+            }
+        }
+        .drawer-close-button::after {
+            border: none;
+        }
+    }
+    
+    .drawer-body {
+        /* 这里可以放任何内容 */
+        flex: 1;
+        max-height: 60vh;
+        overflow-y: scroll;
+    }
+}
+

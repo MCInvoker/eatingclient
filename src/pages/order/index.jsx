@@ -13,6 +13,7 @@ import minusImg from "../../assets/image/icon/minus.svg"
 import minusFFFImg from "../../assets/image/icon/minusFFF.svg"
 import directionLeftImg from "../../assets/image/icon/directionLeft.svg"
 import directionRightImg from "../../assets/image/icon/directionRight.svg"
+import Drawer from "../../components/Drawer"
 import _ from "loadsh";
 import { createOrder } from "../../api/order"
 
@@ -31,6 +32,7 @@ const Order = () => {
     // largeImageMode（大图）   smallImageMode（小图）   simpleMode（极简）  already （已选）
     const [listType, setListType] = useState("simpleMode");
     const [orderInfo, setOrderInfo] = useState([]); // 已经选择的菜肴列表，带数量
+    const [showAlready, setShowAlready] = useState(false)
 
     // 获取菜肴列表
     const { run: getUserDishFn } = useRequest(getUserDish, {
@@ -76,7 +78,7 @@ const Order = () => {
     })
 
     //下单
-    const { run: createOrderFn } = useRequest(createOrder, {
+    const { run: createOrderFn, loading: createOrderLoading } = useRequest(createOrder, {
         manual: true,
         onSuccess: (res) => {
             setOrderInfo([]);
@@ -161,7 +163,10 @@ const Order = () => {
             <View className="modeSwitch" style={modeSwitchStyle}>
                 <Button
                     className={listType === 'already' ? "modeSwitchItem modeSwitchItemActive" : "modeSwitchItem"}
-                    onClick={() => setListType("already")}
+                    onClick={() => {
+                        // setListType("already")
+                        setShowAlready(!showAlready)
+                    }}
                 >已选</Button>
                 <Button
                     className={listType === 'simpleMode' ? "modeSwitchItem modeSwitchItemActive" : "modeSwitchItem"}
@@ -327,9 +332,9 @@ const Order = () => {
         return (
             <Button
                 className='createOrderButton'
-                type='primary'
                 onClick={() => handleCreateOrder()}
                 style={createOrderButtonStyle}
+                loading={createOrderLoading}
             >选好了</Button>
         )
     }
@@ -339,9 +344,9 @@ const Order = () => {
         return (
             <>
                 <View className="verticalScroll">
-                    {renderSearchInput()}
-                    {renderChefInfo()}
-                    {renderModeSwitch()}
+                    {/* {renderSearchInput()} */}
+                    {/* {renderChefInfo()} */}
+                    {/* {renderModeSwitch()} */}
                     {renderAlreadyList()}
                     <Textarea
                         className="orderNote"
@@ -514,14 +519,22 @@ const Order = () => {
     }
     return (
         <View className="orderPage">
-            {/* 已选 */}
-            {listType === "already" && renderAlready()}
             {/* 极简 */}
             {listType === "simpleMode" && renderSimple()}
             {/* 小图 */}
             {listType === "smallImageMode" && renderSmallImage()}
             {/* 大图 */}
             {listType === "largeImageMode" && renderLargeImage()}
+            {/* 已选 */}
+            {/* {listType === "already" && renderAlready()} */}
+            <Drawer
+                isOpen={showAlready}
+                title="已选"
+                bodyRender={renderAlready}
+                onClose={() => {
+                    setShowAlready(false)
+                }}
+            />
         </View>
     )
 }

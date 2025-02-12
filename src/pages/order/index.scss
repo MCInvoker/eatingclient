@@ -13,7 +13,6 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        // justify-content: space-between;
         align-items: center;
         position: relative;
     }
@@ -314,7 +313,7 @@
         border-radius: 48rpx;
         background-color: #2F7958;
         color: #fff;
-        margin: 40rpx 0 60rpx;
+        margin: 40rpx auto 60rpx;
     }
 
 
