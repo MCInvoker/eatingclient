@@ -25,6 +25,7 @@ const DishEdit = () => {
     // const [images, setImages] = useState([]); // 菜肴图片
     const [selectImage, setSelectImage] = useState([]); // 待上传菜肴图片
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
+    const [buttonLoading, setButtonLoading] = useState(false); // 保存按钮loading状态
 
     // 获取路由传参，判断是新增还是编辑
     useEffect(() => {
@@ -101,7 +102,7 @@ const DishEdit = () => {
         },
         onFinally: () => {
             setTimeout(function () {
-                Taro.hideLoading()
+                setButtonLoading(false)
             }, 100)
         }
     })
@@ -121,7 +122,7 @@ const DishEdit = () => {
         },
         onFinally: () => {
             setTimeout(function () {
-                Taro.hideLoading()
+                setButtonLoading(false)
             }, 100)
         }
     })
@@ -147,6 +148,7 @@ const DishEdit = () => {
             })
             return
         }
+        setButtonLoading(true);
         // 编辑
         if (dishId) {
             let images = [];
@@ -219,9 +221,6 @@ const DishEdit = () => {
             }
             updateDishFn(requestData, dishId)
         } else { // 新增
-            Taro.showLoading({
-                title: '创建菜肴中～',
-            })
 
             let images = [];
             const promises = selectImage.map(async (image, index) => {
@@ -476,7 +475,8 @@ const DishEdit = () => {
             <Button
                 className="addButton"
                 onClick={handleSave}
-            // loading={createDishTagLoading || updateDishTagLoading}
+                loading={buttonLoading}
+                disabled={buttonLoading}
             >{dishId ? '更新' : '新增'}</Button>
         </View>
     </View>)
