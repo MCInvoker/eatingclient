@@ -62,7 +62,7 @@ const MyOrder = () => {
                                         <Image className="avatar" src={order?.Customer?.avatar || touxiangImg} />
                                         <View className="nameTime">
                                             <Text className="name">{order?.Customer?.nickname}</Text>
-                                            <Text className="createdAt">{formatDate(order.updated_at)}</Text>
+                                            <Text className="createdAt">{formatDate(order.updated_at, 'YYYY-MM-DD HH:mm TY')}</Text>
                                         </View>
                                     </View>
                                     <View className="dishes">

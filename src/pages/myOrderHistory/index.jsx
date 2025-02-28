@@ -62,7 +62,7 @@ const MyOrderHistory = () => {
                                         <Image className="avatar" src={order?.Chef?.avatar || touxiangImg} />
                                         <View className="nameTime">
                                             <Text className="name">{order?.Chef?.nickname}</Text>
-                                            <Text className="createdAt">{formatDate(order.updated_at)}</Text>
+                                            <Text className="createdAt">{formatDate(order.updated_at, 'YYYY-MM-DD HH:mm TY')}</Text>
                                         </View>
                                     </View>
                                     <View className="dishes">
