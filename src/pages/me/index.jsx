@@ -1,12 +1,7 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
-import dishTagImg from "../../assets/image/me/dishTag.png"
-import dishCategoryImg from "../../assets/image/me/dishCategory.png"
-import orderListImg from "../../assets/image/me/orderList.png"
-import orderHistoryImg from "../../assets/image/me/orderHistory.png"
-import touxiangImg from "../../assets/image/icon/touxiang.svg"
-// import blindBoxImg from "../../assets/image/me/blindBox.png"
+import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_touxiang, URL_blindBox } from '../../assets/imageOssUrl'
 import { useRequest } from "ahooks";
 import { getUserDetails } from "../../api/user";
 import { useState } from 'react'
@@ -15,29 +10,29 @@ const quickInletList = [
     {
         title: '菜肴标签',
         path: '/pages/dishTag/index',
-        icon: dishTagImg
+        icon: URL_dishTag
     },
     {
         title: '菜肴分类',
         path: '/pages/dishCategory/index',
-        icon: dishCategoryImg
+        icon: URL_dishCategory
     },
     {
         title: '订单列表',
         path: '/pages/myOrder/index',
-        icon: orderListImg
+        icon: URL_orderList
     },
     {
         title: '点餐记录',
         path: '/pages/myOrderHistory/index',
-        icon: orderHistoryImg
+        icon: URL_orderHistory
     },
 ]
 // const otherInletList = [
 //     {
 //         title: '美食盲盒',
 //         path: '',
-//         icon: blindBoxImg
+//         icon: URL_blindBox
 //     }
 // ]
 
@@ -86,7 +81,7 @@ export default function Me () {
     return (
         <View className='me'>
             <View className='userInfo' onClick={() => handleUserInfo()}>
-                <Image className='avatar' src={userInfo.avatar ? userInfo.avatar : touxiangImg}></Image>
+                <Image className='avatar' src={userInfo.avatar ? userInfo.avatar : URL_touxiang}></Image>
                 <View className='userInfoRight'>
                     <Text className='nickname'>{userInfo.nickname}</Text>
                     {

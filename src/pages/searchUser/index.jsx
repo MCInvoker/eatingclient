@@ -3,7 +3,7 @@ import "./index.scss"
 import { useEffect, useState } from 'react';
 import { searchUser } from '../../api/user';
 import { follow, unfollow } from '../../api/follow';
-import touxiangImg from "../../assets/image/icon/touxiang.svg"
+import { URL_touxiang } from '../../assets/imageOssUrl';
 import { useRequest } from 'ahooks';
 
 const SearchUser = () => {
@@ -73,7 +73,7 @@ const SearchUser = () => {
                                 <Image
                                     className='avatar'
                                     style={{ width: "76rpx", height: '76rpx' }}
-                                    src={user.avatar || touxiangImg}
+                                    src={user.avatar || URL_touxiang}
                                 />
                                 <Text className='nickname'>{user.nickname}</Text>
                                 <Button

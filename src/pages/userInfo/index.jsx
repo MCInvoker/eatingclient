@@ -4,11 +4,11 @@ import Taro from "@tarojs/taro";
 import { useRequest } from "ahooks";
 import { getUserDetails, updateUserInfo, checkUserCode } from "../../api/user";
 import { getStsInfo } from "../../api/sts";
-import uploadImage from "../../assets/image/userInfo/uploadImage.png"
-import "./index.scss"
+import { URL_uploadImage } from "../../assets/imageOssUrl";
+import "./index.scss";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
-import _ from "loadsh"
+import _ from "loadsh";
 
 // 计算签名。
 function computeSignature (accessKeySecret, canonicalString) {
@@ -205,7 +205,7 @@ const userInfo = () => {
                         <Button openType="chooseAvatar" className="uploadImgBox" onChooseAvatar={handlecChooseImages}>
                             {!avatar && (
                                 <>
-                                    <Image className="uploadImgLogo" mode="aspectFit" src={uploadImage}></Image>
+                                    <Image className="uploadImgLogo" mode="aspectFit" src={URL_uploadImage}></Image>
                                     <Text className="uploadImgText">点击上传</Text>
                                 </>
                             )}

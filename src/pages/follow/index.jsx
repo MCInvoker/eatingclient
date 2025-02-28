@@ -4,7 +4,7 @@ import { useState } from 'react'
 import './index.scss'
 import { getFollow } from '../../api/follow';
 import { useRequest } from 'ahooks';
-import touxiangImg from "../../assets/image/icon/touxiang.svg"
+import { URL_touxiang } from '../../assets/imageOssUrl';
 
 export default function Follow () {
     const [nickname, setNickname] = useState('');
@@ -76,7 +76,7 @@ export default function Follow () {
                                 <Image
                                     className='avatar'
                                     style={{ width: "76rpx", height: '76rpx' }}
-                                    src={follow.avatar || touxiangImg}
+                                    src={follow.avatar || URL_touxiang}
                                 />
                                 <Text className='nickname'>{follow.nickname}</Text>
                                 <Button

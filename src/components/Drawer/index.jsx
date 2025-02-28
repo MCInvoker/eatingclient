@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text, Image } from '@tarojs/components';
 import './index.scss'; // 你可以根据自己的需求自定义样式
-import drawerCloseImg from "../../assets/image/icon/drawerClose.svg"
+import { URL_drawerClose } from '../../assets/imageOssUrl';
 
 const Drawer = (props) => {
     const { isOpen, onClose, zIndex = 100, title, bodyRender } = props;
@@ -23,7 +23,7 @@ const Drawer = (props) => {
                         <Button className='drawer-close-button' onClick={() => {
                             onClose && onClose()
                         }}>
-                            <Image className='drawer-close-icon' src={drawerCloseImg}></Image>
+                            <Image className='drawer-close-icon' src={URL_drawerClose}></Image>
                         </Button>
 
                     </View>

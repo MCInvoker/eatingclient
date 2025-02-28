@@ -6,7 +6,7 @@ import { getMyOrderList } from "../../api/order";
 import Taro, { useDidShow } from "@tarojs/taro";
 import { formatDate } from "../../utils/utils";
 import "./index.scss";
-import touxiangImg from "../../assets/image/icon/touxiang.svg"
+import { URL_touxiang } from "../../assets/imageOssUrl";
 import CurrentDate from "../../components/CurrentDate";
 
 const MyOrder = () => {
@@ -59,7 +59,7 @@ const MyOrder = () => {
                             return (
                                 <View className="order">
                                     <View className="orderTop">
-                                        <Image className="avatar" src={order?.Customer?.avatar || touxiangImg} />
+                                        <Image className="avatar" src={order?.Customer?.avatar || URL_touxiang} />
                                         <View className="nameTime">
                                             <Text className="name">{order?.Customer?.nickname}</Text>
                                             <Text className="createdAt">{formatDate(order.updated_at, 'YYYY-MM-DD HH:mm TY')}</Text>

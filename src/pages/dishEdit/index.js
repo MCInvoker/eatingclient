@@ -9,8 +9,7 @@ import { getStsInfo } from "../../api/sts";
 import _ from "loadsh";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
-import uploadImage from "../../assets/image/userInfo/uploadImage.png"
-import closeImage from "../../assets/image/icon/close.svg"
+import { URL_uploadImage, URL_close } from "../../assets/imageOssUrl";
 import { createDish, getDishs, updateDish } from "../../api/dish";
 
 const DishEdit = () => {
@@ -379,13 +378,13 @@ const DishEdit = () => {
                             <View className="selectImageBox" key={item.url}>
                                 <Image className="selectImage" mode="aspectFit" src={item.url}></Image>
                                 <Button className="deleteImageButton" onClick={() => handleDeleteImg(item.url)} >
-                                    <Image className="deleteImage" src={closeImage}></Image>
+                                    <Image className="deleteImage" src={URL_close}></Image>
                                 </Button>
                             </View>
                         )
                     })}
                     <View className="uploadImgBox" onClick={handleChooseImages}>
-                        <Image className="uploadImgLogo" mode="aspectFit" src={uploadImage}></Image>
+                        <Image className="uploadImgLogo" mode="aspectFit" src={URL_uploadImage}></Image>
                         <Text className="uploadImgText">点击上传</Text>
                     </View>
                 </View>

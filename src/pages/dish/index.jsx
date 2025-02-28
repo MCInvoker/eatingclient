@@ -5,7 +5,7 @@ import './index.scss'
 import { getToken } from '../../api/user'
 import { getDishs, deleteDish, disclosureDish } from '../../api/dish'
 import { useRequest } from "ahooks";
-import meishiImg from "../../assets/image/icon/meishi.svg"
+import { URL_meishi } from '../../assets/imageOssUrl'
 import Dialog from '../../components/Dialog';
 import { getStorageSync } from '../../utils/utils'
 
@@ -150,7 +150,7 @@ export default function Dish () {
                             className={dish.is_disclosure === "1" ? "dishItem" : "dishItem opacity"}
                             onClick={() => handleEditDish(dish.dish_id)}
                         >
-                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg} mode="aspectFill" />
+                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_meishi} mode="aspectFill" />
                             <Text className='dishName'>{dish.name}</Text>
                             <Switch
                                 className='dishSwitch'
