@@ -250,6 +250,13 @@ const Order = () => {
         }
     }
 
+    // 点击图片，跳转至大图模式看详情
+    const handleImage = (dish) => {
+        const largeNewTemporary = dishes.findIndex((item) => dish.dish_id === item.dish_id);
+        setLargeCurrent(largeNewTemporary)
+        setListType("largeImageMode")
+    }
+
     // 点餐时菜肴数量加减   white 加减号是白色   green（加减号是绿色） // 现在好像只用了绿色
     const renderNumberControl = (dish, type = 'green') => {
         return (
@@ -282,8 +289,13 @@ const Order = () => {
                 {
                     dishes.map((dish) => {
                         return (
-                            <View className="simpDishLi">
-                                <Image mode="aspectFill" className='simpDishLiImg' src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg} />
+                            <View className="simpDishLi" key={dish.dish_id}>
+                                <Image
+                                    mode="aspectFill"
+                                    className='simpDishLiImg'
+                                    src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg}
+                                    onClick={() => handleImage(dish)}
+                                />
                                 <Text className="simpDishLiName">{dish.name}</Text>
                                 {renderNumberControl(dish, 'green')}
                             </View>
@@ -321,9 +333,14 @@ const Order = () => {
                 {
                     dishes.map((dish) => {
                         return (
-                            <View className="smallImageDishLi">
+                            <View className="smallImageDishLi" key={dish.dish_id}>
                                 <View className="smallImageDishLiTop">
-                                    <Image mode="aspectFill" className='smallImageDishLiImg' src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg} />
+                                    <Image
+                                        mode="aspectFill"
+                                        className='smallImageDishLiImg'
+                                        src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : meishiImg}
+                                        onClick={() => handleImage(dish)}
+                                    />
                                     <View className="smallImageDishLiNameDescription">
                                         <Text className="smallImageDishLiName">{dish.name}</Text>
                                         <Text className="smallImageDishLiDescription">{dish.description}</Text>
