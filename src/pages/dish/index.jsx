@@ -2,7 +2,6 @@ import { View, Input, Button, Image, Text, Switch } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import React, { useEffect, useState } from 'react'
 import './index.scss'
-import { getToken } from '../../api/user'
 import { getDishes, deleteDish, disclosureDish } from '../../api/dish'
 import { useRequest } from "ahooks";
 import { URL_food } from '../../assets/imageOssUrl'
@@ -11,7 +10,6 @@ import { getStorageSync } from '../../utils/utils'
 
 export default function Dish () {
     const [isFirst, setIsFirst] = useState(true); // 是否第一次进入页面
-    const [token, setToken] = useState(''); // 除登录接口外，其他接口需要token
     const [name, setName] = useState(''); // 菜肴名称搜索
     const [dishes, setDishes] = useState(getStorageSync('dishes', [])); // 菜肴列表 // todo， 缓存中取
     const [dishId, setDishId] = useState(''); // 显示删除弹窗时，选中的菜肴id
@@ -75,21 +73,9 @@ export default function Dish () {
         }
     });
 
-    // 先获取token，有token后再获取数据
     useEffect(() => {
-        const getTokenAsync = async () => {
-            const getTokenRes = await getToken();
-            setToken(getTokenRes)
-        }
-        getTokenAsync();
-    }, [])
-
-    // 获取菜肴列表
-    useEffect(() => {
-        if (token) {
             getDishesFn({ name })
-        }
-    }, [token, name])
+    }, [name])
 
     // 重新回到页面刷新，   todo 后期优化，按需刷新
     useDidShow(() => {
