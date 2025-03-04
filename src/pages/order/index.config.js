@@ -1,3 +1,4 @@
 export default definePageConfig({
-    navigationBarTitleText: '点餐'
+    navigationBarTitleText: '点餐',
+    enableShareAppMessage: true
 })

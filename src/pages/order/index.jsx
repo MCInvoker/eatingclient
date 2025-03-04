@@ -1,5 +1,5 @@
 import { View, Swiper, SwiperItem, Button, Input, Text, Image, Textarea, ScrollView } from "@tarojs/components"
-import Taro from "@tarojs/taro"
+import Taro, { useShareAppMessage } from "@tarojs/taro"
 import "./index.scss"
 import { useEffect, useState } from "react"
 import { getUserInfo } from "../../api/user"
@@ -33,6 +33,14 @@ const Order = () => {
     const [smallScrollTopTemporary, setSmallScrollTopTemporary] = useState(0); // 小图模式滚动条高度临时值，一值给滚动条赋值滚动会抖动
     const [largeCurrent, setLargeCurrent] = useState(0); // 大图模式swiper展示索引
     const [largeCurrentTemporary, setLargeCurrentTemporary] = useState(0); // 大图模式swiper展示索引临时记录
+
+    // 分享菜单给好友
+    useShareAppMessage(() => ({
+        title: `亲爱的家人朋友们，这里有份专属菜单等你探索！`, // 动态生成分享标题
+        path: `/pages/order/index?id=${userId}`, // 动态生成分享路径
+        imageUrl: chefInfo.avatar ? chefInfo.avatar : URL_avatar, // 分享图片 URL
+    }));
+
     // 获取菜肴列表
     const { run: getUserDishFn } = useRequest(getUserDish, {
         manual: true,
@@ -74,8 +82,6 @@ const Order = () => {
         const { router } = Taro.getCurrentInstance();
         const { id } = router.params;
         setUserId(id);
-        // pages/order/index
-        // id
     })
 
     //下单
