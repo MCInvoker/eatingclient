@@ -6,7 +6,7 @@ export const createDish = async (data) => {
     return res
 }
 
-export const getDishs = async (data = {}) => {
+export const getDishes = async (data = {}) => {
     const res = await get(urlDish, data)
     return res
 }

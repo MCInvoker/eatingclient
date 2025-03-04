@@ -3,9 +3,9 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import React, { useEffect, useState } from 'react'
 import './index.scss'
 import { getToken } from '../../api/user'
-import { getDishs, deleteDish, disclosureDish } from '../../api/dish'
+import { getDishes, deleteDish, disclosureDish } from '../../api/dish'
 import { useRequest } from "ahooks";
-import { URL_meishi } from '../../assets/imageOssUrl'
+import { URL_food } from '../../assets/imageOssUrl'
 import Dialog from '../../components/Dialog';
 import { getStorageSync } from '../../utils/utils'
 
@@ -18,7 +18,7 @@ export default function Dish () {
     const [deleteDialog, setDeleteDialog] = useState(false); // 删除菜肴弹窗显示隐藏控制
 
     // 获取菜肴列表
-    const { run: getDishsFn } = useRequest(getDishs, {
+    const { run: getDishesFn } = useRequest(getDishes, {
         debounceWait: 300,
         debounceLeading: true, // 虽然开了防抖，但立马执行
         manual: true,
@@ -42,7 +42,7 @@ export default function Dish () {
                     duration: 2000
                 })
             }
-            getDishsFn({ name })
+            getDishesFn({ name })
         },
         onError: (err) => {
             Taro.showToast({
@@ -64,7 +64,7 @@ export default function Dish () {
                     duration: 2000
                 })
             }
-            getDishsFn({ name })
+            getDishesFn({ name })
         },
         onError: (err) => {
             Taro.showToast({
@@ -87,7 +87,7 @@ export default function Dish () {
     // 获取菜肴列表
     useEffect(() => {
         if (token) {
-            getDishsFn({ name })
+            getDishesFn({ name })
         }
     }, [token, name])
 
@@ -96,7 +96,7 @@ export default function Dish () {
         if (isFirst) {
             setIsFirst(false)
         } else {
-            getDishsFn({ name })
+            getDishesFn({ name })
         }
         Taro.setTabBarStyle({
             backgroundColor: '#f8f8f8',
@@ -150,7 +150,7 @@ export default function Dish () {
                             className={dish.is_disclosure === "1" ? "dishItem" : "dishItem opacity"}
                             onClick={() => handleEditDish(dish.dish_id)}
                         >
-                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_meishi} mode="aspectFill" />
+                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_food} mode="aspectFill" />
                             <Text className='dishName'>{dish.name}</Text>
                             <Switch
                                 className='dishSwitch'

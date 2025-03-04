@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { getUserInfo } from "../../api/user"
 import { getUserDish } from "../../api/dish"
 import { useRequest } from "ahooks"
-import { URL_touxiang,URL_meishi,URL_add,URL_addFFF,URL_minus,URL_minusFFF,URL_directionLeft,URL_directionRight } from "../../assets/imageOssUrl"
+import { URL_avatar,URL_food,URL_add,URL_addFFF,URL_minus,URL_minusFFF,URL_directionLeft,URL_directionRight } from "../../assets/imageOssUrl"
 import Drawer from "../../components/Drawer"
 import _ from "loadsh";
 import { createOrder } from "../../api/order"
@@ -74,6 +74,8 @@ const Order = () => {
         const { router } = Taro.getCurrentInstance();
         const { id } = router.params;
         setUserId(id);
+        // pages/order/index
+        // id
     })
 
     //下单
@@ -149,7 +151,7 @@ const Order = () => {
     const renderChefInfo = () => {
         return (
             <View className='userInfo'>
-                <Image mode="aspectFill" className='avatar' src={chefInfo.avatar ? chefInfo.avatar : URL_touxiang}></Image>
+                <Image mode="aspectFill" className='avatar' src={chefInfo.avatar ? chefInfo.avatar : URL_avatar}></Image>
                 <View className='userInfoRight'>
                     <Text className='nickname'>{chefInfo.nickname}</Text>
                     {
@@ -286,7 +288,7 @@ const Order = () => {
                                 <Image
                                     mode="aspectFill"
                                     className='simpDishLiImg'
-                                    src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_meishi}
+                                    src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_food}
                                     onClick={() => handleImage(dish)}
                                 />
                                 <Text className="simpDishLiName">{dish.name}</Text>
@@ -308,7 +310,7 @@ const Order = () => {
                         const dish = allDishes[allDishes.findIndex(item => item.dish_id === orderInfoLi.dish_id)];
                         return (
                             <View className="simpDishLi">
-                                <Image mode="aspectFill" className='simpDishLiImg' src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_meishi} />
+                                <Image mode="aspectFill" className='simpDishLiImg' src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_food} />
                                 <Text className="simpDishLiName">{dish.name}</Text>
                                 {renderNumberControl(dish, 'green')}
                             </View>
@@ -331,7 +333,7 @@ const Order = () => {
                                     <Image
                                         mode="aspectFill"
                                         className='smallImageDishLiImg'
-                                        src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_meishi}
+                                        src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_food}
                                         onClick={() => handleImage(dish)}
                                     />
                                     <View className="smallImageDishLiNameDescription">
@@ -499,7 +501,7 @@ const Order = () => {
                                             <Image
                                                 mode={(imageStyle === 'LS') ? 'widthFix' : 'aspectFill'}
                                                 className={(imageStyle === 'LS') ? "largeImageModeImgageWidthFix" : "largeImageModeImgage"}
-                                                src={dish.dish_images[dish.showImageIndex].url || URL_meishi}
+                                                src={dish.dish_images[dish.showImageIndex].url || URL_food}
                                             />
                                         )
                                     }
@@ -509,7 +511,7 @@ const Order = () => {
                                             <Image
                                                 mode="widthFix"
                                                 className='largeImageModeImgageWidthFix'
-                                                src={URL_meishi}
+                                                src={URL_food}
                                             />
                                         )
                                     }

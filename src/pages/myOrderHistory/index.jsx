@@ -5,7 +5,7 @@ import { useRequest } from "ahooks";
 import { getMyOrderHistoryList } from "../../api/order";
 import Taro, { useDidShow } from "@tarojs/taro";
 import { formatDate } from "../../utils/utils";
-import { URL_touxiang } from "../../assets/imageOssUrl";
+import { URL_avatar } from "../../assets/imageOssUrl";
 import CurrentDate from "../../components/CurrentDate";
 import "./index.scss";
 
@@ -59,7 +59,7 @@ const MyOrderHistory = () => {
                             return (
                                 <View className="order">
                                     <View className="orderTop">
-                                        <Image className="avatar" src={order?.Chef?.avatar || URL_touxiang} />
+                                        <Image className="avatar" src={order?.Chef?.avatar || URL_avatar} />
                                         <View className="nameTime">
                                             <Text className="name">{order?.Chef?.nickname}</Text>
                                             <Text className="createdAt">{formatDate(order.updated_at, 'YYYY-MM-DD HH:mm TY')}</Text>

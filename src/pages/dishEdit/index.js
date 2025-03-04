@@ -10,7 +10,7 @@ import _ from "loadsh";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
 import { URL_uploadImage, URL_close } from "../../assets/imageOssUrl";
-import { createDish, getDishs, updateDish } from "../../api/dish";
+import { createDish, getDishes, updateDish } from "../../api/dish";
 
 const DishEdit = () => {
     const [dishId, setDishId] = useState(''); // 菜肴id， 编辑菜肴时有用
@@ -32,12 +32,12 @@ const DishEdit = () => {
         const { id } = router.params;
         setDishId(id)
         if (id) {
-            getDishsFn({ id })
+            getDishesFn({ id })
         }
     }, []);
 
     // 获取菜肴列表
-    const { run: getDishsFn } = useRequest(getDishs, {
+    const { run: getDishesFn } = useRequest(getDishes, {
         manual: true,
         onSuccess: (res) => {
             if (res.data && res.data.length > 0) {
@@ -289,27 +289,27 @@ const DishEdit = () => {
     }
 
     // 选择分类
-    const handleSeleteCategory = (value) => {
+    const handleSelectCategory = (value) => {
         let newCategories = _.cloneDeep(categories)
         newCategories.push(value)
         setCategories(newCategories)
     }
 
     // 取消选择分类
-    const handleUnseleteCategory = (value) => {
+    const handleUnselectCategory = (value) => {
         let newCategories = _.cloneDeep(categories).filter((item) => item !== value)
         setCategories(newCategories)
     }
 
     // 选择标签
-    const handleSeleteTag = (value) => {
+    const handleSelectTag = (value) => {
         let newTags = _.cloneDeep(tags)
         newTags.push(value)
         setTags(newTags)
     }
 
     // 取消选择标签
-    const handleUnseleteTag = (value) => {
+    const handleUnselectTag = (value) => {
         let newTags = _.cloneDeep(tags).filter((item) => item !== value)
         setTags(newTags)
     }
@@ -417,11 +417,11 @@ const DishEdit = () => {
                             {dishCategoriesOptions.map((item) => {
                                 if (categories.includes(item.value)) {
                                     return (
-                                        <Button className="formCheckItemActive" onClick={() => handleUnseleteCategory(item.value)}>{item.label}</Button>
+                                        <Button className="formCheckItemActive" onClick={() => handleUnselectCategory(item.value)}>{item.label}</Button>
                                     )
                                 } else {
                                     return (
-                                        <Button className="formCheckItem" onClick={() => handleSeleteCategory(item.value)}>{item.label}</Button>
+                                        <Button className="formCheckItem" onClick={() => handleSelectCategory(item.value)}>{item.label}</Button>
                                     )
                                 }
                             })}
@@ -438,11 +438,11 @@ const DishEdit = () => {
                             {dishTagsOptions.map((item) => {
                                 if (tags.includes(item.value)) {
                                     return (
-                                        <Button className="formCheckItemActive" onClick={() => handleUnseleteTag(item.value)}>{item.label}</Button>
+                                        <Button className="formCheckItemActive" onClick={() => handleUnselectTag(item.value)}>{item.label}</Button>
                                     )
                                 } else {
                                     return (
-                                        <Button className="formCheckItem" onClick={() => handleSeleteTag(item.value)}>{item.label}</Button>
+                                        <Button className="formCheckItem" onClick={() => handleSelectTag(item.value)}>{item.label}</Button>
                                     )
                                 }
                             })}

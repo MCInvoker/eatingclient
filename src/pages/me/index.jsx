@@ -1,7 +1,7 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
-import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_touxiang, URL_blindBox } from '../../assets/imageOssUrl'
+import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox } from '../../assets/imageOssUrl'
 import { useRequest } from "ahooks";
 import { getUserDetails } from "../../api/user";
 import { useState } from 'react'
@@ -81,7 +81,7 @@ export default function Me () {
     return (
         <View className='me'>
             <View className='userInfo' onClick={() => handleUserInfo()}>
-                <Image className='avatar' src={userInfo.avatar ? userInfo.avatar : URL_touxiang}></Image>
+                <Image className='avatar' src={userInfo.avatar ? userInfo.avatar : URL_avatar}></Image>
                 <View className='userInfoRight'>
                     <Text className='nickname'>{userInfo.nickname}</Text>
                     {
