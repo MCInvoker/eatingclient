@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { getUserInfo } from "../../api/user"
 import { getUserDish } from "../../api/dish"
 import { useRequest } from "ahooks"
-import { URL_avatar,URL_food,URL_add,URL_addFFF,URL_minus,URL_minusFFF,URL_directionLeft,URL_directionRight } from "../../assets/imageOssUrl"
+import { URL_avatar,URL_food,URL_add,URL_addFFF,URL_minus,URL_minusFFF,URL_directionLeft,URL_directionRight,URL_share } from "../../assets/imageOssUrl"
 import Drawer from "../../components/Drawer"
 import _ from "loadsh";
 import { createOrder } from "../../api/order"
@@ -157,6 +157,9 @@ const Order = () => {
     const renderChefInfo = () => {
         return (
             <View className='userInfo'>
+                <Button className="shareButton" open-type="share">
+                    <Image className="shareImage" src={URL_share}></Image>
+                </Button>
                 <Image mode="aspectFill" className='avatar' src={chefInfo.avatar ? chefInfo.avatar : URL_avatar}></Image>
                 <View className='userInfoRight'>
                     <Text className='nickname'>{chefInfo.nickname}</Text>

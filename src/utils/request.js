@@ -1,50 +1,70 @@
 import Taro from '@tarojs/taro';
 import { urlLogin } from '../api/api';
 
+// 标记是否正在获取token的状态
 let fetchingToken = false;
+// 用于存储Promise的resolve函数
 let tokenPromiseResolve;
+// 用于存储Promise的reject函数
 let tokenPromiseReject;
+// 创建一个Promise用于处理并发的token请求
 let tokenPromise = new Promise((resolve, reject) => {
     tokenPromiseResolve = resolve;
     tokenPromiseReject = reject;
 });
 
-// 获取 token 的函数
+/**
+ * 获取token的函数
+ * 使用Promise处理并发请求,避免重复获取token
+ * 成功后会将token存储到本地缓存中
+ * @returns {Promise<string>} 返回token字符串
+ */
 export const getToken = async () => {
+    // 如果已经在获取token,则返回正在进行中的Promise
     if (fetchingToken) {
-        // 如果已经在获取 token，则等待当前获取 token 的 promise 完成
+        // 等待当前获取token的promise完成
         return tokenPromise;
     }
 
+    // 标记开始获取token
     fetchingToken = true;
+    // 显示loading提示
     Taro.showLoading({
         title: '登录中～',
         mask: true
     });
 
     try {
+        // 获取微信登录code
         const { code } = await Taro.login();
+        // 发送请求获取token
         const res = await Taro.request({
             url: urlLogin,
             method: 'POST',
             data: {code}
         });
+        // 请求成功
         if (res.statusCode >= 200 && res.statusCode < 300) {
             const newToken = res.data.token;
-            Taro.setStorageSync('token', newToken); // 存储新获取的 token
+            // 将token存储到本地缓存
+            Taro.setStorageSync('token', newToken);
+            // 使用resolve返回token
             tokenPromiseResolve(newToken);
             return newToken;
         } else {
             throw new Error('Failed to get token');
         }
     } catch (error) {
+        // 请求失败时reject错误
         tokenPromiseReject(error);
         console.error('Error while getting token:', error);
         throw error;
     } finally {
+        // 重置状态
         fetchingToken = false;
+        // 隐藏loading
         Taro.hideLoading();
-        // 重置 tokenPromise 以便下一次可以重新开始
+        // 重置Promise以便下次使用
         tokenPromise = new Promise((resolve, reject) => {
             tokenPromiseResolve = resolve;
             tokenPromiseReject = reject;

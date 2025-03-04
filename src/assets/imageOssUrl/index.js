@@ -22,6 +22,7 @@ export const URL_dining = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatin
 export const URL_avatar = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/avatar.svg";
 export const URL_uploadImage = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/uploadImage.png";
 export const URL_userInfo = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/userInfo.png";
+export const URL_share = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/share.svg";
 export const URL_app_logo120 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/%E4%B8%8D%E8%AF%B4%E9%9A%8F%E4%BE%BF-%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87-120.jpg";
 export const URL_app_logo400 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/%E4%B8%8D%E8%AF%B4%E9%9A%8F%E4%BE%BF-%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87-400.jpg";
 export const URL_app_logo600 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/%E4%B8%8D%E8%AF%B4%E9%9A%8F%E4%BE%BF-%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87-600.jpg";

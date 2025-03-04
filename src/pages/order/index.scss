@@ -19,7 +19,7 @@
     .dishSearchBox {
         width: 750rpx;
         height: 120rpx;
-        background-color: #fff;
+        background-color: #fff; 
         padding: 20rpx 40rpx 0rpx;
         box-sizing: border-box;
 
@@ -56,6 +56,28 @@
         justify-content: flex-start;
         margin-bottom: 10rpx;
         margin: 0rpx auto 20rpx;
+        position: relative;
+
+        .shareButton {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100rpx;
+            height: 100rpx;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .shareImage {
+                width: 40rpx;
+                height: 40rpx;
+            }
+        }
+        .shareButton::after {
+            border: none;
+        }
 
         .avatar {
             width: 148rpx;
