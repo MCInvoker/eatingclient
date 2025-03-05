@@ -1,0 +1,38 @@
+.userManual {
+    padding: 30rpx;
+    background: #f8f8f8;
+    min-height: 100vh;
+
+    .section {
+        background: #fff;
+        border-radius: 12rpx;
+        padding: 30rpx;
+        margin-bottom: 30rpx;
+
+        .title {
+            font-size: 36rpx;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30rpx;
+            display: block;
+        }
+
+        .content {
+            .subtitle {
+                font-size: 32rpx;
+                color: #2f7958;
+                font-weight: bold;
+                margin: 20rpx 0 10rpx;
+                display: block;
+            }
+
+            .text {
+                font-size: 28rpx;
+                color: #666;
+                line-height: 1.6;
+                margin-bottom: 20rpx;
+                display: block;
+            }
+        }
+    }
+}

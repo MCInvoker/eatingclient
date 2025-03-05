@@ -1,7 +1,7 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
-import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox } from '../../assets/imageOssUrl'
+import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual } from '../../assets/imageOssUrl'
 import { useRequest } from "ahooks";
 import { getUserDetails } from "../../api/user";
 import { useState } from 'react'
@@ -28,13 +28,20 @@ const quickInletList = [
         icon: URL_orderHistory
     },
 ]
-// const otherInletList = [
-//     {
-//         title: '美食盲盒',
-//         path: '',
-//         icon: URL_blindBox
-//     }
-// ]
+
+const otherInletList = [
+    // {
+    //     title: '美食盲盒',
+    //     path: '',
+    //     icon: URL_blindBox
+    // },
+    {
+        title: '用户手册',
+        path: '/pages/userManual/index',
+        icon: URL_userManual
+        // icon: URL_userManualAi
+    }
+]
 
 export default function Me () {
     const [userInfo, setUserInfo] = useState({
@@ -110,21 +117,21 @@ export default function Me () {
                     })}
                 </View>
             </View>
-            {/* <View className='inletsBox'>
+            <View className='inletsBox'>
                 <View className='inletsTitle'>
-                    <Text>其他功能</Text>
+                    <Text>其他</Text>
                 </View>
                 <View className='inlets'>
                     {otherInletList.map((quickInletLi) => {
                         return (
-                            <View className='inlet'>
+                            <View className='inlet' onClick={() => handleInlet(quickInletLi.path)}>
                                 {quickInletLi.icon && <Image src={quickInletLi.icon} className='inletImg'></Image>}
                                 <Text className='inletTitle'>{quickInletLi.title}</Text>
                             </View>
                         )
                     })}
                 </View>
-            </View> */}
+            </View>
         </View>
     )
 }
