@@ -2,7 +2,7 @@ import { View, Button, Input, Text, Image } from "@tarojs/components";
 import { useEffect, useState } from 'react'
 import Taro from "@tarojs/taro";
 import { useRequest } from "ahooks";
-import { getUserDetails, updateUserInfo, checkUserCode } from "../../api/user";
+import { updateUserInfo, checkUserCode } from "../../api/user";
 import { getStsInfo } from "../../api/sts";
 import { URL_uploadImage, URL_addFFF } from "../../assets/imageOssUrl";
 import "./index.scss";
@@ -26,23 +26,6 @@ const userInfo = () => {
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
     const [isCheckUserCode, setIsCheckUserCode] = useState(true);
 
-    // 获取用户信息
-    const { run: getUserDetailsFn } = useRequest(getUserDetails, {
-        manual: true,
-        onSuccess: (res) => {
-            let responseUserInfo = res.data
-            if (responseUserInfo.title) {
-                const transformTitle = responseUserInfo.title.split(',')
-                responseUserInfo.titles = transformTitle
-                setTitles(transformTitle)
-            } else {
-                responseUserInfo.titles = [""]
-            }
-            setNickname(responseUserInfo.nickname)
-            setAvatar(responseUserInfo.avatar)
-            setUserCode(responseUserInfo.user_code)
-        }
-    })
 
     // 更新用户信息
     const { run: updateUserInfoFn } = useRequest(updateUserInfo, {
@@ -53,13 +36,15 @@ const userInfo = () => {
                 icon: 'success',
                 duration: 2000
             })
+            // 更新本地缓存中的用户信息
+            Taro.setStorageSync('currentUserInfo', res.data);
             setTimeout(() => {
                 Taro.navigateBack()
             }, 1000)
         }
     })
 
-    // 校验usercode是否重负
+    // 校验usercode是否重复
     const { run: checkUserCodeFn } = useRequest(checkUserCode, {
         manual: true,
         debounceWait: 500, // 防抖
@@ -81,7 +66,20 @@ const userInfo = () => {
     })
 
     useEffect(() => {
-        getUserDetailsFn()
+        // 从本地缓存获取用户信息
+        const cachedUserInfo = Taro.getStorageSync('currentUserInfo');
+        if (cachedUserInfo) {
+            if (cachedUserInfo.title) {
+                const transformTitle = cachedUserInfo.title.split(',')
+                cachedUserInfo.titles = transformTitle
+                setTitles(transformTitle)
+            } else {
+                cachedUserInfo.titles = [""]
+            }
+            setNickname(cachedUserInfo.nickname)
+            setAvatar(cachedUserInfo.avatar)
+            setUserCode(cachedUserInfo.user_code)
+        }
         getStsInfoFn()
     }, [])
 
@@ -96,7 +94,7 @@ const userInfo = () => {
             updateUserInfoFn({
                 nickname,
                 avatar,
-                title: titles.join(','),
+                title: titles.filter(item => item !== '').join(','),
                 user_code: userCode
             })
         }

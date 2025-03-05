@@ -39,12 +39,3 @@ export const formatDate = (dateString, format = 'YYYY-MM-DD HH:mm') => {
     //   const formattedDate = formatDate(dateString, 'YYYY-MM-DD HH:mm:ss.SSS');
     //   console.log(formattedDate); // 输出 "2024-09-12 14:55:11.000"
 }
-
-// 获取Storage值， 可设置默认值
-export const getStorageSync = (key, defaultValue) => {
-    try {
-        return JSON.parse(Taro.getStorageSync(key))
-    } catch (error) {
-        return defaultValue
-    }
-}

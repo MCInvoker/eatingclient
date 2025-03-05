@@ -6,12 +6,11 @@ import { getDishes, deleteDish, disclosureDish } from '../../api/dish'
 import { useRequest } from "ahooks";
 import { URL_avatar, URL_food } from '../../assets/imageOssUrl'
 import Dialog from '../../components/Dialog';
-import { getStorageSync } from '../../utils/utils'
 
 export default function Dish () {
     const [isFirst, setIsFirst] = useState(true); // 是否第一次进入页面
     const [name, setName] = useState(''); // 菜肴名称搜索
-    const [dishes, setDishes] = useState(getStorageSync('dishes', [])); // 菜肴列表
+    const [dishes, setDishes] = useState(Taro.getStorageSync('dishes') || []); // 菜肴列表
     const [dishId, setDishId] = useState(''); // 显示删除弹窗时，选中的菜肴id
     const [deleteDialog, setDeleteDialog] = useState(false); // 删除菜肴弹窗显示隐藏控制
 
@@ -23,7 +22,7 @@ export default function Dish () {
         onSuccess: (res, params) => {
             setDishes(res.data)
             if (params[0].name == "") {
-                Taro.setStorageSync('dishes', JSON.stringify(res.data))
+                Taro.setStorageSync('dishes', res.data)
             }
         }
     });
