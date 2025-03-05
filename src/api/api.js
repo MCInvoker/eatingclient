@@ -1,5 +1,14 @@
-// const baseUrl = 'http://localhost:7002/eating/'; // 
-const baseUrl = 'https://webhomeide.top/eating/'; // 
+/**
+ * API接口基础配置
+ * 开发环境：http://localhost:7002/eating/
+ * 生产环境：https://webhomeide.top/eating/
+ */
+
+// 根据环境变量判断使用哪个baseUrl
+const baseUrl = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:7002/eating/'
+    : 'https://webhomeide.top/eating/';
+
 const urlLogin = baseUrl + "user/login"; // 登录
 const urlSearchUser = baseUrl + "user/search"; // 搜索用户
 const urlUserInfo = baseUrl + "user/info"; // 获取用户信息
