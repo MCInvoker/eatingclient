@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import { urlLogin } from '../api/api';
+import { getUserDetails } from '../api/user';
 
 // 标记是否正在获取token的状态
 let fetchingToken = false;
@@ -48,6 +49,16 @@ export const getToken = async () => {
             const newToken = res.data.token;
             // 将token存储到本地缓存
             Taro.setStorageSync('token', newToken);
+            
+            // 异步获取用户信息
+            getUserDetails().then(userRes => {
+                if (userRes.success) {
+                    Taro.setStorageSync('currentUserInfo', userRes.data);
+                }
+            }).catch(error => {
+                console.error('获取用户信息失败:', error);
+            });
+            
             // 使用resolve返回token
             tokenPromiseResolve(newToken);
             return newToken;

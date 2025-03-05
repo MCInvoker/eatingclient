@@ -1,10 +1,10 @@
 import { View, Input, Button, Image, Text, Switch } from '@tarojs/components'
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow, useShareAppMessage } from '@tarojs/taro'
 import React, { useEffect, useState } from 'react'
 import './index.scss'
 import { getDishes, deleteDish, disclosureDish } from '../../api/dish'
 import { useRequest } from "ahooks";
-import { URL_food } from '../../assets/imageOssUrl'
+import { URL_avatar, URL_food } from '../../assets/imageOssUrl'
 import Dialog from '../../components/Dialog';
 import { getStorageSync } from '../../utils/utils'
 
@@ -88,6 +88,17 @@ export default function Dish () {
             backgroundColor: '#f8f8f8',
         })
     })
+
+    // 分享菜单给好友
+    useShareAppMessage(() => {
+        // 在点击分享时获取最新的用户信息
+        const userInfo = Taro.getStorageSync('currentUserInfo');
+        return {
+            title: `亲爱的家人朋友们，这里有份专属菜单等你探索！`,
+            path: `/pages/dish/index?id=${userInfo?.user_id || ''}`,
+            imageUrl: userInfo?.avatar || URL_avatar,
+        };
+    });
 
     // 前往新增菜肴页面
     const handleAddDish = () => {
