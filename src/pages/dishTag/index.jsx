@@ -79,18 +79,25 @@ const DishTag = () => {
     return (
         <View className="dishTag">
             <View className="tagList">
-                {tagList.map((tagLi) => {
-                    return (
-                        <View className="tagLi" id={tagLi.tag_id}>
-                            <Text className="tagName">{tagLi.name}</Text>
-                            {tagLi.description && <Text className="tagDescription">{tagLi.description}</Text>}
-                            <View className="buttons">
-                                <Button className="editButton" onClick={() => handleEdit(tagLi)}>编辑</Button>
-                                <Button className="deleteButton" onClick={() => handleDelete(tagLi.tag_id)}>删除</Button>
+                {tagList.length > 0 ? (
+                    tagList.map((tagLi) => {
+                        return (
+                            <View className="tagLi" id={tagLi.tag_id}>
+                                <Text className="tagName">{tagLi.name}</Text>
+                                {tagLi.description && <Text className="tagDescription">{tagLi.description}</Text>}
+                                <View className="buttons">
+                                    <Button className="editButton" onClick={() => handleEdit(tagLi)}>编辑</Button>
+                                    <Button className="deleteButton" onClick={() => handleDelete(tagLi.tag_id)}>删除</Button>
+                                </View>
                             </View>
-                        </View>
-                    )
-                })}
+                        )
+                    })
+                ) : (
+                    <View className="emptyState">
+                        <Text className='emptyStateText'>还没有创建任何标签</Text>
+                        <Text className='emptyStateDesc'>点击下方按钮开始创建您的第一个标签</Text>
+                    </View>
+                )}
             </View>
             <View className="buttonBox">
                 <Button className="addButton" onClick={handleAdd}>新增</Button>
@@ -102,7 +109,6 @@ const DishTag = () => {
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
             />}
-
         </View>
     )
 }

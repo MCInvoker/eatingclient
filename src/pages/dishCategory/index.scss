@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .dishTag {
     height: 100vh;
     display: flex;
@@ -13,7 +15,7 @@
         .tagLi {
             width: 670rpx;
             box-sizing: border-box;
-            background-color: #f7f7f7;
+            background-color: $bg-color;
             border-radius: 30rpx;
             margin: 0 auto;
             margin-top: 40rpx;
@@ -24,14 +26,14 @@
             .tagName {
                 font-size: 32rpx;
                 font-weight: bold;
-                color: #333;
+                color: $text-color;
                 line-height: 44rpx;
                 margin-bottom: 30rpx;
             }
 
             .tagDescription {
                 font-size: 28rpx;
-                color: #333;
+                color: $text-color;
                 line-height: 50rpx;
                 margin-bottom: 20rpx;
             }
@@ -42,27 +44,50 @@
                 justify-content: flex-end;
 
                 .editButton {
-                    background-color: #2f7958;
+                    background-color: $primary-color;
                     border-radius: 30rpx;
                     height: 60rpx;
                     line-height: 60rpx;
                     box-sizing: border-box;
                     padding: 0 28rpx;
-                    color: #fff;
+                    color: $bg-color-white;
                     font-size: 24rpx;
                     margin-right: 30rpx;
                 }
 
                 .deleteButton {
-                    background-color: #11131e;
+                    background-color: $delete-color;
                     border-radius: 30rpx;
                     height: 60rpx;
                     line-height: 60rpx;
                     box-sizing: border-box;
                     padding: 0 28rpx;
-                    color: #fff;
+                    color: $bg-color-white;
                     font-size: 24rpx;
                 }
+            }
+        }
+
+        .emptyState {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 40rpx;
+            margin-top: 200rpx;
+
+            .emptyStateText {
+                font-size: 32rpx;
+                color: $text-color;
+                margin-bottom: 20rpx;
+                text-align: center;
+            }
+
+            .emptyStateDesc {
+                font-size: 28rpx;
+                color: $text-color-placeholder;
+                text-align: center;
             }
         }
     }
@@ -75,8 +100,8 @@
             line-height: 96rpx;
             width: 646rpx;
             border-radius: 48rpx;
-            background-color: #2F7958;
-            color: #fff;
+            background-color: $primary-color;
+            color: $bg-color-white;
         }
     }
 }

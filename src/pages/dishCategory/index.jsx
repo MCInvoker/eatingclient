@@ -79,18 +79,25 @@ const DishCategory = () => {
     return (
         <View className="dishTag">
             <View className="tagList">
-                {categoryList.map((categoryLi) => {
-                    return (
-                        <View className="tagLi" id={categoryLi.category_id}>
-                            <Text className="tagName">{categoryLi.name}</Text>
-                            {categoryLi.description && <Text className="tagDescription">{categoryLi.description}</Text>}
-                            <View className="buttons">
-                                <Button className="editButton" onClick={() => handleEdit(categoryLi)}>编辑</Button>
-                                <Button className="deleteButton" onClick={() => handleDelete(categoryLi.category_id)}>删除</Button>
+                {categoryList.length > 0 ? (
+                    categoryList.map((categoryLi) => {
+                        return (
+                            <View className="tagLi" id={categoryLi.category_id}>
+                                <Text className="tagName">{categoryLi.name}</Text>
+                                {categoryLi.description && <Text className="tagDescription">{categoryLi.description}</Text>}
+                                <View className="buttons">
+                                    <Button className="editButton" onClick={() => handleEdit(categoryLi)}>编辑</Button>
+                                    <Button className="deleteButton" onClick={() => handleDelete(categoryLi.category_id)}>删除</Button>
+                                </View>
                             </View>
-                        </View>
-                    )
-                })}
+                        )
+                    })
+                ) : (
+                    <View className="emptyState">
+                        <Text className='emptyStateText'>还没有创建任何分类</Text>
+                        <Text className='emptyStateDesc'>点击下方按钮开始创建您的第一个分类</Text>
+                    </View>
+                )}
             </View>
             <View className="buttonBox">
                 <Button className="addButton" onClick={handleAdd}>新增</Button>
@@ -102,7 +109,6 @@ const DishCategory = () => {
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
             />}
-
         </View>
     )
 }

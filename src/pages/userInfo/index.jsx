@@ -4,7 +4,7 @@ import Taro from "@tarojs/taro";
 import { useRequest } from "ahooks";
 import { getUserDetails, updateUserInfo, checkUserCode } from "../../api/user";
 import { getStsInfo } from "../../api/sts";
-import { URL_uploadImage } from "../../assets/imageOssUrl";
+import { URL_uploadImage, URL_addFFF } from "../../assets/imageOssUrl";
 import "./index.scss";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
@@ -231,7 +231,9 @@ const userInfo = () => {
                                     maxlength={12}
                                 />
                                 {index === (titles.length - 1) ? (
-                                    <Button className="titleAddButton" onClick={() => handelTitleAdd()}>+</Button>
+                                    <Button className="titleAddButton" onClick={() => handelTitleAdd()}>
+                                        <Image className="titleAddImg" src={URL_addFFF} mode="aspectFit"></Image>
+                                    </Button>
                                 ) : (
                                     <Button className="titleDeleteButton" onClick={() => handelTitleDelete(index)}>删除</Button>
                                 )}

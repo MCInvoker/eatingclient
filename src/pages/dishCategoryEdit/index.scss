@@ -1,6 +1,8 @@
+@import '../../styles/variables.scss';
+
 .page {
     height: 100vh;
-    background-color: #f6f6f6;
+    background-color: $bg-color;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -21,13 +23,13 @@
             padding: 30rpx 40rpx;
             display: flex;
             justify-content: flex-start;
-            background-color: #fff;
+            background-color: $bg-color-white;
             border-radius: 30rpx;
 
             .formLiL {
                 font-size: 28rpx;
                 line-height: 40rpx;
-                color: #333;
+                color: $text-color;
                 font-weight: bold;
                 margin-right: 60rpx;
             }
@@ -43,7 +45,7 @@
         .placeholderClass {
             font-size: 28rpx;
             line-height: 40rpx;
-            color: #999;
+            color: $text-color-placeholder;
         }
 
         .formLiTB {
@@ -54,18 +56,18 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            background-color: #fff;
+            background-color: $bg-color-white;
             border-radius: 30rpx;
 
             .formLiT {
                 font-size: 28rpx;
                 line-height: 40rpx;
-                color: #333;
+                color: $text-color;
                 font-weight: bold;
             }
 
             .formLiB {
-                background-color: #fafafa;
+                background-color: $bg-color;
                 border-radius: 30rpx;
                 margin-top: 30rpx;
                 padding: 20rpx 28rpx;
@@ -85,13 +87,13 @@
             line-height: 96rpx;
             width: 646rpx;
             border-radius: 48rpx;
-            background-color: #2F7958;
-            color: #fff;
+            background-color: $primary-color;
+            color: $bg-color-white;
         }
     }
 
     .required::after {
         content: '*';
-        color: red;
+        color: $error-color;
     }
 }

@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -11,7 +13,7 @@
     .dishSearch {
         width: 670rpx;
         box-sizing: border-box;
-        background-color: #F7F7F7;
+        background-color: $bg-color;
         height: 100rpx;
         line-height: 100rpx;
         box-sizing: border-box;
@@ -21,7 +23,7 @@
     }
 
     .dishSearchPlaceholder {
-        color: #BBBBBB;
+        color: $text-color-placeholder;
         font-size: 32rpx;
         height: 100rpx;
         line-height: 100rpx;
@@ -43,7 +45,7 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 40rpx;
-            background-color: #f7f7f7;
+            background-color: $bg-color;
             width: 670rpx;
             min-height: 136rpx;
             box-sizing: border-box;
@@ -61,7 +63,7 @@
             .dishName {
                 flex: 1;
                 font-size: 32rpx;
-                color: #333333;
+                color: $text-color;
             }
 
             .dishSwitch {
@@ -73,8 +75,8 @@
                 width: 104rpx;
                 height: 58rpx;
                 box-sizing: border-box;
-                background-color: #11131E;
-                color: #fff;
+                background-color: $delete-color;
+                color: $bg-color-white;
                 display: inline-block;
                 font-size: 24px;
                 line-height: 58rpx;
@@ -89,11 +91,38 @@
         line-height: 96rpx;
         width: 646rpx;
         border-radius: 48rpx;
-        background-color: #2F7958;
-        color: #fff;
+        background-color: $primary-color;
+        color: $bg-color-white;
     }
 
     .opacity {
         opacity: 0.5;
+    }
+
+    .emptyState {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40rpx;
+
+        .emptyStateImg {
+            width: 200rpx;
+            height: 200rpx;
+            margin-bottom: 40rpx;
+        }
+
+        .emptyStateText {
+            font-size: 32rpx;
+            color: $text-color;
+            margin-bottom: 20rpx;
+        }
+
+        .emptyStateDesc {
+            font-size: 28rpx;
+            color: $text-color-placeholder;
+            text-align: center;
+        }
     }
 }

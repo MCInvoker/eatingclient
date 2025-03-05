@@ -1,10 +1,12 @@
+@import '../../styles/variables.scss';
+
 .page {
     height: 100vh;
-    background-color: #f6f6f6;
+    background-color: $bg-color;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 
     .form {
         flex: 1;
@@ -13,7 +15,6 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        width: 100%;
 
         .formLiLR {
             margin-top: 40rpx;
@@ -22,25 +23,22 @@
             padding: 30rpx 40rpx;
             display: flex;
             justify-content: flex-start;
-            background-color: #fff;
+            background-color: $bg-color-white;
             border-radius: 30rpx;
 
             .formLiL {
                 font-size: 28rpx;
                 line-height: 40rpx;
-                color: #333;
+                color: $text-color;
                 font-weight: bold;
                 margin-right: 60rpx;
             }
-
-
 
             .formLiR {
                 flex: 1;
                 font-size: 28rpx;
                 line-height: 40rpx;
             }
-
         }
 
         // 两边靠齐
@@ -63,15 +61,9 @@
                 margin-right: 60rpx;
             }
         }
-
+        
         .opacity {
             opacity: 0.5;
-        }
-
-        .placeholderClass {
-            font-size: 28rpx;
-            line-height: 40rpx;
-            color: #999;
         }
 
         .formLiTB {
@@ -82,13 +74,13 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            background-color: #fff;
+            background-color: $bg-color-white;
             border-radius: 30rpx;
 
             .formLiT {
                 font-size: 28rpx;
                 line-height: 40rpx;
-                color: #333;
+                color: $text-color;
                 font-weight: bold;
             }
 
@@ -114,8 +106,8 @@
                     margin-right: -30rpx;
 
                     .formCheckItem {
-                        background-color: #fafafa;
-                        color: #333;
+                        background-color: $bg-color;
+                        color: $text-color;
                         font-size: 24rpx;
                         line-height: 50rpx;
                         border-radius: 30rpx;
@@ -135,8 +127,8 @@
                     }
 
                     .formCheckItemActive {
-                        background-color: #2f7958;
-                        color: #fff;
+                        background-color: $primary-color;
+                        color: $bg-color-white;
                         font-size: 24rpx;
                         line-height: 50rpx;
                         border-radius: 30rpx;
@@ -163,7 +155,7 @@
                     width: 154rpx;
                     height: 154rpx;
                     border-radius: 30rpx;
-                    background-color: #fafafa;
+                    background-color: $bg-color;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -191,12 +183,8 @@
                         align-items: center;
                         padding: 0;
                         font-size: 24rpx;
-                        color: #333;
-
-                        // .deleteImageIcon {
-                        //     width: 40rpx;
-                        //     height: 40rpx;
-                        // }
+                        color: $text-color;
+                        background-color: $delete-color;
                     }
 
                     .deleteImageButton::after {
@@ -213,7 +201,7 @@
                     width: 154rpx;
                     height: 154rpx;
                     border-radius: 30rpx;
-                    background-color: #fafafa;
+                    background-color: $bg-color;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -227,7 +215,7 @@
                     }
 
                     .uploadImgText {
-                        color: #333;
+                        color: $text-color;
                         font-size: 24rpx;
                         line-height: 40rpx;
                     }
@@ -244,13 +232,13 @@
             line-height: 96rpx;
             width: 646rpx;
             border-radius: 48rpx;
-            background-color: #2F7958;
-            color: #fff;
+            background-color: $primary-color;
+            color: $bg-color-white;
         }
     }
 
     .required::after {
         content: '*';
-        color: red;
+        color: $error-color;
     }
 }

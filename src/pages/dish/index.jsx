@@ -11,14 +11,14 @@ import { getStorageSync } from '../../utils/utils'
 export default function Dish () {
     const [isFirst, setIsFirst] = useState(true); // 是否第一次进入页面
     const [name, setName] = useState(''); // 菜肴名称搜索
-    const [dishes, setDishes] = useState(getStorageSync('dishes', [])); // 菜肴列表 // todo， 缓存中取
+    const [dishes, setDishes] = useState(getStorageSync('dishes', [])); // 菜肴列表
     const [dishId, setDishId] = useState(''); // 显示删除弹窗时，选中的菜肴id
     const [deleteDialog, setDeleteDialog] = useState(false); // 删除菜肴弹窗显示隐藏控制
 
     // 获取菜肴列表
     const { run: getDishesFn } = useRequest(getDishes, {
         debounceWait: 300,
-        debounceLeading: true, // 虽然开了防抖，但立马执行
+        debounceLeading: true,
         manual: true,
         onSuccess: (res, params) => {
             setDishes(res.data)
@@ -28,7 +28,7 @@ export default function Dish () {
         }
     });
 
-    // 删除菜肴菜肴
+    // 删除菜肴
     const { run: deleteDishFn } = useRequest(deleteDish, {
         manual: true,
         onSuccess: (res) => {
@@ -74,10 +74,10 @@ export default function Dish () {
     });
 
     useEffect(() => {
-            getDishesFn({ name })
+        getDishesFn({ name })
     }, [name])
 
-    // 重新回到页面刷新，   todo 后期优化，按需刷新
+    // 重新回到页面刷新
     useDidShow(() => {
         if (isFirst) {
             setIsFirst(false)
@@ -129,39 +129,47 @@ export default function Dish () {
                     setName(e.detail.value)
                 }}
             />
-            <View className='dishList'>
-                {dishes.map((dish) => {
-                    return (
-                        <View
-                            className={dish.is_disclosure === "1" ? "dishItem" : "dishItem opacity"}
-                            onClick={() => handleEditDish(dish.dish_id)}
-                        >
-                            <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_food} mode="aspectFill" />
-                            <Text className='dishName'>{dish.name}</Text>
-                            <Switch
-                                className='dishSwitch'
-                                color="#2f7958"
-                                checked={dish.is_disclosure === "1"}
-                                onChange={(e) => {
-                                    handleDishIsDisclosureChange(e, dish.dish_id)
-                                    e.stopPropagation(); // 阻止事件冒泡
-                                }}
-                                onClick={(e) => {
-                                    e.stopPropagation(); // 阻止事件冒泡
-                                }}
-                            />
-                            <Button
-                                className='dishDelete'
-                                type='primary'
-                                onClick={(e) => {
-                                    setDishId(dish.dish_id)
-                                    setDeleteDialog(true)
-                                    e.stopPropagation(); // 阻止事件冒泡
-                                }}
-                            >删除</Button>
-                        </View>)
-                })}
-            </View>
+            {dishes.length > 0 ? (
+                <View className='dishList'>
+                    {dishes.map((dish) => {
+                        return (
+                            <View
+                                className={dish.is_disclosure === "1" ? "dishItem" : "dishItem opacity"}
+                                onClick={() => handleEditDish(dish.dish_id)}
+                            >
+                                <Image className='dishImg' style={{ width: "76rpx", height: '76rpx' }} src={dish?.dish_images?.length > 0 ? dish.dish_images[0].url : URL_food} mode="aspectFill" />
+                                <Text className='dishName'>{dish.name}</Text>
+                                <Switch
+                                    className='dishSwitch'
+                                    color="#2f7958"
+                                    checked={dish.is_disclosure === "1"}
+                                    onChange={(e) => {
+                                        handleDishIsDisclosureChange(e, dish.dish_id)
+                                        e.stopPropagation();
+                                    }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                    }}
+                                />
+                                <Button
+                                    className='dishDelete'
+                                    type='primary'
+                                    onClick={(e) => {
+                                        setDishId(dish.dish_id)
+                                        setDeleteDialog(true)
+                                        e.stopPropagation();
+                                    }}
+                                >删除</Button>
+                            </View>)
+                    })}
+                </View>
+            ) : (
+                <View className='emptyState'>
+                    <Image className='emptyStateImg' src={URL_food} mode='aspectFit'></Image>
+                    <Text className='emptyStateText'>还没有创建任何菜肴</Text>
+                    <Text className='emptyStateDesc'>点击下方按钮开始创建您的第一道菜</Text>
+                </View>
+            )}
             <Button className='addDishBut' type='primary' onClick={() => handleAddDish()}>新增菜肴</Button>
             {deleteDialog && <Dialog
                 title="温馨提示"
