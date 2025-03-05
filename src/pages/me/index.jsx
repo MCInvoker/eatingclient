@@ -1,7 +1,7 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
-import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual } from '../../assets/imageOssUrl'
+import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual, URL_about } from '../../assets/imageOssUrl'
 import { useRequest } from "ahooks";
 import { getUserDetails } from "../../api/user";
 import { useState } from 'react'
@@ -40,6 +40,11 @@ const otherInletList = [
         path: '/pages/userManual/index',
         icon: URL_userManual
         // icon: URL_userManualAi
+    },
+    {
+        title: '关于我们',
+        path: '/pages/about/index',
+        icon: URL_about
     }
 ]
 

@@ -30,6 +30,7 @@ export const URL_dishCategory = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com
 export const URL_dishTag = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dishTag.png";
 export const URL_food = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/meishi.svg";
 export const URL_userManual = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/userManual.svg";
+export const URL_about = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/about.svg";
 export const URL_orderHistory = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/orderHistory.png";
 export const URL_orderList = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/orderList.png";
 export const URL_dining = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dining.svg";
