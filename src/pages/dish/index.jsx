@@ -10,7 +10,15 @@ import Dialog from '../../components/Dialog';
 export default function Dish () {
     const [isFirst, setIsFirst] = useState(true); // 是否第一次进入页面
     const [name, setName] = useState(''); // 菜肴名称搜索
-    const [dishes, setDishes] = useState(Taro.getStorageSync('dishes') || []); // 菜肴列表
+    const [dishes, setDishes] = useState(() => {
+        const storedDishes = Taro.getStorageSync('dishes');
+        if (Array.isArray(storedDishes)) {
+          return storedDishes;
+        } else {
+          Taro.setStorageSync('dishes', []);
+          return [];
+        }
+    }); // 菜肴列表
     const [dishId, setDishId] = useState(''); // 显示删除弹窗时，选中的菜肴id
     const [deleteDialog, setDeleteDialog] = useState(false); // 删除菜肴弹窗显示隐藏控制
 
