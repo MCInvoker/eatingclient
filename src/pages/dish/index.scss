@@ -72,16 +72,21 @@
             }
 
             .dishDelete {
-                width: 104rpx;
+                width: 58rpx;
                 height: 58rpx;
-                box-sizing: border-box;
                 background-color: $delete-color;
                 color: $bg-color-white;
-                display: inline-block;
-                font-size: 24px;
-                line-height: 58rpx;
                 border-radius: 29rpx;
                 margin-left: 30rpx;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+                .dishDeleteImg {
+                    width: 32rpx;
+                    height: 32rpx;
+                }
             }
         }
     }

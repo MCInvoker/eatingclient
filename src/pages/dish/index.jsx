@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import './index.scss'
 import { getDishes, deleteDish, disclosureDish } from '../../api/dish'
 import { useRequest } from "ahooks";
-import { URL_avatar, URL_food } from '../../assets/imageOssUrl'
+import { URL_avatar, URL_food, URL_deleteFFF } from '../../assets/imageOssUrl'
 import Dialog from '../../components/Dialog';
 
 export default function Dish () {
@@ -177,7 +177,9 @@ export default function Dish () {
                                         setDeleteDialog(true)
                                         e.stopPropagation();
                                     }}
-                                >删除</Button>
+                                >
+                                    <Image className='dishDeleteImg' src={URL_deleteFFF} mode="aspectFit"></Image>
+                                </Button>
                             </View>)
                     })}
                 </View>

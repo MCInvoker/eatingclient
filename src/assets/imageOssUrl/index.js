@@ -7,6 +7,7 @@
 // 基础操作图标
 export const URL_add = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/add.svg";
 export const URL_addFFF = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/addFFF.svg";
+export const URL_deleteFFF = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/deleteFFF.svg";
 export const URL_minus = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/minus.svg";
 export const URL_minusFFF = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/minusFFF.svg";
 export const URL_close = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/close.svg";
