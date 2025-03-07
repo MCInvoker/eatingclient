@@ -49,13 +49,11 @@ const DishEdit = () => {
                 setName(dishInfo.name);
                 dishInfo.description && setDescription(dishInfo.description);
                 if (dishInfo.dish_images && dishInfo.dish_images.length > 0) {
-                    setSelectImage(dishInfo.dish_images.map((item) => {
-                        return {
-                            url: item.url,
-                            width: item.width,
-                            height: item.height
-                        }
-                    }))
+                    setSelectImage(dishInfo.dish_images.map((item) => ({
+                        url: item.url,
+                        width: item.width,
+                        height: item.height
+                    })));
                 }
                 setIsDisclosure(dishInfo.is_disclosure);
                 setCategories(dishInfo.dish_categories.map((item) => item.category_id))
@@ -329,16 +327,30 @@ const DishEdit = () => {
                 sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             });
-            const newImageList = result.tempFilePaths.map((item) => {
-                return {
-                    url: item,
-                    width: 1,
-                    height: 1,
-                }
-            })
 
-            setSelectImage([...selectImage, ...newImageList])
+            // 使用Promise.all并行获取所有图片信息
+            const imageInfoPromises = result.tempFilePaths.map(path => 
+                Taro.getImageInfo({
+                    src: path
+                })
+            );
+            
+            const imageInfos = await Promise.all(imageInfoPromises);
+            
+            const newImageList = imageInfos.map(info => ({
+                url: info.path,
+                width: info.width,
+                height: info.height
+            }));
+
+            setSelectImage([...selectImage, ...newImageList]);
+            console.log(selectImage)
         } catch (error) {
+            Taro.showToast({
+                title: '获取图片信息失败',
+                icon: 'error',
+                duration: 2000
+            });
         }
     }
 
@@ -346,17 +358,6 @@ const DishEdit = () => {
     const handleDeleteImg = (value) => {
         let newSeleteImage = _.cloneDeep(selectImage).filter((item) => item.url !== value)
         setSelectImage(newSeleteImage)
-    }
-
-    // 图片加载后设置图片框高
-    const selectImageWidthHeightChange = (e, index) => {
-        setSelectImage(prevState => {
-            // 克隆当前状态，以避免修改原始状态
-            const updatedState = _.cloneDeep(prevState);
-            updatedState[index].width = e.detail.width;
-            updatedState[index].height = e.detail.height;
-            return updatedState;
-        });
     }
 
     // 添加分类
@@ -481,7 +482,7 @@ const DishEdit = () => {
                 </View>
             )}
             {/* 加载图片，用于获取图片原始框高 */}
-            {
+            {/* {
                 selectImage.map((item, index) => {
                     if (!item.url.includes("https")) {
                         return (
@@ -497,7 +498,7 @@ const DishEdit = () => {
                         return null
                     }
                 })
-            }
+            } */}
 
         </View>
         <View className="buttonBox">
