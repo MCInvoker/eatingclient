@@ -5,7 +5,7 @@ import { useRequest } from "ahooks";
 import { getMyOrderHistoryList } from "../../api/order";
 import Taro, { useDidShow } from "@tarojs/taro";
 import { formatDate } from "../../utils/utils";
-import { URL_avatar } from "../../assets/imageOssUrl";
+import { URL_avatar, URL_right } from "../../assets/imageOssUrl";
 import CurrentDate from "../../components/CurrentDate";
 import "./index.scss";
 
@@ -44,6 +44,13 @@ const MyOrderHistory = () => {
         })
     }
 
+    // 跳转到订单详情
+    const handleToDetail = (orderId) => {
+        Taro.navigateTo({
+            url: `/pages/orderDetail/index?id=${orderId}`
+        })
+    }
+
     return (
         <View className="myOrderPage">
             <ScrollView
@@ -58,6 +65,7 @@ const MyOrderHistory = () => {
                         orderList.map((order) => {
                             return (
                                 <View className="order">
+                                    <View className="orderContent">
                                     <View className="orderTop">
                                         <Image className="avatar" src={order?.Chef?.avatar || URL_avatar} />
                                         <View className="nameTime">
@@ -78,8 +86,15 @@ const MyOrderHistory = () => {
                                     {order.note && (
                                         <Text className="note">
                                             {order.note}
-                                        </Text>
-                                    )}
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <View 
+                                        className="toDetailButton"
+                                        onClick={() => handleToDetail(order.order_id)}
+                                    >
+                                        <Image className="rightIcon" src={URL_right} />
+                                    </View>
                                 </View>
                             )
                         })

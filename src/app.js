@@ -6,6 +6,7 @@ import './app.scss'
 function App ({ children }) {
     useLaunch(async () => {
         try {
+            Taro.setStorageSync('token', ""); // 防止后端重启服务后l老token导致的错误
             await getToken();
         } catch (error) {
             console.error('Failed to get token during launch:', error);

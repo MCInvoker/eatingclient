@@ -27,7 +27,8 @@
             background-color: #fff;
             border-radius: 30rpx;
             margin-bottom: 40rpx;
-            // margin: 0 -40rpx 40rpx;
+            padding-right: 100rpx;
+            position: relative;
 
             .orderTop {
                 display: flex;
@@ -107,6 +108,23 @@
                 font-size: 28rpx;
                 line-height: 50rpx;
                 color: #999;
+            }
+
+            .toDetailButton {
+                width: 80px;
+                height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%) ;
+
+                .rightIcon {
+                    width: 40px;
+                    height: 40px;
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ export default defineAppConfig({
         'pages/myOrderHistory/index',
         'pages/userManual/index',
         'pages/about/index',
+        'pages/orderDetail/index',
     ],
     tabBar: {
         list: [

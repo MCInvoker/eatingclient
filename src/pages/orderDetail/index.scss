@@ -1,0 +1,183 @@
+@import "../../styles/variables.scss";
+
+.orderDetailPage {
+    min-height: 100vh;
+    background-color: $bg-color;
+    padding: 30rpx;
+
+    .statusBox {
+        background-color: $bg-color-white;
+        border-radius: 20rpx;
+        padding: 30rpx;
+        margin-bottom: 30rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+
+        .status {
+            font-size: 36rpx;
+            font-weight: bold;
+            color: $primary-color;
+            background-color: $primary-bg;
+            padding: 12rpx 30rpx;
+            border-radius: 30rpx;
+        }
+
+        .orderTime {
+            font-size: 26rpx;
+            color: $text-color-light;
+        }
+    }
+
+    .userInfo {
+        background-color: $bg-color-white;
+        border-radius: 20rpx;
+        padding: 30rpx;
+        margin-bottom: 30rpx;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+        position: relative;
+        .chefHat {
+            position: absolute;
+            left: 69rpx;
+            top: 16rpx;
+            width: 50rpx;
+            height: 50rpx;
+            z-index: 1;
+        }
+        .tableware {
+            position: absolute;
+            left: 69rpx;
+            bottom: 16rpx;
+            width: 50rpx;
+            height: 50rpx;
+            z-index: 1;
+        }
+        .avatar {
+            width: 120rpx;
+            height: 120rpx;
+            border-radius: 50%;
+            margin-right: 30rpx;
+            border: 4rpx solid $primary-bg;
+            position: relative;
+            z-index: 2;
+        }
+
+        .userInfoRight {
+            flex: 1;
+
+            .nickname {
+                font-size: 34rpx;
+                font-weight: bold;
+                color: $text-color;
+                margin-bottom: 12rpx;
+                display: block;
+            }
+
+            .role {
+                font-size: 26rpx;
+                color: $text-color-light;
+                margin-bottom: 16rpx;
+                display: block;
+            }
+
+            .titles {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12rpx;
+
+                .title {
+                    font-size: 24rpx;
+                    color: $primary-color;
+                    background-color: $primary-bg;
+                    padding: 8rpx 24rpx;
+                    border-radius: 24rpx;
+                }
+            }
+        }
+    }
+    .customerInfo {
+        padding-bottom: 60rpx;
+    }
+    .chefInfo {
+        padding-top: 60rpx;
+    }
+
+    .dishes {
+        .smallImageDishLi {
+            width: 690rpx;
+            background-color: #fff;
+            border-radius: 20rpx;
+            margin: 0 auto 30rpx;
+            min-height: 184rpx;
+            box-sizing: border-box;
+            padding: 40rpx;
+
+            .smallImageDishLiTop {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 20rpx;
+
+                .smallImageDishLiImg {
+                    width: 156rpx;
+                    height: 156rpx;
+                    margin-right: 40rpx;
+                    border-radius: 30rpx;
+                }
+
+                .smallImageDishLiNameDescription {
+                    flex: 1;
+                    padding-top: 12rpx;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+
+                    .smallImageDishLiName {
+                        display: inline-block;
+                        font-size: 32rpx;
+                        line-height: 50rpx;
+                        color: #333;
+                        margin-bottom: 16px;
+                        font-weight: bold;
+                    }
+
+                    .smallImageDishLiDescription {
+                        display: inline-block;
+                        font-size: 24rpx;
+                        line-height: 40rpx;
+                        color: #999;
+                    }
+                }
+            }
+        }
+    }
+
+    .noteBox {
+        background-color: $bg-color-white;
+        border-radius: 20rpx;
+        padding: 30rpx;
+        box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+
+        .noteTitle {
+            font-size: 32rpx;
+            font-weight: bold;
+            color: $text-color;
+            margin-bottom: 16rpx;
+            display: block;
+        }
+
+        .noteContent {
+            font-size: 28rpx;
+            color: $text-color-secondary;
+            line-height: 1.6;
+            background-color: $bg-color;
+            padding: 20rpx;
+            border-radius: 12rpx;
+            display: block;
+        }
+    }
+} 

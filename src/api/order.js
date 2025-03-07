@@ -15,3 +15,9 @@ export const getMyOrderHistoryList = async (data) => {
     const res = await get(urlMyorderhistory, data)
     return res
 }
+
+// 获取订单详情
+export const getOrderDetail = async (data) => {
+    const res = await get(`${urlOrder}/${data}`)
+    return res
+}

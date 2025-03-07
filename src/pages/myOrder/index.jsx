@@ -6,7 +6,7 @@ import { getMyOrderList } from "../../api/order";
 import Taro, { useDidShow } from "@tarojs/taro";
 import { formatDate } from "../../utils/utils";
 import "./index.scss";
-import { URL_avatar } from "../../assets/imageOssUrl";
+import { URL_avatar, URL_right } from "../../assets/imageOssUrl";
 import CurrentDate from "../../components/CurrentDate";
 
 const MyOrder = () => {
@@ -44,6 +44,13 @@ const MyOrder = () => {
         })
     }
 
+    // 跳转到订单详情
+    const handleToDetail = (orderId) => {
+        Taro.navigateTo({
+            url: `/pages/orderDetail/index?id=${orderId}`
+        })
+    }
+
     return (
         <View className="myOrderPage">
             <ScrollView
@@ -58,28 +65,36 @@ const MyOrder = () => {
                         orderList.map((order) => {
                             return (
                                 <View className="order">
-                                    <View className="orderTop">
-                                        <Image className="avatar" src={order?.Customer?.avatar || URL_avatar} />
-                                        <View className="nameTime">
-                                            <Text className="name">{order?.Customer?.nickname}</Text>
-                                            <Text className="createdAt">{formatDate(order.updated_at, 'YYYY-MM-DD HH:mm TY')}</Text>
+                                    <View className="orderContent">
+                                        <View className="orderTop">
+                                            <Image className="avatar" src={order?.Customer?.avatar || URL_avatar} />
+                                            <View className="nameTime">
+                                                <Text className="name">{order?.Customer?.nickname}</Text>
+                                                <Text className="createdAt">{formatDate(order.updated_at, 'YYYY-MM-DD HH:mm TY')}</Text>
+                                            </View>
                                         </View>
+                                        <View className="dishes">
+                                            {order.order_dish_details.map((dish, dishIndex) => {
+                                                return (
+                                                    <View className="dishBox">
+                                                        <Text className="dishName">{dish.dish.name}</Text>
+                                                        {dish.quantity > 1 && <Text className="dishQuantity">*{dish.quantity}</Text>}
+                                                    </View>
+                                                )
+                                            })}
+                                        </View>
+                                        {order.note && (
+                                            <Text className="note">
+                                                {order.note}
+                                            </Text>
+                                        )}
                                     </View>
-                                    <View className="dishes">
-                                        {order.order_dish_details.map((dish, dishIndex) => {
-                                            return (
-                                                <View className="dishBox">
-                                                    <Text className="dishName">{dish.dish.name}</Text>
-                                                    {dish.quantity > 1 && <Text className="dishQuantity">*{dish.quantity}</Text>}
-                                                </View>
-                                            )
-                                        })}
+                                    <View 
+                                        className="toDetailButton"
+                                        onClick={() => handleToDetail(order.order_id)}
+                                    >
+                                        <Image className="rightIcon" src={URL_right} />
                                     </View>
-                                    {order.note && (
-                                        <Text className="note">
-                                            {order.note}
-                                        </Text>
-                                    )}
                                 </View>
                             )
                         })
