@@ -74,6 +74,7 @@ const DishCategoryEdit = () => {
                 icon: 'error',
                 duration: 2000
             })
+            return
         }
         if (categoryId) {
             updateDishCategoryFn({

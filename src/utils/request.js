@@ -53,7 +53,14 @@ export const getToken = async () => {
             // 异步获取用户信息
             getUserDetails().then(userRes => {
                 if (userRes.success) {
-                    Taro.setStorageSync('currentUserInfo', userRes.data);
+                    const currentUserInfo = userRes.data;
+                    Taro.setStorageSync('currentUserInfo', currentUserInfo);
+                    // 如果用户没有头像，并且昵称是干饭人+用户id，则跳转到用户信息页面（新用户）
+                    if (!currentUserInfo.avatar && currentUserInfo.nickname === `干饭人${currentUserInfo.user_id}`) {
+                        Taro.navigateTo({
+                            url: '/pages/userInfo/index',
+                        })
+                    }
                 }
             }).catch(error => {
                 console.error('获取用户信息失败:', error);

@@ -4,7 +4,7 @@ import './index.scss'; // 你可以根据自己的需求自定义样式
 import { URL_drawerClose } from '../../assets/imageOssUrl';
 
 const Drawer = (props) => {
-    const { isOpen, onClose, zIndex = 100, title, bodyRender } = props;
+    const { isOpen, onClose, zIndex = 100, title, bodyRender, drawerStyle = {} } = props;
 
     return (
         <View className={`"drawer-container" ${isOpen ? 'drawer-container-open' : ''}`}>
@@ -16,6 +16,7 @@ const Drawer = (props) => {
             ></View>
             <View
                 className={`drawer ${isOpen ? 'drawer-open' : ''}`}
+                style={drawerStyle}
             >
                 <View className="drawer-content">
                     <View className="drawer-header">

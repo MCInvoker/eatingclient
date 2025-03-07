@@ -24,8 +24,8 @@ const userInfo = () => {
     const [userCode, setUserCode] = useState(''); // 用户编号
     // const [uploading, setUploading] = useState(false);
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
-    const [isCheckUserCode, setIsCheckUserCode] = useState(true);
-
+    const [isCheckUserCode, setIsCheckUserCode] = useState(true); // 校验用户编号是否重复
+    const [isNewUser, setIsNewUser] = useState(false); // 是否是新用户
 
     // 更新用户信息
     const { run: updateUserInfoFn } = useRequest(updateUserInfo, {
@@ -79,6 +79,9 @@ const userInfo = () => {
             setNickname(cachedUserInfo.nickname)
             setAvatar(cachedUserInfo.avatar)
             setUserCode(cachedUserInfo.user_code)
+            if (cachedUserInfo.nickname === `干饭人${cachedUserInfo.user_id}` && !cachedUserInfo.avatar) {
+                setIsNewUser(true)
+            }
         }
         getStsInfoFn()
     }, [])
@@ -179,6 +182,13 @@ const userInfo = () => {
 
     return (
         <View className="page">
+            {isNewUser && (
+                <View className="newUserTip">
+                    <Text className="newUserTipTitle">👋 欢迎加入干饭人！</Text>
+                    <Text className="newUserTipText">完善您的个人信息，开启美食分享之旅</Text>
+                    <Text className="newUserTipDesc">设置昵称和头像，与更多干饭人互动交流</Text>
+                </View>
+            )}
             <View className="form">
                 <View className="formLiLR">
                     <Text className="formLiL required">昵称</Text>
@@ -213,6 +223,24 @@ const userInfo = () => {
                         </Button>
                     </View>
                 </View>
+                <View className="formLiLR">
+                    <Text className="formLiL">用户编号</Text>
+                    <Input
+                        className="formLiR"
+                        value={userCode}
+                        onInput={(e) => {
+                            setUserCode(e.detail.value)
+                            checkUserCodeFn({ user_code: e.detail.value })
+                        }}
+                        type="number"
+                        placeholder="输入便于查找的用户编号"
+                        placeholderClass="placeholderClass"
+                        maxlength={12}
+                    />
+                </View>
+                {!isCheckUserCode && (
+                    <Text className="errorMessage">{userCodeMessage}</Text>
+                )}
                 <View className="formLiTB">
                     <Text className="formLiT">头衔</Text>
                     <View className="formLiB">
@@ -241,24 +269,6 @@ const userInfo = () => {
                         })}
                     </View>
                 </View>
-                <View className="formLiLR">
-                    <Text className="formLiL">用户编号</Text>
-                    <Input
-                        className="formLiR"
-                        value={userCode}
-                        onInput={(e) => {
-                            setUserCode(e.detail.value)
-                            checkUserCodeFn({ user_code: e.detail.value })
-                        }}
-                        type="number"
-                        placeholder="输入便于查找的用户编号"
-                        placeholderClass="placeholderClass"
-                        maxlength={12}
-                    />
-                </View>
-                {!isCheckUserCode && (
-                    <Text className="errorMessage">{userCodeMessage}</Text>
-                )}
             </View>
             <View className="buttonBox">
                 <Button

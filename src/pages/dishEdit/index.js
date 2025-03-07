@@ -1,6 +1,6 @@
 import { View, Button, Input, Text, Textarea, Switch, Image } from "@tarojs/components";
 import './index.scss'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Taro from "@tarojs/taro";
 import { getDishCategories } from "../../api/dishCategory";
 import { getDishTags } from "../../api/dishTag";
@@ -9,7 +9,9 @@ import { getStsInfo } from "../../api/sts";
 import _ from "loadsh";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
-import { URL_uploadImage, URL_close } from "../../assets/imageOssUrl";
+import AddCategory from "../../components/AddCategory";
+import AddTag from "../../components/AddTag";
+import { URL_uploadImage, URL_close, URL_circleAdd } from "../../assets/imageOssUrl";
 import { createDish, getDishes, updateDish } from "../../api/dish";
 
 const DishEdit = () => {
@@ -25,6 +27,8 @@ const DishEdit = () => {
     const [selectImage, setSelectImage] = useState([]); // 待上传菜肴图片
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
     const [buttonLoading, setButtonLoading] = useState(false); // 保存按钮loading状态
+    const addCategoryRef = useRef(null);
+    const addTagRef = useRef(null);
 
     // 获取路由传参，判断是新增还是编辑
     useEffect(() => {
@@ -61,7 +65,7 @@ const DishEdit = () => {
     });
 
     // 获取菜肴分类
-    useRequest(getDishCategories, {
+    const { run: getDishCategoriesFn } = useRequest(getDishCategories, {
         onSuccess: (res) => {
             const resCategories = res.data.map((item) => {
                 return {
@@ -74,7 +78,7 @@ const DishEdit = () => {
     });
 
     // 获取菜肴标签
-    useRequest(getDishTags, {
+    const { run: getDishTagsFn } = useRequest(getDishTags, {
         onSuccess: (res) => {
             const resTags = res.data.map((item) => {
                 return {
@@ -355,6 +359,26 @@ const DishEdit = () => {
         });
     }
 
+    // 添加分类
+    const handleAddCategory = () => {
+        addCategoryRef.current.setIsOpen(true)
+    }
+
+    // 刷新分类列表
+    const handleCategorySuccess = () => {
+        getDishCategoriesFn()
+    }
+
+    // 添加标签
+    const handleAddTag = () => {
+        addTagRef.current.setIsOpen(true)
+    }
+
+    // 刷新标签列表
+    const handleTagSuccess = () => {
+        getDishTagsFn()
+    }
+
     return (<View className="page">
         <View className="form">
             <View className="formLiLR">
@@ -411,6 +435,9 @@ const DishEdit = () => {
             </View>
             {dishCategoriesOptions.length !== 0 && (
                 <View className="formLiTB">
+                    <Button className="formLiTAbsoluteImageButton" onClick={handleAddCategory}>
+                        <Image className="formLiTAbsoluteImage" src={URL_circleAdd}></Image>
+                    </Button>
                     <Text className="formLiT">分类</Text>
                     <View className="formLiB">
                         <View className="formCheckbox">
@@ -432,6 +459,9 @@ const DishEdit = () => {
 
             {dishTagsOptions.length !== 0 && (
                 <View className="formLiTB">
+                    <Button className="formLiTAbsoluteImageButton" onClick={handleAddTag}>
+                        <Image className="formLiTAbsoluteImage" src={URL_circleAdd}></Image>
+                    </Button>
                     <Text className="formLiT">标签</Text>
                     <View className="formLiB">
                         <View className="formCheckbox">
@@ -478,6 +508,8 @@ const DishEdit = () => {
                 disabled={buttonLoading}
             >{dishId ? '更新' : '新增'}</Button>
         </View>
+        <AddCategory ref={addCategoryRef} onSuccess={handleCategorySuccess} />
+        <AddTag ref={addTagRef} onSuccess={handleTagSuccess} />
     </View>)
 }
 

@@ -1,0 +1,97 @@
+@import '../../styles/variables.scss';
+
+.addTag {
+    background-color: $bg-color;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    .form {
+        flex: 1;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        .formLiLR {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            justify-content: flex-start;
+            background-color: $bg-color-white;
+            border-radius: 30rpx;
+
+            .formLiL {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: $text-color;
+                font-weight: bold;
+                margin-right: 60rpx;
+            }
+
+            .formLiR {
+                flex: 1;
+                font-size: 28rpx;
+                line-height: 40rpx;
+            }
+        }
+
+        .placeholderClass {
+            font-size: 28rpx;
+            line-height: 40rpx;
+            color: $text-color-placeholder;
+        }
+
+        .formLiTB {
+            margin-top: 40rpx;
+            width: 670rpx;
+            box-sizing: border-box;
+            padding: 30rpx 40rpx;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: $bg-color-white;
+            border-radius: 30rpx;
+
+            .formLiT {
+                font-size: 28rpx;
+                line-height: 40rpx;
+                color: $text-color;
+                font-weight: bold;
+            }
+
+            .formLiB {
+                background-color: $bg-color;
+                border-radius: 30rpx;
+                margin-top: 30rpx;
+                padding: 20rpx 28rpx;
+                min-height: 200rpx;
+                font-size: 28rpx;
+                line-height: 40rpx;
+                box-sizing: border-box;
+            }
+        }
+    }
+
+    .buttonBox {
+        padding: 60rpx 0;
+
+        .addButton {
+            height: 96rpx;
+            line-height: 96rpx;
+            width: 646rpx;
+            border-radius: 48rpx;
+            background-color: $primary-color;
+            color: $bg-color-white;
+        }
+    }
+
+    .required::after {
+        content: '*';
+        color: $error-color;
+    }
+} 
