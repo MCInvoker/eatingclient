@@ -1,4 +1,5 @@
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
+import { URL_app_logo600 } from '../../../assets/imageOssUrl'
 import './index.scss'
 
 const CHEF_MANUAL = {

@@ -1,6 +1,6 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { URL_app_logo600 } from '../../assets/imageOssUrl'
+import { URL_app_logo600 } from '../../../assets/imageOssUrl'
 import './index.scss'
 
 export default function About() {

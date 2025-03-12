@@ -34,14 +34,14 @@ const otherInletList = [
     //     icon: URL_blindBox
     // },
     {
-        title: '用户手册',
-        path: '/pages/userManual/index',
+        title: '使用手册',
+        path: '/packageA/pages/userManual/index',
         icon: URL_userManual
         // icon: URL_userManualAi
     },
     {
-        title: '关于我们',
-        path: '/pages/about/index',
+        title: '关于',
+        path: '/packageA/pages/about/index',
         icon: URL_about
     }
 ]

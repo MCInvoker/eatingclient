@@ -14,10 +14,25 @@ export default defineAppConfig({
         'pages/order/index',
         'pages/myOrder/index',
         'pages/myOrderHistory/index',
-        'pages/userManual/index',
-        'pages/about/index',
-        'pages/orderDetail/index',
+        'pages/orderDetail/index'
     ],
+    subPackages: [
+        {
+            root: 'packageA',
+            name: 'other',
+            pages: [
+                'pages/userManual/index',
+                'pages/about/index'
+            ],
+            independent: false
+        }
+    ],
+    preloadRule: {
+        'pages/me/index': {
+            network: 'all',
+            packages: ['packageA']
+        }
+    },
     tabBar: {
         list: [
             {
