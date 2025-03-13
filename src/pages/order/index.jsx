@@ -12,6 +12,8 @@ import { createOrder } from "../../api/order"
 
 const Order = () => {
     const [userId, setUserId] = useState(''); // 厨师id
+    const [defaultDishId, setDefaultDishId] = useState(''); // 默认菜肴id
+    const [isFirstRequest, setIsFirstRequest] = useState(true); // 是否第一次请求菜肴列表
     const [name, setName] = useState(''); // 菜肴名称搜索
     const [note, setNote] = useState(''); // 订单备注
     const [chefInfo, setChefInfo] = useState({ // 厨师信息
@@ -46,21 +48,30 @@ const Order = () => {
         manual: true,
         debounceWait: 500,
         debounceLeading: true,
-        onSuccess: (res, params) => {
-            if (params[0].name == '') {
-                setAllDishes(res.data.map((item) => {
+        onSuccess: (res) => {
+            if (isFirstRequest) {
+                const newDishes = _.cloneDeep(res.data)
+                setAllDishes(newDishes.map((item) => {
                     return {
                         ...item,
                         showImageIndex: 0
                     }
                 }))
+                if (defaultDishId) {
+                    const defaultDish = newDishes.find((item) => item.dish_id === Number(defaultDishId));
+                    if (defaultDish) {
+                        handleAddDish(defaultDish)
+                    }
+                }
             }
+
             setDishes(res.data.map((item) => {
                 return {
                     ...item,
                     showImageIndex: 0
                 }
             }))
+            setIsFirstRequest(false)
         }
     });
 
@@ -80,9 +91,14 @@ const Order = () => {
     // 获取厨师id
     useEffect(() => {
         const { router } = Taro.getCurrentInstance();
-        const { id } = router.params;
+        const { id, dish_id } = router.params;
         setUserId(id);
-    })
+        setDefaultDishId(dish_id);
+        if (dish_id) {
+            // setShowAlready(!showAlready)
+            setShowAlready(true)
+        }
+    }, [])
 
     //下单
     const { run: createOrderFn, loading: createOrderLoading } = useRequest(createOrder, {

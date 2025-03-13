@@ -1,0 +1,237 @@
+@import "../../../styles/variables.scss";
+
+.randomFood {
+    min-height: 100vh;
+    background-color: $bg-color;
+    padding: 30rpx;
+    box-sizing: border-box;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30rpx;
+        background-color: $bg-color-white;
+        border-radius: 20rpx;
+        box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+        height: calc(100vh - 60rpx);
+        box-sizing: border-box;
+
+        .wordCloud {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20rpx;
+            position: relative;
+            perspective: 1000rpx;
+            overflow: hidden;
+
+            .wordWrapper {
+                position: relative;
+                margin: 12rpx;
+                transition: transform 0.3s ease;
+
+                .word {
+                    display: inline-block;
+                    padding: 12rpx 24rpx;
+                    border-radius: 30rpx;
+                    color: $text-color;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    z-index: 1;
+                    white-space: nowrap;
+                    animation: gentleShake 3s ease-in-out infinite;
+                    animation-delay: var(--delay);
+
+                    &.highlight {
+                        background-color: $primary-color !important;
+                        color: $bg-color-white;
+                        transform-origin: center center;
+                        transform: scale(1.1);
+                        z-index: 2;
+                        box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+                        animation: strongShake 0.5s ease-in-out infinite;
+                    }
+
+                    &.selected {
+                        background-color: $primary-color !important;
+                        color: $bg-color-white;
+                        font-weight: bold;
+                        transform: scale(1.2);
+                        z-index: 3;
+                        box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.15);
+                        animation: none;
+                    }
+
+                    &:not(.highlight):not(.selected) {
+                        &:hover {
+                            transform: scale(1.05);
+                        }
+                    }
+                }
+            }
+        }
+
+        .empty {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $text-color-light;
+            font-size: 28rpx;
+        }
+
+        .buttons {
+            margin-top: 30rpx;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+
+            .randomButton {
+                width: 400rpx;
+                height: 88rpx;
+                border-radius: 44rpx;
+                background-color: $primary-color;
+                color: $bg-color-white;
+                font-size: 32rpx;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4rpx 16rpx rgba(47, 121, 88, 0.2);
+
+                &[disabled] {
+                    opacity: 0.6;
+                    box-shadow: none;
+                }
+            }
+
+            .resultButtons {
+                display: flex;
+                justify-content: center;
+                gap: 30rpx;
+
+                .resetButton, .orderButton {
+                    width: 200rpx;
+                    height: 80rpx;
+                    border-radius: 40rpx;
+                    font-size: 28rpx;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+
+                    &:active {
+                        transform: scale(0.98);
+                    }
+                }
+
+                .resetButton {
+                    background-color: $bg-color;
+                    color: $text-color;
+
+                    &:hover {
+                        background-color: darken($bg-color, 5%);
+                    }
+                }
+
+                .resetButton::after {
+                    border: none;
+                }
+
+                .orderButton {
+                    background-color: $primary-color;
+                    color: $bg-color-white;
+                    box-shadow: 0 4rpx 16rpx rgba(47, 121, 88, 0.2);
+
+                    &:hover {
+                        background-color: darken($primary-color, 5%);
+                    }
+                }
+            }
+        }
+
+        .result {
+            margin-top: 30rpx;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            padding: 20rpx;
+            background-color: rgba(47, 121, 88, 0.05);
+            border-radius: 16rpx;
+            width: 100%;
+            box-sizing: border-box;
+
+            .resultTitle {
+                font-size: 28rpx;
+                color: $text-color-light;
+                margin-bottom: 16rpx;
+                display: block;
+            }
+
+            .dishName {
+                font-size: 40rpx;
+                font-weight: bold;
+                color: $primary-color;
+                margin-bottom: 16rpx;
+                display: block;
+                animation: scaleIn 0.3s ease;
+            }
+
+            .dishDescription {
+                font-size: 28rpx;
+                color: $text-color-secondary;
+                line-height: 1.6;
+                animation: fadeIn 0.5s ease 0.2s both;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10rpx);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes gentleShake {
+    0%, 100% {
+        transform: rotate(var(--rotate)) translateX(0);
+    }
+    25% {
+        transform: rotate(calc(var(--rotate) - 13deg)) translateX(-5rpx);
+    }
+    75% {
+        transform: rotate(calc(var(--rotate) + 13deg)) translateX(5rpx);
+    }
+}
+
+@keyframes strongShake {
+    0%, 100% {
+        transform: scale(1.1) translateX(0) rotate(var(--rotate));
+    }
+    25% {
+        transform: scale(1.1) translateX(-10rpx) rotate(calc(var(--rotate) - 13deg));
+    }
+    75% {
+        transform: scale(1.1) translateX(10rpx) rotate(calc(var(--rotate) + 13deg));
+    }
+} 

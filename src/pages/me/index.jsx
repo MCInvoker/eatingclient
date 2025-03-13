@@ -28,11 +28,11 @@ const quickInletList = [
 ]
 
 const otherInletList = [
-    // {
-    //     title: '美食盲盒',
-    //     path: '',
-    //     icon: URL_blindBox
-    // },
+    {
+        title: '随机食光',
+        path: '/packageA/pages/randomFood/index',
+        icon: URL_blindBox
+    },
     {
         title: '使用手册',
         path: '/packageA/pages/userManual/index',
