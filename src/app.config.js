@@ -23,7 +23,8 @@ export default defineAppConfig({
             pages: [
                 'pages/userManual/index',
                 'pages/about/index',
-                'pages/randomFood/index'
+                'pages/randomFood/index',
+                'pages/foodCalendar/index'
             ],
             independent: false
         }

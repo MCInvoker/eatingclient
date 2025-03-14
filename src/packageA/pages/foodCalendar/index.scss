@@ -1,0 +1,163 @@
+@import "../../../styles/variables.scss";
+
+.foodCalendar {
+    min-height: 100vh;
+    background-color: $bg-color;
+    padding: 30rpx;
+    box-sizing: border-box;
+
+    .dateList {
+        display: flex;
+        flex-direction: column;
+        gap: 20rpx;
+
+        .dateCard {
+            background-color: $bg-color-white;
+            border-radius: 16rpx;
+            padding: 20rpx;
+            box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+
+            &.history {
+                opacity: 0.8;
+            }
+
+            &.today {
+                background-color: rgba(47, 121, 88, 0.05);
+                border: 2rpx solid $primary-color;
+            }
+
+            &.future {
+                background-color: $bg-color-white;
+            }
+
+            .dateHeader {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16rpx;
+                padding-bottom: 16rpx;
+                border-bottom: 2rpx solid rgba(0, 0, 0, 0.05);
+
+                .dateText {
+                    font-size: 32rpx;
+                    font-weight: bold;
+                    color: $text-color;
+                }
+
+                .mealButtons {
+                    display: flex;
+                    gap: 8rpx;
+
+                    .mealButton {
+                        font-size: 24rpx;
+                        color: $primary-color;
+                        padding: 6rpx 16rpx;
+                        background-color: rgba(47, 121, 88, 0.1);
+                        border-radius: 20rpx;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+
+            .mealsContainer {
+                display: flex;
+                flex-direction: column;
+                gap: 12rpx;
+
+                .mealPreview {
+                    display: flex;
+                    align-items: center;
+                    gap: 12rpx;
+                    padding: 8rpx;
+                    background-color: rgba(47, 121, 88, 0.05);
+                    border-radius: 8rpx;
+
+                    .dishImage {
+                        width: 60rpx;
+                        height: 60rpx;
+                        border-radius: 8rpx;
+                    }
+
+                    .dishName {
+                        font-size: 28rpx;
+                        color: $text-color;
+                        flex: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+
+                .notePreview {
+                    padding: 8rpx;
+                    background-color: rgba(47, 121, 88, 0.05);
+                    border-radius: 8rpx;
+
+                    .noteText {
+                        font-size: 24rpx;
+                        color: $text-color-light;
+                        display: block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+
+    .dishList {
+        padding: 20rpx;
+
+        .dishItem {
+            display: flex;
+            align-items: center;
+            padding: 20rpx;
+            background-color: $bg-color-white;
+            border-radius: 12rpx;
+            margin-bottom: 20rpx;
+            transition: all 0.3s ease;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &:hover {
+                transform: translateY(-2rpx);
+                box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+            }
+
+            .dishImage {
+                width: 120rpx;
+                height: 120rpx;
+                border-radius: 12rpx;
+                margin-right: 20rpx;
+            }
+
+            .dishInfo {
+                flex: 1;
+
+                .dishName {
+                    font-size: 28rpx;
+                    color: $text-color;
+                    margin-bottom: 8rpx;
+                    display: block;
+                }
+
+                .dishDescription {
+                    font-size: 24rpx;
+                    color: $text-color-light;
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
+            }
+        }
+    }
+} 

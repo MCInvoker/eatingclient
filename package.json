@@ -29,7 +29,7 @@
     "dev:jd": "npm run build:jd -- --watch",
     "dev:harmony-hybrid": "npm run build:harmony-hybrid -- --watch",
     "prod:weapp": "cross-env NODE_ENV=production taro build --type weapp",
-    "prod:weapp:watch": "cross-env NODE_ENV=production npm run build:weapp -- --watch"
+    "prod:weapp:watch": "cross-env NODE_ENV=production TARO_ENV=weapp npm run build:weapp -- --watch --no-compress"
   },
   "browserslist": [
     "defaults and fully supports es6-module",

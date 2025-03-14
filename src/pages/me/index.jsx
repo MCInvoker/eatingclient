@@ -16,12 +16,12 @@ const quickInletList = [
         icon: URL_dishCategory
     },
     {
-        title: '订单列表',
+        title: '餐食计划', // 订单列表
         path: '/pages/myOrder/index',
         icon: URL_orderList
     },
     {
-        title: '点餐记录',
+        title: '美食回忆', // 点餐记录
         path: '/pages/myOrderHistory/index',
         icon: URL_orderHistory
     },
@@ -43,7 +43,12 @@ const otherInletList = [
         title: '关于',
         path: '/packageA/pages/about/index',
         icon: URL_about
-    }
+    },
+    // {
+    //     title: '美食日历',
+    //     path: '/packageA/pages/foodCalendar/index',
+    //     icon: URL_about
+    // }
 ]
 
 export default function Me () {

@@ -4,6 +4,23 @@ import { URL_app_logo600 } from '../../../assets/imageOssUrl'
 import './index.scss'
 
 export default function About() {
+    const handleCopy = (text) => {
+        Taro.setClipboardData({
+            data: text,
+            success: () => {
+                Taro.showToast({
+                    title: '复制成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }
+        })
+    }
+
+    const renderEmail = (email) => (
+        <Text className='copyText' onClick={() => handleCopy(email)}>{email}</Text>
+    )
+
     return (
         <View className='container'>
             <View className='logo'>
@@ -49,12 +66,12 @@ export default function About() {
 
                 <View className='section'>
                     <Text className='sectionTitle'>团队介绍</Text>
-                    <Text className='sectionContent'>我是爱秀的演员，一名热爱生活、热爱美食的工程师。目前团队就我一个人，非常欢迎有志之士的加入！联系方式：759302142@qq.com。项目源码地址：https://github.com/MCInvoker/eatingclient。</Text>
+                    <Text className='sectionContent'>我是爱秀的演员，一名热爱生活、热爱美食的工程师。目前团队就我一个人，非常欢迎有志之士的加入！联系方式：{renderEmail('759302142@qq.com')}。项目源码地址：https://github.com/MCInvoker/eatingclient。</Text>
                 </View>
 
                 <View className='section'>
                     <Text className='sectionTitle'>用户反馈与支持</Text>
-                    <Text className='sectionContent'>我们重视每一位用户的宝贵意见。如果您有任何问题、建议或者遇到任何困难，请随时联系我们：759302142@qq.com。我们会竭诚为您提供帮助和支持，共同打造更好的用户体验。</Text>
+                    <Text className='sectionContent'>我们重视每一位用户的宝贵意见。如果您有任何问题、建议或者遇到任何困难，请随时联系我们：{renderEmail('759302142@qq.com')}。我们会竭诚为您提供帮助和支持，共同打造更好的用户体验。</Text>
                 </View>
             </View>
         </View>

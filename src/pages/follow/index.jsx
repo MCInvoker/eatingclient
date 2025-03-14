@@ -58,7 +58,7 @@ export default function Follow () {
         <View className='followPage'>
             {showSearchInput && (<Input
                 className='userSearch'
-                placeholder='输入昵称搜索已关注用户'
+                placeholder='输入昵称搜索'
                 value={nickname}
                 placeholderClass="userSearchPlaceholder"
                 onInput={(e) => {
@@ -91,7 +91,7 @@ export default function Follow () {
                     })
                 }
             </View>
-            <Button className='searchUserButton' type='primary' onClick={() => handleGoSearchUser()}>查找新用户</Button>
+            <Button className='searchUserButton' type='primary' onClick={() => handleGoSearchUser()}>添加家人朋友</Button>
         </View>
     )
 }

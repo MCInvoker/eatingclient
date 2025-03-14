@@ -415,10 +415,6 @@ const DishEdit = () => {
                 </View>
             </View>
 
-            <View className={isDisclosure ? "formLiLRBetween" : "formLiLRBetween opacity"}>
-                <Text className="formLiL">对外展示</Text>
-                <Switch className='formSwitch' color="#2f7958" checked={isDisclosure} onChange={(e) => handleIsDisclosure(e)} />
-            </View>
             <View className="formLiTB">
                 <Text className="formLiT">描述</Text>
                 <Textarea
@@ -481,6 +477,11 @@ const DishEdit = () => {
                     </View>
                 </View>
             )}
+
+            <View className={isDisclosure ? "formLiLRBetween" : "formLiLRBetween opacity"}>
+                <Text className="formLiL">当季食物</Text>
+                <Switch className='formSwitch' color="#2f7958" checked={isDisclosure} onChange={(e) => handleIsDisclosure(e)} />
+            </View>
             {/* 加载图片，用于获取图片原始框高 */}
             {/* {
                 selectImage.map((item, index) => {

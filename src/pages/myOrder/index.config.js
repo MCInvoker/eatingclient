@@ -1,3 +1,3 @@
 export default definePageConfig({
-    navigationBarTitleText: '订单列表'
+    navigationBarTitleText: '餐食计划'
 })

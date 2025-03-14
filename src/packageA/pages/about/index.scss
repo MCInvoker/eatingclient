@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .container {
     padding: 40rpx;
     display: flex;
@@ -72,6 +74,16 @@
                 margin-bottom: 16rpx;
                 display: block;
             }
+        }
+    }
+
+    .copyText {
+        color: $primary-color;
+        text-decoration: underline;
+        display: inline;
+        
+        &:active {
+            opacity: 0.7;
         }
     }
 } 
