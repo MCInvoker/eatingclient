@@ -54,7 +54,7 @@ const MyOrder = () => {
     return (
         <View className="myOrderPage">
             <ScrollView
-                className='myOrderScrollview'
+                className='myOrderScrollView'
                 scrollY
                 scrollWithAnimation
                 onScrollToLower={() => handleGetData()}

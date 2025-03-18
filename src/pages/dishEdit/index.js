@@ -1,10 +1,10 @@
-import { View, Button, Input, Text, Textarea, Switch, Image, MovableArea, MovableView } from "@tarojs/components";
-import './index.scss'
-import { useState, useEffect, useRef, useMemo } from "react";
 import Taro from "@tarojs/taro";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { View, Button, Input, Text, Textarea, Switch, Image, MovableArea, MovableView } from "@tarojs/components";
+import { useRequest } from "ahooks";
 import { getDishCategories } from "../../api/dishCategory";
 import { getDishTags } from "../../api/dishTag";
-import { useRequest } from "ahooks";
+import { createDish, getDishes, updateDish } from "../../api/dish";
 import { getStsInfo } from "../../api/sts";
 import _ from "loadsh";
 import crypto from 'crypto-js';
@@ -12,8 +12,8 @@ import { Base64 } from 'js-base64';
 import AddCategory from "../../components/AddCategory";
 import AddTag from "../../components/AddTag";
 import { URL_uploadImage, URL_close, URL_circleAdd } from "../../assets/imageOssUrl";
-import { createDish, getDishes, updateDish } from "../../api/dish";
 import { rpxToPx, pxToRpx } from "../../utils/utils";
+import './index.scss'
 
 const DishEdit = () => {
     const [dishId, setDishId] = useState(''); // 菜肴id， 编辑菜肴时有用
@@ -31,70 +31,6 @@ const DishEdit = () => {
     const addTagRef = useRef(null); // 添加标签弹窗
     const [replaceImageIndex, setReplaceImageIndex] = useState(null); // 替换图片索引
     const [imageMove, setImageMove] = useState(false); // 图片是否移动
-
-    // 计算图片区域高度
-    const formLiBImagesHeight = useMemo(() => {
-        const length = selectImage.length + 1;
-        const row = Math.ceil(length / 3);
-        return rpxToPx(row * 154 + (row - 1) * 30)
-    }, [selectImage])
-
-    // 获取每个图片的x坐标
-    const getImageX = (index) => {
-        const column = ((index + 1) % 3) === 0 ? 3 : ((index + 1) % 3);
-        if (column === 1) {
-            return rpxToPx(0)
-        } else if (column === 2) {
-            return rpxToPx(154 + 30)
-        } else if (column === 3) {
-            return rpxToPx(308 + 60)
-        }
-    }
-
-    // 获取每个图片的y坐标
-    const getImageY = (index) => {
-        const row = Math.ceil((index + 1) / 3);
-        const y = (row - 1) * 154 + (row - 1) * 30;
-        return rpxToPx(y)
-    }
-
-    // 图片移动
-    const handleImageChange = (e, index) => {
-        console.log("handleImageChange", e, index)
-        const { x, y } = e.detail;
-        // 图片移动时中心点位置
-        const rpxX = pxToRpx(x) + 154 / 2;
-        const rpxY = pxToRpx(y) + 154 / 2;
-        // 计算图片中心点位于哪个格子
-        const column = Math.ceil(rpxX / (154 + 30));
-        const row = Math.ceil(rpxY / (154 + 30));
-        // 计算图片位于哪张图片上方
-        let newReplaceImageIndex = (row - 1) * 3 + column - 1;
-        if (newReplaceImageIndex > selectImage.length - 1) {
-            newReplaceImageIndex = selectImage.length - 1;
-        }
-        setReplaceImageIndex(newReplaceImageIndex)
-    }
-
-    // 图片移动结束
-    const handleImageTouchEnd = (index) => {
-        if (replaceImageIndex === null) {
-            return
-        }
-        if (replaceImageIndex === index) {
-            return
-        }
-        const newSelectImage = _.cloneDeep(selectImage);
-        const moveImage = newSelectImage.splice(index, 1)[0];
-        newSelectImage.splice(replaceImageIndex, 0, moveImage);
-        setSelectImage(newSelectImage)
-        setImageMove(false)
-    }
-
-    // 图片移动开始
-    const handleImageTouchStart = () => {
-        setImageMove(true)
-    }
 
     // 获取路由传参，判断是新增还是编辑
     useEffect(() => {
@@ -121,7 +57,7 @@ const DishEdit = () => {
                         height: item.height
                     })));
                 }
-                setIsDisclosure(dishInfo.is_disclosure);
+                setIsDisclosure(dishInfo.is_disclosure === "1" ? true : false);
                 setCategories(dishInfo.dish_categories.map((item) => item.category_id))
                 setTags(dishInfo.dish_tags.map((item) => item.tag_id))
             }
@@ -154,6 +90,13 @@ const DishEdit = () => {
         }
     });
 
+    // 获取阿里云sts临时凭证，用于图片上传
+    useRequest(getStsInfo, {
+        onSuccess: (res) => {
+            setStsInfo(res.data)
+        }
+    })
+
     // 新增菜肴
     const { run: createDishFn } = useRequest(createDish, {
         manual: true,
@@ -166,11 +109,6 @@ const DishEdit = () => {
             setTimeout(() => {
                 Taro.navigateBack()
             }, 1000)
-        },
-        onFinally: () => {
-            setTimeout(function () {
-                setButtonLoading(false)
-            }, 100)
         }
     })
 
@@ -186,244 +124,11 @@ const DishEdit = () => {
             setTimeout(() => {
                 Taro.navigateBack()
             }, 1000)
-        },
-        onFinally: () => {
-            setTimeout(function () {
-                setButtonLoading(false)
-            }, 100)
         }
     })
-
-    // 获取阿里云sts临时凭证，用于图片上传
-    const { run: getStsInfoFn } = useRequest(getStsInfo, {
-        manual: true,
-        onSuccess: (res) => {
-            setStsInfo(res.data)
-        }
-    })
-
-    useEffect(() => {
-        getStsInfoFn()
-    }, [])
-
-    const handleSave = async () => {
-        if (!name) {
-            Taro.showToast({
-                title: '请输入菜肴名称',
-                icon: 'error',
-                duration: 2000
-            })
-            return
-        }
-        setButtonLoading(true);
-        // 编辑
-        if (dishId) {
-            let images = [];
-            const promises = selectImage.map(async (image, index) => {
-                const tempFilePath = image.url
-                // 已经是网络地址，代表已经上传了
-                if (tempFilePath.includes('https')) {
-                    images[index] = image;
-                    return
-                }
-                const url = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com"
-                const fileType = tempFilePath.split('.').pop();
-                // 云服务器目标路径
-                const key = `uploads/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileType}`;
-                // 上传完图片后，图片的访问地址
-                const ossImgUrl = `${url}/${key}`;
-                let date = new Date();
-                date.setHours(date.getHours() + 1);
-                const policyText = {
-                    expiration: date.toISOString(), // 设置policy过期时间。
-                    conditions: [
-                        // 限制上传大小。
-                        ["content-length-range", 0, 1024 * 1024 * 1024],
-                    ],
-                };
-                async function getFormDataParams () {
-                    const policy = Base64.encode(JSON.stringify(policyText)) // policy必须为base64的string。
-                    // 计算签名。
-                    function computeSignature (accessKeySecret, canonicalString) {
-                        return crypto.enc.Base64.stringify(crypto.HmacSHA1(canonicalString, accessKeySecret));
-                    }
-                    const signature = computeSignature(stsInfo.AccessKeySecret, policy)
-                    const formData = {
-                        OSSAccessKeyId: stsInfo.AccessKeyId,
-                        signature,
-                        policy,
-                        'x-oss-security-token': stsInfo.SecurityToken
-                    }
-                    return formData
-                }
-                const formData = await getFormDataParams();
-                await Taro.uploadFile({
-                    url, // 替换为你的云环境
-                    filePath: tempFilePath,
-                    name: "file",
-                    formData: {
-                        ...formData,
-                        key,
-                    },
-                    success (res) {
-                        if (res.statusCode === 204) {
-                            images[index] = {
-                                url: ossImgUrl,
-                                width: image.width,
-                                height: image.height
-                            }
-                        }
-                    },
-                });
-            })
-            await Promise.all(promises);
-
-            const requestData = {
-                name,
-                description,
-                is_disclosure: isDisclosure,
-                categories,
-                tags,
-                images
-            }
-            updateDishFn(requestData, dishId)
-        } else { // 新增
-
-            let images = [];
-            const promises = selectImage.map(async (image, index) => {
-                const tempFilePath = image.url;
-                const url = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com"
-                const fileType = tempFilePath.split('.').pop();
-                // 云服务器目标路径
-                const key = `uploads/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileType}`;
-                // 上传完图片后，图片的访问地址
-                const ossImgUrl = `${url}/${key}`;
-                let date = new Date();
-                date.setHours(date.getHours() + 1);
-                const policyText = {
-                    expiration: date.toISOString(), // 设置policy过期时间。
-                    conditions: [
-                        // 限制上传大小。
-                        ["content-length-range", 0, 1024 * 1024 * 1024],
-                    ],
-                };
-                async function getFormDataParams () {
-                    const policy = Base64.encode(JSON.stringify(policyText)) // policy必须为base64的string。
-                    // 计算签名。
-                    function computeSignature (accessKeySecret, canonicalString) {
-                        return crypto.enc.Base64.stringify(crypto.HmacSHA1(canonicalString, accessKeySecret));
-                    }
-                    const signature = computeSignature(stsInfo.AccessKeySecret, policy)
-                    const formData = {
-                        OSSAccessKeyId: stsInfo.AccessKeyId,
-                        signature,
-                        policy,
-                        'x-oss-security-token': stsInfo.SecurityToken
-                    }
-                    return formData
-                }
-                const formData = await getFormDataParams();
-                await Taro.uploadFile({
-                    url, // 替换为你的云环境
-                    filePath: tempFilePath,
-                    name: "file",
-                    formData: {
-                        ...formData,
-                        key,
-                    },
-                    success (res) {
-                        if (res.statusCode === 204) {
-                            images[index] = {
-                                url: ossImgUrl,
-                                width: image.width,
-                                height: image.height
-                            }
-                        }
-                    },
-                });
-            })
-            await Promise.all(promises);
-
-            const requestData = {
-                name,
-                description,
-                is_disclosure: isDisclosure,
-                categories,
-                tags,
-                images
-            }
-            createDishFn(requestData)
-        }
-    }
-
-    // 选择分类
-    const handleSelectCategory = (value) => {
-        let newCategories = _.cloneDeep(categories)
-        newCategories.push(value)
-        setCategories(newCategories)
-    }
-
-    // 取消选择分类
-    const handleUnselectCategory = (value) => {
-        let newCategories = _.cloneDeep(categories).filter((item) => item !== value)
-        setCategories(newCategories)
-    }
-
-    // 选择标签
-    const handleSelectTag = (value) => {
-        let newTags = _.cloneDeep(tags)
-        newTags.push(value)
-        setTags(newTags)
-    }
-
-    // 取消选择标签
-    const handleUnselectTag = (value) => {
-        let newTags = _.cloneDeep(tags).filter((item) => item !== value)
-        setTags(newTags)
-    }
 
     const handleIsDisclosure = (e) => {
         setIsDisclosure(e.detail.value)
-    }
-
-    const handleChooseImages = async () => {
-        try {
-            const result = await Taro.chooseImage({
-                count: 9, // 最多可以选择的图片数量
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                edit: true // 开启编辑功能
-            });
-
-            // 使用Promise.all并行获取所有图片信息
-            const imageInfoPromises = result.tempFilePaths.map(path => 
-                Taro.getImageInfo({
-                    src: path
-                })
-            );
-            
-            const imageInfos = await Promise.all(imageInfoPromises);
-            
-            const newImageList = imageInfos.map(info => ({
-                url: info.path,
-                width: info.width,
-                height: info.height
-            }));
-
-            setSelectImage([...selectImage, ...newImageList]);
-        } catch (error) {
-            Taro.showToast({
-                title: '获取图片信息失败',
-                icon: 'error',
-                duration: 2000
-            });
-        }
-    }
-
-    // 删除图片， 保存后才生效
-    const handleDeleteImg = (value) => {
-        let newSeleteImage = _.cloneDeep(selectImage).filter((item) => item.url !== value)
-        setSelectImage(newSeleteImage)
     }
 
     // 添加分类
@@ -445,6 +150,263 @@ const DishEdit = () => {
     const handleTagSuccess = () => {
         getDishTagsFn()
     }
+
+    // 分类和标签选择函数
+    const handleSelectCategory = (value) => {
+        setCategories(prev => [...prev, value]);
+    };
+
+    const handleUnselectCategory = (value) => {
+        setCategories(prev => prev.filter(item => item !== value));
+    };
+
+    const handleSelectTag = (value) => {
+        setTags(prev => [...prev, value]);
+    };
+
+    const handleUnselectTag = (value) => {
+        setTags(prev => prev.filter(item => item !== value));
+    };
+
+    // 预计算不同数量图片时的高度
+    const IMAGE_HEIGHTS = [
+        rpxToPx(154),                    // 1张图片
+        rpxToPx(154),                    // 2张图片
+        rpxToPx(154),                    // 3张图片
+        rpxToPx(338),                    // 4张图片
+        rpxToPx(338),                    // 5张图片
+        rpxToPx(338),                    // 6张图片
+        rpxToPx(522),                    // 7张图片
+        rpxToPx(522),                    // 8张图片
+        rpxToPx(522)                     // 9张图片
+    ];
+
+    // 计算图片区域高度
+    const formLiBImagesHeight = useMemo(() => {
+        return IMAGE_HEIGHTS[selectImage.length] || IMAGE_HEIGHTS[0];
+    }, [selectImage.length]);
+
+    // 预计算9张图片的位置信息
+    const IMAGE_POSITIONS = [
+        { x: rpxToPx(0), y: rpxToPx(0) },                    // 第1张
+        { x: rpxToPx(154 + 30), y: rpxToPx(0) },            // 第2张
+        { x: rpxToPx(308 + 60), y: rpxToPx(0) },            // 第3张
+        { x: rpxToPx(0), y: rpxToPx(154 + 30) },            // 第4张
+        { x: rpxToPx(154 + 30), y: rpxToPx(154 + 30) },     // 第5张
+        { x: rpxToPx(308 + 60), y: rpxToPx(154 + 30) },     // 第6张
+        { x: rpxToPx(0), y: rpxToPx(308 + 60) },            // 第7张
+        { x: rpxToPx(154 + 30), y: rpxToPx(308 + 60) },     // 第8张
+        { x: rpxToPx(308 + 60), y: rpxToPx(308 + 60) }      // 第9张
+    ];
+
+    // 抽取OSS上传相关函数
+    const getOSSPolicy = () => {
+        let date = new Date();
+        date.setHours(date.getHours() + 1);
+        return {
+            expiration: date.toISOString(),
+            conditions: [
+                ["content-length-range", 0, 1024 * 1024 * 1024],
+            ],
+        };
+    };
+
+    const getOSSSignature = (policy, accessKeySecret) => {
+        return crypto.enc.Base64.stringify(
+            crypto.HmacSHA1(policy, accessKeySecret)
+        );
+    };
+
+    const getOSSFormData = (stsInfo) => {
+        const policyText = getOSSPolicy();
+        const policy = Base64.encode(JSON.stringify(policyText));
+        const signature = getOSSSignature(policy, stsInfo.AccessKeySecret);
+        
+        return {
+            OSSAccessKeyId: stsInfo.AccessKeyId,
+            signature,
+            policy,
+            'x-oss-security-token': stsInfo.SecurityToken
+        };
+    };
+
+    // 图片上传函数
+    const uploadImageToOSS = async (tempFilePath, stsInfo) => {
+        try {
+            const url = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com";
+            const fileType = tempFilePath.split('.').pop();
+            const key = `uploads/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileType}`;
+            const ossImgUrl = `${url}/${key}`;
+
+            const formData = getOSSFormData(stsInfo);
+            formData.key = key;
+
+            const uploadResult = await Taro.uploadFile({
+                url,
+                filePath: tempFilePath,
+                name: "file",
+                formData
+            });
+
+            if (uploadResult.statusCode === 204) {
+                const imageInfo = await Taro.getImageInfo({
+                    src: ossImgUrl
+                });
+
+                return {
+                    url: ossImgUrl,
+                    width: imageInfo.width,
+                    height: imageInfo.height
+                };
+            }
+            throw new Error('上传失败');
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    // 图片选择函数
+    const handleChooseImages = async () => {
+        try {
+            const remainingCount = 9 - selectImage.length;
+            if (remainingCount <= 0) {
+                Taro.showToast({
+                    title: '最多上传9张图片',
+                    icon: 'none',
+                    duration: 2000
+                });
+                return;
+            }
+
+            const result = await Taro.chooseImage({
+                count: remainingCount,
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                edit: true // 开启编辑功能
+            });
+
+            // 批量获取图片信息
+            const imageInfos = await Promise.all(
+                result.tempFilePaths.map(path => 
+                    Taro.getImageInfo({ src: path })
+                )
+            );
+            
+            const newImageList = imageInfos.map(info => ({
+                url: info.path,
+                width: info.height,
+                height: info.height
+            }));
+
+            setSelectImage(prev => [...prev, ...newImageList]);
+        } catch (error) {
+            Taro.showToast({
+                title: '获取图片信息失败',
+                icon: 'error',
+                duration: 2000
+            });
+        }
+    };
+
+    // 图片删除函数
+    const handleDeleteImg = (url) => {
+        setSelectImage(prev => prev.filter(item => item.url !== url));
+    };
+
+    // 保存函数
+    const handleSave = async () => {
+        if (!name) {
+            Taro.showToast({
+                title: '请输入菜肴名称',
+                icon: 'error',
+                duration: 2000
+            });
+            return;
+        }
+
+        setButtonLoading(true);
+
+        try {
+            // 批量上传图片
+            const uploadPromises = selectImage.map(async (image) => {
+                if (image.url.includes('https')) {
+                    return image;
+                }
+                return await uploadImageToOSS(image.url, stsInfo);
+            });
+
+            const images = await Promise.all(uploadPromises);
+
+            const requestData = {
+                name,
+                description,
+                is_disclosure: isDisclosure ? "1" : "0",
+                categories,
+                tags,
+                images
+            };
+
+            if (dishId) {
+                await updateDishFn(requestData, dishId);
+            } else {
+                await createDishFn(requestData);
+            }
+
+        } catch (error) {
+            Taro.showToast({
+                title: '保存失败',
+                icon: 'error',
+                duration: 2000
+            });
+        } finally {
+            setButtonLoading(false);
+        }
+    };
+
+    // 图片移动相关函数
+    const handleImageChange = (e, index) => {
+        const { x, y } = e.detail;
+        // 图片移动时中心点位置
+        const rpxX = pxToRpx(x) + 154 / 2;
+        const rpxY = pxToRpx(y) + 154 / 2;
+        
+        let newReplaceImageIndex = 0;
+        // 计算图片中心点位于哪个格子
+        const column = Math.ceil(rpxX / (154 + 30));
+        const row = Math.ceil(rpxY / (154 + 30));
+        // 计算图片位于哪张图片上方
+        newReplaceImageIndex = (row - 1) * 3 + column - 1;
+        
+        if (newReplaceImageIndex > selectImage.length - 1) {
+            newReplaceImageIndex = selectImage.length - 1;
+        }
+        
+        if (newReplaceImageIndex !== replaceImageIndex) {
+            setReplaceImageIndex(newReplaceImageIndex);
+        }
+    };
+
+    // 图片移动开始
+    const handleImageTouchStart = () => {
+        setImageMove(true)
+    }
+
+    // 图片移动结束
+    const handleImageTouchEnd = (index) => {
+        if (replaceImageIndex === null || replaceImageIndex === index) {
+            setImageMove(false);
+            return;
+        }
+
+        setSelectImage(prev => {
+            const newImages = [...prev];
+            const moveImage = newImages.splice(index, 1)[0];
+            newImages.splice(replaceImageIndex, 0, moveImage);
+            return newImages;
+        });
+        
+        setImageMove(false);
+    };
 
     return (<View className="page">
         <View className="form">
@@ -472,8 +434,8 @@ const DishEdit = () => {
                             <MovableView
                                 className={replaceImageIndex === index && imageMove ? "selectImageBox selectImageBoxActive" : "selectImageBox"}
                                 key={item.url}
-                                x={getImageX(index)}
-                                y={getImageY(index)}
+                                x={IMAGE_POSITIONS[index].x}
+                                y={IMAGE_POSITIONS[index].y}
                                 direction="all"
                                 onChange={(e, index) => handleImageChange(e, index)}
                                 onTouchStart={() => handleImageTouchStart()}
@@ -487,17 +449,17 @@ const DishEdit = () => {
                             </MovableView>
                         )
                     })}
-                    <View
+                    {selectImage.length < 9 && <View
                         className="uploadImgBox"
                         onClick={handleChooseImages}
                         style={{
-                            left: getImageX(selectImage.length),
-                            top: getImageY(selectImage.length)
+                            left: IMAGE_POSITIONS[selectImage.length].x,
+                            top: IMAGE_POSITIONS[selectImage.length].y
                         }}
                     >
                         <Image className="uploadImgLogo" mode="aspectFit" src={URL_uploadImage}></Image>
                         <Text className="uploadImgText">点击上传</Text>
-                    </View>
+                    </View>}
                 </MovableArea>
             </View>
 
