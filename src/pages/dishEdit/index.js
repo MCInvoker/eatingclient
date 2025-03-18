@@ -27,8 +27,8 @@ const DishEdit = () => {
     const [selectImage, setSelectImage] = useState([]); // 待上传菜肴图片
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
     const [buttonLoading, setButtonLoading] = useState(false); // 保存按钮loading状态
-    const addCategoryRef = useRef(null);
-    const addTagRef = useRef(null);
+    const addCategoryRef = useRef(null); // 添加分类弹窗
+    const addTagRef = useRef(null); // 添加标签弹窗
     const [replaceImageIndex, setReplaceImageIndex] = useState(null); // 替换图片索引
     const [imageMove, setImageMove] = useState(false); // 图片是否移动
 
