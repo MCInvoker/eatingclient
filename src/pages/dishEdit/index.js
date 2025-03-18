@@ -1,6 +1,6 @@
-import { View, Button, Input, Text, Textarea, Switch, Image } from "@tarojs/components";
+import { View, Button, Input, Text, Textarea, Switch, Image, MovableArea, MovableView } from "@tarojs/components";
 import './index.scss'
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Taro from "@tarojs/taro";
 import { getDishCategories } from "../../api/dishCategory";
 import { getDishTags } from "../../api/dishTag";
@@ -13,6 +13,7 @@ import AddCategory from "../../components/AddCategory";
 import AddTag from "../../components/AddTag";
 import { URL_uploadImage, URL_close, URL_circleAdd } from "../../assets/imageOssUrl";
 import { createDish, getDishes, updateDish } from "../../api/dish";
+import { rpxToPx, pxToRpx } from "../../utils/utils";
 
 const DishEdit = () => {
     const [dishId, setDishId] = useState(''); // 菜肴id， 编辑菜肴时有用
@@ -23,12 +24,77 @@ const DishEdit = () => {
     const [tags, setTags] = useState([]); // 菜肴标签已选项
     const [dishTagsOptions, setDishTagsOptions] = useState([]); // 菜肴标签可选项
     const [isDisclosure, setIsDisclosure] = useState(true); // 菜肴是否展示公开
-    // const [images, setImages] = useState([]); // 菜肴图片
     const [selectImage, setSelectImage] = useState([]); // 待上传菜肴图片
     const [stsInfo, setStsInfo] = useState({}) // oss上传所需签名信息
     const [buttonLoading, setButtonLoading] = useState(false); // 保存按钮loading状态
     const addCategoryRef = useRef(null);
     const addTagRef = useRef(null);
+    const [replaceImageIndex, setReplaceImageIndex] = useState(null); // 替换图片索引
+    const [imageMove, setImageMove] = useState(false); // 图片是否移动
+
+    // 计算图片区域高度
+    const formLiBImagesHeight = useMemo(() => {
+        const length = selectImage.length + 1;
+        const row = Math.ceil(length / 3);
+        return rpxToPx(row * 154 + (row - 1) * 30)
+    }, [selectImage])
+
+    // 获取每个图片的x坐标
+    const getImageX = (index) => {
+        const column = ((index + 1) % 3) === 0 ? 3 : ((index + 1) % 3);
+        if (column === 1) {
+            return rpxToPx(0)
+        } else if (column === 2) {
+            return rpxToPx(154 + 30)
+        } else if (column === 3) {
+            return rpxToPx(308 + 60)
+        }
+    }
+
+    // 获取每个图片的y坐标
+    const getImageY = (index) => {
+        const row = Math.ceil((index + 1) / 3);
+        const y = (row - 1) * 154 + (row - 1) * 30;
+        return rpxToPx(y)
+    }
+
+    // 图片移动
+    const handleImageChange = (e, index) => {
+        console.log("handleImageChange", e, index)
+        const { x, y } = e.detail;
+        // 图片移动时中心点位置
+        const rpxX = pxToRpx(x) + 154 / 2;
+        const rpxY = pxToRpx(y) + 154 / 2;
+        // 计算图片中心点位于哪个格子
+        const column = Math.ceil(rpxX / (154 + 30));
+        const row = Math.ceil(rpxY / (154 + 30));
+        // 计算图片位于哪张图片上方
+        let newReplaceImageIndex = (row - 1) * 3 + column - 1;
+        if (newReplaceImageIndex > selectImage.length - 1) {
+            newReplaceImageIndex = selectImage.length - 1;
+        }
+        setReplaceImageIndex(newReplaceImageIndex)
+    }
+
+    // 图片移动结束
+    const handleImageTouchEnd = (index) => {
+        if (replaceImageIndex === null) {
+            return
+        }
+        if (replaceImageIndex === index) {
+            return
+        }
+        const newSelectImage = _.cloneDeep(selectImage);
+        const moveImage = newSelectImage.splice(index, 1)[0];
+        newSelectImage.splice(replaceImageIndex, 0, moveImage);
+        setSelectImage(newSelectImage)
+        setImageMove(false)
+    }
+
+    // 图片移动开始
+    const handleImageTouchStart = () => {
+        setImageMove(true)
+    }
 
     // 获取路由传参，判断是新增还是编辑
     useEffect(() => {
@@ -344,7 +410,6 @@ const DishEdit = () => {
             }));
 
             setSelectImage([...selectImage, ...newImageList]);
-            console.log(selectImage)
         } catch (error) {
             Taro.showToast({
                 title: '获取图片信息失败',
@@ -397,22 +462,42 @@ const DishEdit = () => {
             </View>
             <View className="formLiTB">
                 <Text className="formLiT">图片</Text>
-                <View className="formLiBImages">
-                    {selectImage.map((item) => {
+                <MovableArea
+                    className="formLiBImages"
+                    style={{ height: formLiBImagesHeight }}
+                >
+                    {selectImage.map((item, index) => {
                         return (
-                            <View className="selectImageBox" key={item.url}>
+                            <MovableView
+                                className={replaceImageIndex === index && imageMove ? "selectImageBox selectImageBoxActive" : "selectImageBox"}
+                                key={item.url}
+                                x={getImageX(index)}
+                                y={getImageY(index)}
+                                direction="all"
+                                onChange={(e, index) => handleImageChange(e, index)}
+                                onTouchStart={() => handleImageTouchStart()}
+                                onTouchEnd={() => handleImageTouchEnd(index)}
+                                outOfBounds={true}
+                            >
                                 <Image className="selectImage" mode="aspectFit" src={item.url}></Image>
                                 <Button className="deleteImageButton" onClick={() => handleDeleteImg(item.url)} >
                                     <Image className="deleteImage" src={URL_close}></Image>
                                 </Button>
-                            </View>
+                            </MovableView>
                         )
                     })}
-                    <View className="uploadImgBox" onClick={handleChooseImages}>
+                    <View
+                        className="uploadImgBox"
+                        onClick={handleChooseImages}
+                        style={{
+                            left: getImageX(selectImage.length),
+                            top: getImageY(selectImage.length)
+                        }}
+                    >
                         <Image className="uploadImgLogo" mode="aspectFit" src={URL_uploadImage}></Image>
                         <Text className="uploadImgText">点击上传</Text>
                     </View>
-                </View>
+                </MovableArea>
             </View>
 
             <View className="formLiTB">
@@ -482,25 +567,6 @@ const DishEdit = () => {
                 <Text className="formLiL">当季食物</Text>
                 <Switch className='formSwitch' color="#2f7958" checked={isDisclosure} onChange={(e) => handleIsDisclosure(e)} />
             </View>
-            {/* 加载图片，用于获取图片原始框高 */}
-            {/* {
-                selectImage.map((item, index) => {
-                    if (!item.url.includes("https")) {
-                        return (
-                            <Image
-                                onLoad={(e) => {
-                                    selectImageWidthHeightChange(e, index)
-                                }}
-                                src={item.url}
-                                style={{ opacity: 0 }}
-                            />
-                        )
-                    } else {
-                        return null
-                    }
-                })
-            } */}
-
         </View>
         <View className="buttonBox">
             <Button

@@ -149,9 +149,8 @@
 
             .formLiBImages {
                 margin-top: 30rpx;
-                display: flex;
-                justify-content: flex-start;
-                flex-wrap: wrap;
+                position: relative;
+                width: 590rpx;
 
                 .selectImageBox {
                     width: 154rpx;
@@ -164,7 +163,6 @@
                     align-items: center;
                     margin-right: 30rpx;
                     margin-bottom: 30rpx;
-                    position: relative;
 
                     .selectImage {
                         width: 154rpx;
@@ -199,6 +197,10 @@
                     }
                 }
 
+                .selectImageBoxActive{
+                    opacity: 0.5;
+                }
+
                 .uploadImgBox {
                     width: 154rpx;
                     height: 154rpx;
@@ -208,6 +210,7 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
+                    position: absolute;
 
                     .uploadImgLogo {
                         width: 53rpx;
