@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .myOrderPage {
     width: 100vw;
     height: 100vh;
@@ -14,7 +16,7 @@
             align-items: center;
             justify-content: flex-start;
             margin-top: 40rpx;
-            padding-bottom: 80rpx;
+            padding-bottom: 250rpx;
         }
 
         .order {
@@ -127,6 +129,26 @@
                     height: 40px;
                 }
             }
+        }
+    }
+    .subscribeOrderNotifyButtonContainer{
+        width: 100vw;
+        height: 140rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1;
+        background-color: #fff;
+        .subscribeOrderNotifyButton{
+            height: 96rpx;
+            width: 646rpx;
+            line-height: 96rpx;
+            border-radius: 48rpx;
+            background-color: $primary-color;
+            color: $bg-color-white;
         }
     }
 }

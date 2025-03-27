@@ -1,6 +1,6 @@
 {
   "name": "eatingclient",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "private": true,
   "description": "面向家庭的点餐小程序",
   "templateInfo": {

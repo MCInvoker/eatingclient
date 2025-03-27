@@ -44,6 +44,10 @@ export const URL_share2F7958 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/
 export const URL_right = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/right.svg";
 export const URL_chefHat = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/chefHat.svg";
 export const URL_tableware = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/tableware.svg";
+export const URL_notice2F7958 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/notice2F7958.svg";
+export const URL_noticebfbfbf = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/noticebfbfbf.svg";
+export const URL_subscribed = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/subscribed.svg";
+export const URL_unsubscribed = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/unsubscribed.svg";
 
 // 应用Logo（不同尺寸）
 export const URL_app_logo120 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/%E4%B8%8D%E8%AF%B4%E9%9A%8F%E4%BE%BF-%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87-120.jpg";

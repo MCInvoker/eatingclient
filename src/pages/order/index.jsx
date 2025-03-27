@@ -105,9 +105,15 @@ const Order = () => {
         manual: true,
         onSuccess: (res) => {
             setOrderInfo([]);
-            Taro.navigateTo({
-                url: "/pages/myOrderHistory/index",
-            })
+            if (!res.data.sendStatus) {
+                Taro.navigateTo({
+                    url: "/pages/myOrderHistory/index?showToast=true",
+                })
+            } else {
+                Taro.navigateTo({
+                    url: "/pages/myOrderHistory/index",
+                })
+            }
         }
     })
 
@@ -236,7 +242,8 @@ const Order = () => {
         if (dishIndex === -1) {
             newOrderInfo.push({
                 dish_id: dish.dish_id,
-                quantity: 1
+                quantity: 1,
+                name: dish.name,
             })
         } else {
             newOrderInfo[dishIndex].quantity = newOrderInfo[dishIndex].quantity + 1;

@@ -5,9 +5,10 @@
  */
 
 // 根据环境变量判断使用哪个baseUrl
-const baseUrl = process.env.NODE_ENV === 'development' 
-    ? 'http://localhost:7002/eating/'
-    : 'https://webhomeide.top/eating/';
+const baseUrl = 'https://webhomeide.top/eating/';
+// const baseUrl = process.env.NODE_ENV === 'development' 
+    // ? 'http://localhost:7002/eating/'
+    // : 'https://webhomeide.top/eating/';
 
 const urlLogin = baseUrl + "user/login"; // 登录
 const urlSearchUser = baseUrl + "user/search"; // 搜索用户
@@ -25,6 +26,7 @@ const urlOrder = baseUrl + "order"; // 点餐
 const urlMyorder = baseUrl + "myorder"; // 我收到的订单
 const urlMyorderhistory = baseUrl + "myorderhistory"; // 我的点餐记录
 const urlStsInfo = baseUrl + "stsInfo"; // 获取阿里云sts临时凭证，用于图片上传
+const urlSubscribeOrderNotify = baseUrl + "user/subscribeOrderNotify"; // 订阅订单通知
 // const url = ""; // 
 export {
     baseUrl,
@@ -43,7 +45,8 @@ export {
     urlOrder,
     urlMyorder,
     urlMyorderhistory,
-    urlStsInfo
+    urlStsInfo,
+    urlSubscribeOrderNotify
 }
 
 

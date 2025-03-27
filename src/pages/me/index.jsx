@@ -1,31 +1,10 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
-import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual, URL_about } from '../../assets/imageOssUrl'
-import { useState } from 'react'
-
-const quickInletList = [
-    {
-        title: '菜肴标签',
-        path: '/pages/dishTag/index',
-        icon: URL_dishTag
-    },
-    {
-        title: '菜肴分类',
-        path: '/pages/dishCategory/index',
-        icon: URL_dishCategory
-    },
-    {
-        title: '餐食计划', // 订单列表
-        path: '/pages/myOrder/index',
-        icon: URL_orderList
-    },
-    {
-        title: '美食回忆', // 点餐记录
-        path: '/pages/myOrderHistory/index',
-        icon: URL_orderHistory
-    },
-]
+import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual, URL_about, URL_subscribed, URL_unsubscribed } from '../../assets/imageOssUrl'
+import { useState, useMemo } from 'react'
+import { getUserDetails } from "../../api/user";
+import { useRequest } from 'ahooks';
 
 const otherInletList = [
     {
@@ -58,23 +37,29 @@ export default function Me () {
         title: '',
         titles: [],
         user_code: '',
+        subscribe_order_notify: false
     })
 
+    // 获取用户信息 不从缓存中取，主要是想拿最新的值。这个消息还是比较重要的
+    const { run: getUserDetailsFn } = useRequest(getUserDetails, {
+        manual: true,
+        onSuccess: (res) => {
+            const currentUserInfo = res.data;
+            Taro.setStorageSync('currentUserInfo', currentUserInfo);
+            if (currentUserInfo.title) {
+                currentUserInfo.titles = currentUserInfo.title.split(',')
+            } else {
+                currentUserInfo.titles = []
+            }
+            setUserInfo(currentUserInfo);
+        }
+    })
 
     useDidShow(() => {
         Taro.setTabBarStyle({
             backgroundColor: '#ffffff',
         })
-        // 从本地缓存获取用户信息
-        const cachedUserInfo = Taro.getStorageSync('currentUserInfo');
-        if (cachedUserInfo) {
-            if (cachedUserInfo.title) {
-                cachedUserInfo.titles = cachedUserInfo.title.split(',')
-            } else {
-                cachedUserInfo.titles = []
-            }
-            setUserInfo(cachedUserInfo);
-        }
+        getUserDetailsFn();
     })
 
     const handleInlet = (path) => {
@@ -88,6 +73,30 @@ export default function Me () {
             url: '/pages/userInfo/index',
         })
     }
+
+    const quickInletList = useMemo(() => [
+        {
+            title: '菜肴标签',
+            path: '/pages/dishTag/index',
+            icon: URL_dishTag
+        },
+        {
+            title: '菜肴分类',
+            path: '/pages/dishCategory/index',
+            icon: URL_dishCategory
+        },
+        {
+            title: "餐食计划", // 订单列表
+            path: '/pages/myOrder/index',
+            icon: URL_orderList,
+            tipIcon: userInfo.subscribe_order_notify ? URL_subscribed : URL_unsubscribed,
+        },
+        {
+            title: '美食回忆', // 点餐记录
+            path: '/pages/myOrderHistory/index',
+            icon: URL_orderHistory
+        },
+    ], [userInfo.subscribe_order_notify])
 
     return (
         <View className='me'>
@@ -114,7 +123,14 @@ export default function Me () {
                     {quickInletList.map((quickInletLi) => {
                         return (
                             <View className='inlet' onClick={() => handleInlet(quickInletLi.path)}>
-                                {quickInletLi.icon && <Image src={quickInletLi.icon} className='inletImg'></Image>}
+                                <View className="iconWrapper">
+                                    {quickInletLi.icon && <Image src={quickInletLi.icon} className='inletImg'></Image>}
+                                    {quickInletLi.tipIcon && (
+                                        <View className="tipWrapper">
+                                            <Image src={quickInletLi.tipIcon} className='tipIcon'></Image>
+                                        </View>
+                                    )}
+                                </View>
                                 <Text className='inletTitle'>{quickInletLi.title}</Text>
                             </View>
                         )

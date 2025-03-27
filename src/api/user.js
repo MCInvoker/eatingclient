@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import { post, get, put } from '../utils/request';
-import { urlLogin, urlUserDetails, urlUserInfo, urlUsercodeCheck, urlSearchUser } from '../api/api';
+import { urlLogin, urlUserDetails, urlUserInfo, urlUsercodeCheck, urlSearchUser, urlSubscribeOrderNotify } from '../api/api';
 
 
 // 获取当前用户的详细信息
@@ -27,5 +27,11 @@ export const checkUserCode = async (data) => {
 // 查找用户
 export const searchUser = async (data) => {
     const res = await get(urlSearchUser, data)
+    return res
+}
+
+// 订阅订单通知
+export const subscribeOrderNotify = async (data) => {
+    const res = await put(urlSubscribeOrderNotify, data)
     return res
 }
