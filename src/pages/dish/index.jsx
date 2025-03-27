@@ -98,7 +98,7 @@ export default function Dish () {
         const userInfo = Taro.getStorageSync('currentUserInfo');
         return {
             title: `亲爱的家人朋友们，这里有份专属菜单等你探索！`,
-            path: `/pages/dish/index?id=${userInfo?.user_id || ''}`,
+            path: `/pages/order/index?id=${userInfo?.user_id || ''}`,
             imageUrl: userInfo?.avatar || URL_avatar,
         };
     });
