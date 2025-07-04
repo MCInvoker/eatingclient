@@ -48,6 +48,13 @@ export const URL_notice2F7958 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com
 export const URL_noticebfbfbf = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/noticebfbfbf.svg";
 export const URL_subscribed = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/subscribed.svg";
 export const URL_unsubscribed = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/unsubscribed.svg";
+// export const URL_dice1 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice1.svg";
+// export const URL_dice2 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice2.svg";
+// export const URL_dice3 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice3.svg";
+// export const URL_dice4 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice4.svg";
+// export const URL_dice5 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice5.svg";
+// export const URL_dice6 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice6.svg";
+// export const URL_vegetableSalad = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/vegetableSalad.svg"; // 蔬菜沙拉
 
 // 应用Logo（不同尺寸）
 export const URL_app_logo120 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/%E4%B8%8D%E8%AF%B4%E9%9A%8F%E4%BE%BF-%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87-120.jpg";

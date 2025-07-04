@@ -5,10 +5,10 @@
  */
 
 // 根据环境变量判断使用哪个baseUrl
-const baseUrl = 'https://webhomeide.top/eating/';
-// const baseUrl = process.env.NODE_ENV === 'development' 
-    // ? 'http://localhost:7002/eating/'
-    // : 'https://webhomeide.top/eating/';
+// const baseUrl = 'https://webhomeide.top/eating/';
+const baseUrl = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:7003/eating/'
+    : 'https://webhomeide.top/eating/';
 
 const urlLogin = baseUrl + "user/login"; // 登录
 const urlSearchUser = baseUrl + "user/search"; // 搜索用户

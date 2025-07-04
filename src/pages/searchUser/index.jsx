@@ -1,3 +1,4 @@
+import Taro from '@tarojs/taro'
 import { View, Text, Input, Button, Image } from '@tarojs/components'
 import "./index.scss"
 import { useEffect, useState } from 'react';
@@ -23,6 +24,11 @@ const SearchUser = () => {
     const { run: followFn } = useRequest(follow, {
         manual: true,
         onSuccess: (res) => {
+            Taro.showToast({
+                title: '关注成功',
+                icon: 'success',
+                duration: 2000
+            })
             searchUserFn({ searchTerm })
         }
     })
@@ -31,8 +37,12 @@ const SearchUser = () => {
     const { run: unfollowFn } = useRequest(unfollow, {
         manual: true,
         onSuccess: (res) => {
+            Taro.showToast({
+                title: '取关成功',
+                icon: 'success',
+                duration: 2000
+            })
             searchUserFn({ searchTerm })
-
         }
     })
 
