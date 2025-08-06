@@ -8,7 +8,7 @@ import { URL_uploadImage, URL_addFFF, URL_deleteFFF } from "../../assets/imageOs
 import "./index.scss";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
-import _ from "loadsh";
+import _ from "lodash";
 
 // 计算签名。
 function computeSignature (accessKeySecret, canonicalString) {

@@ -7,7 +7,7 @@ import { getUserDish } from "../../api/dish"
 import { useRequest } from "ahooks"
 import { URL_avatar,URL_food,URL_add,URL_addFFF,URL_minus,URL_minusFFF,URL_directionLeft,URL_directionRight,URL_share } from "../../assets/imageOssUrl"
 import Drawer from "../../components/Drawer"
-import _ from "loadsh";
+import _ from "lodash";
 import { createOrder } from "../../api/order"
 
 const Order = () => {

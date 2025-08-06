@@ -6,7 +6,6 @@ import { getDishCategories } from "../../api/dishCategory";
 import { getDishTags } from "../../api/dishTag";
 import { createDish, getDishes, updateDish } from "../../api/dish";
 import { getStsInfo } from "../../api/sts";
-import _ from "loadsh";
 import crypto from 'crypto-js';
 import { Base64 } from 'js-base64';
 import AddCategory from "../../components/AddCategory";
