@@ -7,6 +7,17 @@ import { useRequest } from "ahooks"
 import { URL_avatar, URL_chefHat, URL_tableware, URL_food } from "../../assets/imageOssUrl"
 import { formatDate } from "../../utils/utils"
 
+const orderStatusMap = {
+    PENDING: '待确认',
+    CONFIRMED: '已确认',
+    PREPARING: '制作中',
+    READY: '已出餐',
+    DELIVERING: '配送中',
+    COMPLETED: '已完成',
+    CANCELLED: '已取消',
+    REFUNDED: '已退款'
+};
+
 const OrderDetail = () => {
     const [orderId, setOrderId] = useState('');
     const [orderDetail, setOrderDetail] = useState({
@@ -104,15 +115,14 @@ const OrderDetail = () => {
     const renderStatus = () => {
         return (
             <View className='statusBox'>
-                {/* <Text className='status'>{orderDetail.status === '1' ? '待接单' : '已接单'}</Text> */}
-                <Text className='orderTime'>{orderDetail.orderTime ? formatDate(orderDetail.orderTime, 'YYYY-MM-DD HH:mm TY') : '-'}</Text>
+                <Text className='status'>{orderStatusMap[orderDetail.status] || ''}</Text>
+                <Text className='orderTime'>点餐时间：{orderDetail.orderTime ? formatDate(orderDetail.orderTime, 'YYYY-MM-DD HH:mm TY') : '-'}</Text>
             </View>
         )
     }
 
     // 渲染菜品列表
     const renderDishes = () => {
-        console.log(orderDetail.dishes)
         return (
             <View className='dishes'>
                 {orderDetail.dishes.map((item) => {

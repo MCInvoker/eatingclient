@@ -5,10 +5,89 @@ import { useEffect, useState } from "react"
 import { getUserInfo } from "../../api/user"
 import { getUserDish } from "../../api/dish"
 import { useRequest } from "ahooks"
-import { URL_avatar,URL_food,URL_add,URL_addFFF,URL_minus,URL_minusFFF,URL_directionLeft,URL_directionRight,URL_share } from "../../assets/imageOssUrl"
+import { URL_avatar, URL_food, URL_add, URL_addFFF, URL_minus, URL_minusFFF, URL_directionLeft, URL_directionRight, URL_share, URL_filter } from "../../assets/imageOssUrl"
+import DraggableButton from "../../components/DraggableButton";
 import Drawer from "../../components/Drawer"
+import MultiSelector from "../../components/MultiSelector";
 import _ from "lodash";
 import { createOrder } from "../../api/order"
+
+/**
+ * 提取菜肴数组中的所有分类和标签（包含id和name，去重）
+ * @param {Array} dishList - 菜肴数据数组
+ * @returns {Object} 包含分类列表和标签列表的对象
+ *   - categoryList:  [{ id: 分类id, name: 分类名称 }, ...]
+ *   - tagList:       [{ id: 标签id, name: 标签名称 }, ...]
+ */
+function extractCategoriesAndTags (dishList) {
+    // 用对象存储已存在的分类和标签（key为id，避免重复）
+    const categoryMap = {};
+    const tagMap = {};
+
+    // 遍历每道菜肴
+    dishList.forEach(dish => {
+        // 提取分类（id为category_id，name为name）
+        if (dish.dish_categories && dish.dish_categories.length > 0) {
+            dish.dish_categories.forEach(category => {
+                const { category_id: id, name } = category;
+                // 只添加未存在的分类（通过id判断）
+                if (!categoryMap[id]) {
+                    categoryMap[id] = { id, name, value: id, label: name };
+                }
+            });
+        }
+
+        // 提取标签（id为tag_id，name为name）
+        if (dish.dish_tags && dish.dish_tags.length > 0) {
+            dish.dish_tags.forEach(tag => {
+                const { tag_id: id, name } = tag;
+                // 只添加未存在的标签（通过id判断）
+                if (!tagMap[id]) {
+                    tagMap[id] = { id, name, value: id, label: name };
+                }
+            });
+        }
+    });
+
+    // 转换为数组返回（按id排序，保持一致性）
+    return {
+        categoryList: Object.values(categoryMap).sort((a, b) => a.id - b.id),
+        tagList: Object.values(tagMap).sort((a, b) => a.id - b.id)
+    };
+}
+
+/**
+* 根据分类ID和标签ID过滤菜肴（满足任一条件即保留）
+* @param {Array} dishList - 原始菜肴数据数组（即接口返回的 data 数组）
+* @param {Array} filterCategory - 筛选的分类ID数组（如 [4, 6]）
+* @param {Array} filterTag - 筛选的标签ID数组（如 [7, 9]）
+* @returns {Array} 过滤后的菜肴数组
+*/
+function filterDishesByCategoryAndTag (dishList, filterCategory = [], filterTag = []) {
+    // 若两个筛选条件都为空，直接返回所有菜肴
+    if (filterCategory.length === 0 && filterTag.length === 0) {
+        return [...dishList];
+    }
+
+    return dishList.filter(dish => {
+        // 1. 检查菜肴是否匹配任一筛选分类
+        const matchCategory = filterCategory.length > 0
+            ? dish.dish_categories.some(category =>
+                filterCategory.includes(category.category_id)
+            )
+            : false;
+
+        // 2. 检查菜肴是否匹配任一筛选标签
+        const matchTag = filterTag.length > 0
+            ? dish.dish_tags.some(tag =>
+                filterTag.includes(tag.tag_id)
+            )
+            : false;
+
+        // 3. 满足“分类匹配 或 标签匹配”任一条件即保留
+        return matchCategory || matchTag;
+    });
+}
 
 const Order = () => {
     const [userId, setUserId] = useState(''); // 厨师id
@@ -35,6 +114,11 @@ const Order = () => {
     const [smallScrollTopTemporary, setSmallScrollTopTemporary] = useState(0); // 小图模式滚动条高度临时值，一值给滚动条赋值滚动会抖动
     const [largeCurrent, setLargeCurrent] = useState(0); // 大图模式swiper展示索引
     const [largeCurrentTemporary, setLargeCurrentTemporary] = useState(0); // 大图模式swiper展示索引临时记录
+    const [showFilter, setShowFilter] = useState(false); // 筛选菜肴抽屉显示控制
+    const [categoryList, setCategoryList] = useState([]); // 所有菜肴分类
+    const [tagList, setTagList] = useState([]); // 所有菜肴标签
+    const [filterCategory, setFilterCategory] = useState([]); // 筛选的菜肴分类
+    const [filterTag, setFilterTag] = useState([]); // 筛选的菜肴标签
 
     // 分享菜单给好友
     useShareAppMessage(() => ({
@@ -51,6 +135,9 @@ const Order = () => {
         onSuccess: (res) => {
             if (isFirstRequest) {
                 const newDishes = _.cloneDeep(res.data)
+                const result = extractCategoriesAndTags(newDishes)
+                setCategoryList(result.categoryList)
+                setTagList(result.tagList)
                 setAllDishes(newDishes.map((item) => {
                     return {
                         ...item,
@@ -134,10 +221,10 @@ const Order = () => {
     useEffect(() => {
         // 获取系统信息
         Taro.getSystemInfo({
-          success: function(res) {
-            const searchBoxHeight = 98 + 60 + 58; // 固定高度
-            setScrollViewHeight(res.windowHeight - searchBoxHeight);
-          }
+            success: function (res) {
+                const searchBoxHeight = 98 + 60 + 58; // 固定高度
+                setScrollViewHeight(res.windowHeight - searchBoxHeight);
+            }
         });
     }, []);
 
@@ -443,16 +530,16 @@ const Order = () => {
             <>
                 {renderSearchInput()}
                 {renderModeSwitch()}
-                    <ScrollView
-                        className="verticalScrollView"
-                        scrollY
-                        style={{height: scrollViewHeight}}
-                        onScroll={handleSimpleScroll}
-                        scrollTop={simpleScrollTop}
-                    >
-                        {renderChefInfo()}
-                        {renderSimpleList()}
-                    </ScrollView>
+                <ScrollView
+                    className="verticalScrollView"
+                    scrollY
+                    style={{ height: scrollViewHeight }}
+                    onScroll={handleSimpleScroll}
+                    scrollTop={simpleScrollTop}
+                >
+                    {renderChefInfo()}
+                    {renderSimpleList()}
+                </ScrollView>
                 {renderCreateOrderButton()}
             </>
         )
@@ -471,7 +558,7 @@ const Order = () => {
                 <ScrollView
                     className="verticalScrollView"
                     scrollY
-                    style={{height: scrollViewHeight}}
+                    style={{ height: scrollViewHeight }}
                     onScroll={handleSmallScroll}
                     scrollTop={smallScrollTop}
                 >
@@ -610,6 +697,56 @@ const Order = () => {
             </View>
         )
     }
+
+    // 筛选列表数据入口
+    const renderTextButton = () => {
+        return (
+            <Image className="filterIcon" src={URL_filter} />
+        )
+    }
+
+    // 筛选全选
+    const handleFilterDishInit = () => {
+        setFilterCategory(categoryList.map((item) => item.id))
+        setFilterTag(tagList.map((item) => item.id))
+    }
+
+    // 筛选确认
+    const handleFilterDish = () => {
+        setDishes(filterDishesByCategoryAndTag(allDishes, filterCategory, filterTag))
+        setShowFilter(false)
+    }
+
+    const renderFilterDish = () => {
+        return (
+            <View className="filterDishBox">
+                <View className="filterDishInitButtons">
+                    <Button className="filterDishInitButton" onClick={handleFilterDishInit}>全选</Button>
+                    <Button
+                        className="filterDishInitButton"
+                        onClick={() => {
+                            setFilterCategory([])
+                            setFilterTag([])
+                        }}
+                    >全不选</Button>
+                </View>
+                <View className="filterDishTitle">按分类筛选</View>
+                <MultiSelector
+                    options={categoryList}
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e)}
+                />
+                <View className="filterDishTitle">按标签筛选</View>
+                <MultiSelector
+                    options={tagList}
+                    value={filterTag}
+                    onChange={(e) => setFilterTag(e)}
+                />
+                <Button className="filterButton" onClick={handleFilterDish}>筛选</Button>
+            </View>
+        )
+    }
+
     return (
         <View className="orderPage">
             {/* 极简 */}
@@ -626,6 +763,21 @@ const Order = () => {
                 bodyRender={renderAlready}
                 onClose={() => {
                     setShowAlready(false)
+                }}
+            />
+            <DraggableButton
+                bodyRender={renderTextButton}
+                businessKey="order"
+                onClick={() => {
+                    setShowFilter(!showFilter)
+                }}
+            />
+            <Drawer
+                isOpen={showFilter}
+                title="筛选菜肴"
+                bodyRender={renderFilterDish}
+                onClose={() => {
+                    setShowFilter(false)
                 }}
             />
         </View>

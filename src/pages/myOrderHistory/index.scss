@@ -27,7 +27,7 @@
             background-color: #fff;
             border-radius: 30rpx;
             margin-bottom: 40rpx;
-            padding-right: 100rpx;
+            padding-right: 150rpx;
             position: relative;
 
             .orderTop {
@@ -110,22 +110,56 @@
                 line-height: 50rpx;
                 color: #999;
             }
-            .toDetailButton {
-                width: 80px;
-                height: 80px;
+            .buttonBox{
+                width: 152rpx;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 position: absolute;
-                right: 0;
+                right: 8rpx;
                 top: 50%;
                 transform: translateY(-50%) ;
-
-                .rightIcon {
-                    width: 40px;
-                    height: 40px;
+                .button{
+                    height: 50rpx;
+                    line-height: 50rpx;
+                    font-size: 28rpx;
+                    width: 150rpx;
+                    border-radius: 25rpx;
+                    background-color: #2F7958;
+                    color: #fff;
+                    margin: 10rpx 0;
                 }
             }
+            // .toDetailButton {
+            //     width: 80px;
+            //     height: 80px;
+            //     display: flex;
+            //     align-items: center;
+            //     justify-content: center;
+            //     position: absolute;
+            //     right: 0;
+            //     top: 50%;
+            //     transform: translateY(-50%) ;
+
+            //     .rightIcon {
+            //         width: 40px;
+            //         height: 40px;
+            //     }
+            // }
         }
+    }
+    .filterIcon{
+        width: 45px;
+        height: 45px;
+    }
+    .getListButton{
+        height: 96rpx;
+        line-height: 96rpx;
+        width: 646rpx;
+        border-radius: 48rpx;
+        background-color: #2F7958;
+        color: #fff;
+        margin: 40rpx auto 60rpx;
     }
 }

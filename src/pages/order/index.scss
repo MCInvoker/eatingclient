@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .orderPage {
     width: 100%;
     height: 100vh;
@@ -322,7 +324,7 @@
         line-height: 96rpx;
         width: 646rpx;
         border-radius: 48rpx;
-        background-color: #2F7958;
+        background-color: $primary-color;
         color: #fff;
         margin: 40rpx auto 60rpx;
     }
@@ -526,5 +528,43 @@
         font-size: 28rpx;
         line-height: 50rpx;
         color: #999;
+    }
+
+    .filterIcon{
+        width: 45px;
+        height: 45px;
+    }
+    
+    .filterButton{
+        height: 96rpx;
+        line-height: 96rpx;
+        width: 646rpx;
+        border-radius: 48rpx;
+        background-color: $primary-color;
+        color: #fff;
+        margin: 40rpx auto 60rpx;
+    }
+    .filterDishBox{
+        padding: 0 30rpx;
+        .filterDishInitButtons{
+            display: flex;
+            align-items: center;
+            justify-items: center;
+            .filterDishInitButton{
+                height: 80rpx;
+                line-height: 80rpx;
+                width: 300rpx;
+                border-radius: 40rpx;
+                background-color: $primary-color;
+                color: #fff;
+            }
+        }
+        .filterDishTitle{
+            font-size: 28rpx;
+            line-height: 40rpx;
+            color: $text-color;
+            font-weight: bold;
+            margin-top: 40rpx;
+        }
     }
 }

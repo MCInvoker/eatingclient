@@ -21,3 +21,9 @@ export const getOrderDetail = async (data) => {
     const res = await get(`${urlOrder}/${data}`)
     return res
 }
+
+// 更新订单状态
+export const updateOrderStatus = async (orderId, data) => {
+    const res = await put(`${urlOrder}/${orderId}`, data)
+    return res
+}

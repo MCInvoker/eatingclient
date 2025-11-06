@@ -13,6 +13,7 @@ export const URL_minus = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eating
 export const URL_minusFFF = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/minusFFF.svg";
 export const URL_close = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/close.svg";
 export const URL_drawerClose = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/drawerClose.svg";
+export const URL_filter = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/filter.svg";
 
 // 导航方向图标
 export const URL_directionLeft = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/directionLeft.svg";

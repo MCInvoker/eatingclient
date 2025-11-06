@@ -1,0 +1,25 @@
+.draggable-btn {
+    position: fixed;
+    z-index: 9999;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #2f7958;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    touch-action: none;
+    user-select: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &.dragging {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .default-content {
+        font-size: 14px;
+    }
+}

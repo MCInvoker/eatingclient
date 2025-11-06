@@ -1,0 +1,61 @@
+@import '../../styles/variables.scss';
+
+.radio-selector {
+    // 水平布局（默认）
+    &.horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20rpx 30rpx;
+        padding: 10rpx 0;
+    }
+
+    // 垂直布局
+    &.vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 15rpx;
+        padding: 10rpx 0;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10rpx;
+        cursor: pointer;
+        user-select: none;
+        padding: 5rpx 0;
+
+        &.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    }
+
+    &__label {
+        font-size: 24rpx;
+        line-height: 50rpx;
+        border-radius: 30rpx;
+        box-sizing: border-box;
+        height: 78rpx;
+        padding: 22rpx 24rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $bg-color;
+        color: $text-color;
+        transition: all 0.2s ease;
+        width: 100%;
+        border: 2rpx solid transparent; // 预留边框位置
+    }
+
+    &__label__disabled {
+        opacity: 0.5;
+    }
+
+    &__label__selected {
+        background-color: $primary-color;
+        color: #fff; // 选中时文字变白（可选）
+        border-color: $primary-color; // 选中时边框色
+    }
+}
