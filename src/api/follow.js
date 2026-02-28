@@ -1,5 +1,5 @@
 import { post, get, put, del } from "../utils/request"
-import { urlFollow, urlUnfollow } from "./api"
+import { urlFollow, urlUnfollow, urlFollower } from "./api"
 
 export const getFollow = async (data) => {
     const res = await get(urlFollow, data)
@@ -8,6 +8,11 @@ export const getFollow = async (data) => {
 
 export const follow = async (data) => {
     const res = await post(urlFollow, data)
+    return res
+}
+
+export const getFollower = async (data) => {
+    const res = await get(urlFollower, data)
     return res
 }
 
