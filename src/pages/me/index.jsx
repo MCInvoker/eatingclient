@@ -1,7 +1,7 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import './index.scss'
-import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual, URL_about, URL_subscribed, URL_unsubscribed } from '../../assets/imageOssUrl'
+import { URL_dishTag, URL_dishCategory, URL_orderHistory, URL_orderList, URL_avatar, URL_blindBox, URL_userManual, URL_about, URL_subscribed, URL_unsubscribed, URL_follow_on, URL_fans } from '../../assets/imageOssUrl'
 import { useState, useMemo } from 'react'
 import { getUserDetails } from "../../api/user";
 import { useRequest } from 'ahooks';
@@ -96,6 +96,16 @@ export default function Me () {
             path: '/pages/myOrderHistory/index',
             icon: URL_orderHistory
         },
+        {
+            title: '我的关注',
+            path: '/pages/myFollows/index',
+            icon: URL_follow_on
+        },
+        {
+            title: '我的粉丝',
+            path: '/pages/myFans/index',
+            icon: URL_fans
+        }
     ], [userInfo.subscribe_order_notify])
 
     return (

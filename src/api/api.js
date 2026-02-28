@@ -21,6 +21,7 @@ const urlDish = baseUrl + "dish"; // 菜肴
 const urlUserDish = baseUrl + "user/dish"; // 点餐时，通过用户id获取该用户下的菜肴
 const urlDisclosureDish = baseUrl + "dish/disclosureDish"; // 隐藏展示菜肴
 const urlFollow = baseUrl + "follow"; // 关注
+const urlFollower = baseUrl + "follower"; // 获取关注者（粉丝）列表
 const urlUnfollow = baseUrl + "unfollow"; // 取关
 const urlOrder = baseUrl + "order"; // 点餐
 const urlMyorder = baseUrl + "myorder"; // 我收到的订单
@@ -41,6 +42,7 @@ export {
     urlUserDish,
     urlDisclosureDish,
     urlFollow,
+    urlFollower,
     urlUnfollow,
     urlOrder,
     urlMyorder,

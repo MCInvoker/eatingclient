@@ -14,7 +14,9 @@ export default defineAppConfig({
         'pages/order/index',
         'pages/myOrder/index',
         'pages/myOrderHistory/index',
-        'pages/orderDetail/index'
+        'pages/orderDetail/index',
+        'pages/myFollows/index',
+        'pages/myFans/index'
     ],
     subPackages: [
         {

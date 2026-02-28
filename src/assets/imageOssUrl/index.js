@@ -49,6 +49,7 @@ export const URL_notice2F7958 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com
 export const URL_noticebfbfbf = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/noticebfbfbf.svg";
 export const URL_subscribed = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/subscribed.svg";
 export const URL_unsubscribed = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/unsubscribed.svg";
+export const URL_fans = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/fans.svg"; // 粉丝
 // export const URL_dice1 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice1.svg";
 // export const URL_dice2 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice2.svg";
 // export const URL_dice3 = "https://webhomeide.oss-cn-hangzhou.aliyuncs.com/eatingAppImage/dice3.svg";
