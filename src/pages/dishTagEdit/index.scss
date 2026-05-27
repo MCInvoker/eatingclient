@@ -79,19 +79,6 @@
         }
     }
 
-    .buttonBox {
-        padding: 60rpx 0;
-
-        .addButton {
-            height: 96rpx;
-            line-height: 96rpx;
-            width: 646rpx;
-            border-radius: 48rpx;
-            background-color: #2F7958;
-            color: #fff;
-        }
-    }
-
     .required::after {
         content: '*';
         color: red;

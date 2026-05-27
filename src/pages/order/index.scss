@@ -501,12 +501,20 @@
         }
 
         .largeImageDishInfoHorizontal {
+            background-color: #fff;
             .largeImageDishName {
                 color: #333;
             }
 
             .largeImageDescription {
                 color: #999;
+                // 三行显示，超出显示省略号
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
             }
         }
     }

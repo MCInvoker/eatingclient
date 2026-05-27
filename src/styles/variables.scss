@@ -7,6 +7,7 @@ $text-color: #333333;
 $text-color-secondary: #666666;
 $text-color-placeholder: #BBBBBB;
 $text-color-light: #999999; // 浅色文字，用于次要信息
+$button-text-color: #FFFFFF;
 
 // 背景色
 $bg-color: #F7F7F7;
@@ -17,3 +18,20 @@ $delete-color: #D9363E; // 删除按钮颜色
 $success-color: #52C41A;
 $warning-color: #FAAD14;
 $error-color: #FF4D4F; 
+
+// 占满屏幕的宽度的按钮样式
+.fullWidthButtonBox {
+    width: 100vw;
+    // 一般按钮在最底部，所以下边距大一点，避免按钮被遮挡
+    padding: 40rpx 0rpx 60rpx;
+
+    .fullWidthButton {
+        width: 646rpx;
+        height: 96rpx;
+        line-height: 96rpx;
+        border-radius: 48rpx;
+        background-color: $primary-color;
+        color: $button-text-color;
+        margin: 0 auto;
+    }
+}
