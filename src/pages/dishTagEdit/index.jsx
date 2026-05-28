@@ -121,9 +121,9 @@ const DishTagEdit = () => {
                     />
                 </View>
             </View>
-            <View className="buttonBox">
+            <View className="fullWidthButtonBox">
                 <Button
-                    className="addButton"
+                    className="fullWidthButton"
                     onClick={handleSave}
                     loading={createDishTagLoading || updateDishTagLoading}
                 >{tagId ? '更新' : '新增'}</Button>

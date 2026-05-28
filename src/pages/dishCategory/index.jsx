@@ -99,8 +99,8 @@ const DishCategory = () => {
                     </View>
                 )}
             </View>
-            <View className="buttonBox">
-                <Button className="addButton" onClick={handleAdd}>新增</Button>
+            <View className="fullWidthButtonBox">
+                <Button className="fullWidthButton" onClick={handleAdd}>新增</Button>
             </View>
             {visible && <Dialog
                 title="温馨提示"

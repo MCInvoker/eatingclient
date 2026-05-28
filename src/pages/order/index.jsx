@@ -486,12 +486,16 @@ const Order = () => {
     // 选好了按钮
     const renderCreateOrderButton = (createOrderButtonStyle = {}) => {
         return (
-            <Button
-                className='createOrderButton'
-                onClick={() => handleCreateOrder()}
+            <View
+                className="fullWidthButtonBox"
                 style={createOrderButtonStyle}
-                loading={createOrderLoading}
-            >选好了</Button>
+            >
+                <Button
+                    className='fullWidthButton'
+                    onClick={() => handleCreateOrder()}
+                    loading={createOrderLoading}
+                >选好了</Button>
+            </View>
         )
     }
 
@@ -690,7 +694,7 @@ const Order = () => {
 
                 {renderCreateOrderButton({
                     position: 'absolute',
-                    left: "40rpx",
+                    left: "0rpx",
                     bottom: "0rpx",
                     zIndex: 5,
                 })}

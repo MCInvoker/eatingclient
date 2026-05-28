@@ -530,9 +530,9 @@ const DishEdit = () => {
                 <Switch className='formSwitch' color="#2f7958" checked={isDisclosure} onChange={(e) => handleIsDisclosure(e)} />
             </View>
         </View>
-        <View className="buttonBox">
+        <View className="fullWidthButtonBox">
             <Button
-                className="addButton"
+                className="fullWidthButton"
                 onClick={handleSave}
                 loading={buttonLoading}
                 disabled={buttonLoading}

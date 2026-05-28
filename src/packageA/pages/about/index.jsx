@@ -28,7 +28,7 @@ export default function About() {
             </View>
             <View className='content'>
                 <Text className='title'>关于我们</Text>
-                <Text className='version'>版本 1.0.0</Text>
+                <Text className='version'>版本 1.0.6</Text>
                 
                 <View className='section'>
                     <Text className='sectionTitle'>产品简介</Text>
